@@ -1,19 +1,22 @@
 import type {MediaFile} from "./mediafile.ts";
-import type {Reaction} from "./reaction.ts";
-import type {Chat} from "./chat.ts";
-import type {User} from "./user.ts";
+import type {LikeReaction} from "./reaction.ts";
+import type {UserPreview} from "./user.ts";
 
-export type Message = {
-    id: number;
-    author: User;
-    target: Chat;
+export type Message = MessagePreview & {
     content: {
-        text: string;
         attachments: MediaFile[];
     }
-    reactions: Reaction[];
+    likes: LikeReaction[];
     details: {
         creationDate: Date;
         isEdited: boolean;
     }
 };
+
+export type MessagePreview = {
+    id: number;
+    author: UserPreview;
+    content: {
+        text: string;
+    }
+}

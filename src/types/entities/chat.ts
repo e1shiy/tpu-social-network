@@ -1,18 +1,26 @@
-import type {Message} from "./message.ts";
+import type {Message, MessagePreview} from "./message.ts";
 import type {ChatParticipant} from "../domain";
-import type {User} from "./user.ts";
+import type {UserPreview} from "./user.ts";
 
-export type Chat = {
+type BaseChat = {
     id: number;
     type: "private" | "group"
     info: {
         name: string;
         avatarURL: string;
     }
+}
+
+export type Chat = BaseChat & {
     details: {
-        owner: User;
+        owner: UserPreview;
         creationDate: Date;
     }
     messages: Message[];
-    participants: (User & ChatParticipant)[];
+    participants: (UserPreview & ChatParticipant)[];
+}
+
+export type ChatPreview = BaseChat & {
+    lastMessage: MessagePreview;
+    unreadMessageAmount: number;
 }

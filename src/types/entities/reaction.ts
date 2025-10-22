@@ -1,12 +1,11 @@
-import type {Comment} from "./comment.ts"
-import type {Post} from "./post.ts";
-import type {Message} from "./message.ts";
-import type {User} from "./user.ts";
+import type {BaseReaction} from "../domain";
 
-export type Reaction = {
-    id: number;
-    type: "like" | "dislike";
-    creationDate: Date;
-    author: User;
-    target: Post | Comment | Message;
+export type Reaction = LikeReaction | DislikeReaction
+
+export type LikeReaction = BaseReaction & {
+    type: "like";
+}
+
+export type DislikeReaction = BaseReaction & {
+    type: "dislike";
 }

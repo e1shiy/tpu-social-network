@@ -3,3 +3,4 @@ export type ChatParticipant = {
     isMuted: boolean;
     joiningDate: Date;
 }
+export type ChatType = "private" | "group";

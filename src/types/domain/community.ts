@@ -1,8 +1,8 @@
-export type CommunityMember = {
+export type CommunityMember = JoinedCommunityMember | {
     status: "joined" | "pending" | "banned";
 }
 
-export type JoinedCommunityMember = CommunityMember & {
+export type JoinedCommunityMember = {
     status: "joined"
     role: "admin" | "moderator" | "member";
     joiningDate: Date;

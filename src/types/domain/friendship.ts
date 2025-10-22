@@ -1,0 +1,1 @@
+export type FriendshipType = "accepted" | "rejected" | "blocked" | "pending"

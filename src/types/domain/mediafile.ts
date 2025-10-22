@@ -1,6 +1,7 @@
+export type MediaFileType = "audio" | "video" | "image" | "document"
+
 export type BaseMediaFile = {
-    type: "audio" | "video" | "image" | "document";
-    id: number;
+    type: MediaFileType;
     name: string;
     url: string;
     size: number; // bytes
