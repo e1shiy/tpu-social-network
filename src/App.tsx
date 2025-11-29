@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./api";
+import "./index.css"
 
 function App() {
     return (
