@@ -3,58 +3,96 @@
 @font-face {
   font-family: "ALS Sirius";
   src: url("./assets/fonts/ALS_Sirius_Regular.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "ALS Sirius";
+  font-family: "ALS Sirius";
   src: url("./assets/fonts/ALS_Sirius_Bold.woff2") format("woff2");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
-    --color-primary: rgba(14, 146, 67, 1);
-    --color-primary-alt: rgba(40, 190, 70, 1);
-    --color-dark: rgba(0, 0, 0, 1);
-    --color-light: rgba(255, 255, 255, 1);
+  --color-primary: rgba(14, 146, 67, 1);
+  --color-primary-alt: rgba(40, 190, 70, 1);
+  --color-danger: rgb(210, 45, 36);
+  --color-danger-alt: rgba(255, 56, 60, 1);
+  --color-error: rgb(210, 45, 36);
+  --color-error-alt: rgba(255, 56, 60, 1);
+  --color-dark: rgba(0, 0, 0, 1);
+  --color-light: rgba(255, 255, 255, 1);
 
-    --font-primary: 'ALS Sirius', sans-serif;
-    --font-secondary: 'Arial', sans-serif;
+  --font-primary: "ALS Sirius", sans-serif;
+  --font-secondary: "Arial", sans-serif;
 
-    --breakpoint-sm: 30rem; /* 480px, mobile-s */
-    --breakpoint-md: 48rem; /* 768px, mobile */
-    --breakpoint-lg: 64rem; /* 1024px, tablet */
-    --breakpoint-xl: 90rem; /* 1440px, laptop */
-    --breakpoint-2xl: 104rem; /* 1660px, desktop */
+  --breakpoint-sm: 30rem; /* 480px, mobile-s */
+  --breakpoint-md: 48rem; /* 768px, mobile */
+  --breakpoint-lg: 64rem; /* 1024px, tablet */
+  --breakpoint-xl: 90rem; /* 1440px, laptop */
+  --breakpoint-2xl: 104rem; /* 1660px, desktop */
 }
 
-body {
-    @apply 
-    font-primary font-normal 
+@layer base {
+  *,
+  ::before,
+  ::after {
+    transition: 0.35s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition-property: opacity, color, background-color, border-color;
+  }
+
+  body {
+    @apply font-primary font-normal 
     text-[0.75rem] md:text-[0.825rem] lg:text-[0.9rem] xl:text-[0.95rem] 2xl:text-[1rem]
-    bg-light text-dark
+    bg-light text-dark;
+  }
+
+  h1 {
+    @apply font-bold text-[1.875rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[2.625rem] xl:text-[3rem] 2xl:text-[3.25rem];
+  }
+
+  h2 {
+    @apply font-bold text-[1.125rem] sm:text-[1.25rem] md:text-[1.4rem] lg:text-[1.625rem] xl:text-[1.825rem] 2xl:text-[2rem];
+  }
+
+  h3 {
+    @apply font-bold text-[1rem] sm:text-[1.125rem] md:text-[1.2rem] lg:text-[1.3rem] xl:text-[1.4rem] 2xl:text-[1.5rem];
+  }
+
+  h4 {
+    @apply font-bold text-[0.875rem] sm:text-[1rem] md:text-[1.1rem] lg:text-[1.15rem] xl:text-[1.2rem] 2xl:text-[1.25rem];
+  }
+
+  h5 {
+    @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
+  }
 }
 
-h1, .h1 {
-    @apply font-bold text-[1.875rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[2.625rem] xl:text-[3rem] 2xl:text-[3.25rem]
+@layer components {
+  h1 {
+    @apply font-bold text-[1.875rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[2.625rem] xl:text-[3rem] 2xl:text-[3.25rem];
+  }
+
+  h2 {
+    @apply font-bold text-[1.125rem] sm:text-[1.25rem] md:text-[1.4rem] lg:text-[1.625rem] xl:text-[1.825rem] 2xl:text-[2rem];
+  }
+
+  h3 {
+    @apply font-bold text-[1rem] sm:text-[1.125rem] md:text-[1.2rem] lg:text-[1.3rem] xl:text-[1.4rem] 2xl:text-[1.5rem];
+  }
+
+  h4 {
+    @apply font-bold text-[0.875rem] sm:text-[1rem] md:text-[1.1rem] lg:text-[1.15rem] xl:text-[1.2rem] 2xl:text-[1.25rem];
+  }
+
+  h5 {
+    @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
+  }
 }
 
-h2, .h2 {
-    @apply font-bold text-[1.125rem] sm:text-[1.25rem] md:text-[1.4rem] lg:text-[1.625rem] xl:text-[1.825rem] 2xl:text-[2rem]
-}
-
-h3, .h3 {
-    @apply font-bold text-[1rem] sm:text-[1.125rem] md:text-[1.2rem] lg:text-[1.3rem] xl:text-[1.4rem] 2xl:text-[1.5rem]
-}
-
-h4, .h4 {
-    @apply font-bold text-[0.875rem] sm:text-[1rem] md:text-[1.1rem] lg:text-[1.15rem] xl:text-[1.2rem] 2xl:text-[1.25rem]
-}
-
-h5, .h5 {
-    @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem]
+@utility flex-center {
+  @apply flex items-center justify-center;
 }
