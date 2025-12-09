@@ -1,6 +1,4 @@
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
-import SchedulePage from "./pages/SchedulePage.tsx";
-import MailPage from "./pages/MailPage.tsx";
 import MessengerPage from "./pages/MessengerPage.tsx";
 import CommunitiesPage from "./pages/CommunitiesPage.tsx";
 import FriendsPage from "./pages/FriendsPage.tsx";
@@ -11,20 +9,19 @@ import {queryClient} from "./api";
 import "./index.css"
 
 function App() {
+    const userId = 1 // TODO userId
+
     return (
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/schedule" element={<SchedulePage />} />
-                    <Route path="/mail" element={<MailPage />} />
-
-                    <Route path="/friends" element={<FriendsPage />} />
-
                     <Route path="/messenger/:id?" element={<MessengerPage />} />
                     <Route path="/communities/:id?" element={<CommunitiesPage />} />
 
-                    <Route path="/profile/:id?" element={<ProfilePage />} />
-                    <Route path="/" element={<Navigate to="/profile" />} />
+                    <Route path="/friends" element={<FriendsPage />} />
+
+                    <Route path="/" element={<Navigate to={`/${userId}`} />} /> {/* todo auth check */}
+                    <Route path="/:id?" element={<ProfilePage />} />
 
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
