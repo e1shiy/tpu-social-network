@@ -26,13 +26,14 @@ function UserDropdown({userId}: UserDropdown) {
     const userAvatarUrl = avatarUrl
 
     return (
-        <div className="relative shrink-0">
+        <div className="relative">
             <UserDropdownButton
+                className={"max-sm:w-max"}
                 avatarUrl={userAvatarUrl}
                 isActive={isActive}
                 onClick={() => setIsActive(i => !i)}
             >
-                {userName}
+                <span className={"max-sm:hidden text-ellipsis text-nowrap overflow-hidden"}>{userName}</span>
             </UserDropdownButton>
 
             {isActive && <ButtonMenu

@@ -6,6 +6,10 @@ import LoginIcon from "../assets/images/log-in.svg?react"
 import {UserDropdown} from "./user";
 import {type NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks/useNavHandlers.ts";
+import {useLocation} from "react-router-dom";
+import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants/routes.ts";
+import clsx from "clsx";
+import {twMerge} from "tailwind-merge";
 
 interface HeaderProps {
     userId: string | undefined;
@@ -13,32 +17,40 @@ interface HeaderProps {
 
 function Header({userId}: HeaderProps) {
     const {onMessengerClick, onCommunitiesClick, onScheduleClick, onInboxClick}: NavHandlers = useNavHandlers()
+    const location = useLocation();
     const navLinks = <>
-        <TextButton className="max-lg:hidden" onClick={onMessengerClick}>Мессенджер</TextButton>
-        <TextButton className="max-lg:hidden" onClick={onCommunitiesClick}>Сообщества</TextButton>
-        <TextButton className="max-lg:hidden" onClick={onScheduleClick}>Расписание</TextButton>
-        <TextButton className="max-lg:hidden" onClick={onInboxClick}>Почта</TextButton>
+        <TextButton className="max-lg:hidden" onClick={onMessengerClick}
+                    isActive={location.pathname === MESSENGER_ROUTE}>Мессенджер</TextButton>
+        <TextButton className="max-lg:hidden" onClick={onCommunitiesClick}
+                    isActive={location.pathname === COMMUNITIES_ROUTE}>Сообщества</TextButton>
+        <TextButton className="max-lg:hidden" onClick={onScheduleClick}
+                    isActive={location.pathname === SCHEDULE_ROUTE}>Расписание</TextButton>
+        <TextButton className="max-lg:hidden" onClick={onInboxClick}
+                    isActive={location.pathname === INBOX_ROUTE}>Почта</TextButton>
     </>
 
     return (
-        <div className="
-        w-full flex items-center justify-between gap-7.5
+        <div className={twMerge(clsx(`
+        flex w-full items-center justify-between gap-7.5
         p-4.25 sm:p-4.75 md:p-5 lg:p-5.5 xl:p-5.75 2xl:p-6.25
-        ">
+        `))}>
             <Logo/>
-            <div className="
-            w-full flex justify-end items-center
+            <div className={twMerge(clsx(`
+            flex w-full justify-end items-center
             gap-1.75 sm:gap-2.5 md:gap-3.5 lg:gap-4.65 xl:gap-6 2xl:gap-7.5
-            ">
+            `))}>
                 {navLinks}
-                {userId ?
-                    <>
-                        <Button className="basis-25 lg:basis-50" TrailingIcon={SearchIcon}>Поиск</Button>
-                        <UserDropdown userId={userId}/>
-                    </> :
+                <Button className="basis-25 lg:basis-50" TrailingIcon={SearchIcon}>
+                    Поиск
+                </Button>
+                {userId
+                    ?
+                    <UserDropdown userId={userId}/>
+                    :
                     <Button
                         className="basis-25 lg:basis-50" TrailingIcon={LoginIcon}
-                        onClick={() => { /* TODO: login */ }}
+                        onClick={() => { /* TODO: login */
+                        }}
                     >
                         Войти
                     </Button>
