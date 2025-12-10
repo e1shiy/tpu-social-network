@@ -45,7 +45,7 @@
   }
 
   body {
-    @apply font-primary font-normal mx-auto md:max-w-367
+    @apply font-primary font-normal mx-auto md:max-w-367 relative
     text-[0.75rem] md:text-[0.825rem] lg:text-[0.9rem] xl:text-[0.95rem] 2xl:text-[1rem]
     bg-light text-dark;
   }
