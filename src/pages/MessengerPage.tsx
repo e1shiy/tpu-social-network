@@ -6,7 +6,7 @@ function MessengerPage() {
     return (
         <NavHandlersProvider>
             <Header userId={"1"}/>
-            ProfilePage
+            MessengerPage
             <Footer/>
         </NavHandlersProvider>
     )
