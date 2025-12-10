@@ -10,8 +10,7 @@ interface ButtonMenuProps {
 function ButtonMenu({buttons, className} : ButtonMenuProps) {
     return (
         <ul className={twMerge(clsx(
-            `rounded-md md:rounded-lg lg:rounded-[0.625rem] 
-            p-2 md:p-2.5 flex flex-col gap-1.5 md:gap-2.5 bg-primary`,
+            `p-2 md:p-2.5 flex flex-col gap-1.5 md:gap-2.5 bg-primary`,
             className
         ))}>
             {buttons.map((button, i) => <Button {...button} key={i}/>)}

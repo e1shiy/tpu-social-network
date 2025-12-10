@@ -1,13 +1,14 @@
 import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
+import {twMerge} from "tailwind-merge";
 
 export interface ButtonProps {
     className?: string,
     children?: React.ReactNode;
     color?: "primary" | "error";
-    LeadingContent?: React.ReactNode;
-    TrailingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
+    isActive?: boolean;
     onClick?: () => void;
+    TrailingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
+    LeadingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 const buttonBaseStyles = `
@@ -17,19 +18,19 @@ const buttonBaseStyles = `
     rounded-[0.3125rem] text-light font-bold cursor-pointer active:opacity-60 focus:outline-none
 `
 
-function Button({ className, children, color = "primary", LeadingContent, TrailingIcon, onClick }: ButtonProps) {
+function Button({className, children, color = "primary", isActive=false, LeadingIcon, TrailingIcon, onClick}: ButtonProps) {
     const colorStyles = color === "primary"
-        ? "bg-primary hover:bg-primary-alt"
-        : "bg-danger hover:bg-danger-alt"
+        ? `${isActive ? "bg-primary-alt" : "bg-primary"} hover:bg-primary-alt`
+        : `${isActive ? "bg-danger-alt" : "bg-danger"} hover:bg-danger-alt`
     return (<button
-        type="button"
-        className={twMerge(clsx(buttonBaseStyles, colorStyles, className))}
-        onClick={onClick}
-    >
-        {LeadingContent}
-        {children}
-        {TrailingIcon && <TrailingIcon className="h-full aspect-square text-current" />}
-    </button>
+            type="button"
+            className={twMerge(clsx(buttonBaseStyles, colorStyles, className))}
+            onClick={onClick}
+        >
+            {LeadingIcon && <LeadingIcon className={"h-full aspect-square text-current shrink-0"}/>}
+            {children}
+            {TrailingIcon && <TrailingIcon className={"h-full aspect-square text-current shrink-0"}/>}
+        </button>
     );
 }
 
