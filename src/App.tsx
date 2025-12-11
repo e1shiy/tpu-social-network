@@ -5,7 +5,7 @@ import FriendsPage from "./pages/FriendsPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import {QueryClientProvider} from "@tanstack/react-query";
-import {queryClient} from "./api";
+import {queryClient} from "./services";
 import "./index.css"
 
 function App() {
