@@ -5,6 +5,7 @@ import type {CommunityPreviewResponse} from "./community.ts";
 import type {PostResponse} from "./post.ts";
 import type {ChatPreviewResponse} from "./chat.ts";
 
+export type UserCredentialsResponse = UserCredentials
 export type UserPreviewResponse = UserPreview
 export type UserProfileResponse = UserPreviewResponse & {
     bio: string;

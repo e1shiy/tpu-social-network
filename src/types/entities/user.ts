@@ -1,19 +1,59 @@
-import type {Community} from "./community.ts";
-import type {Chat} from "./chat.ts";
+import type {CommunityPreview} from "./community.ts";
+import type {ChatPreview} from "./chat.ts";
 import type {Role} from "./role.ts";
 import type {Friendship} from "./friendship.ts";
-import type {Post} from "./post.ts";
+import type {PostPreview} from "./post.ts";
 
 export type User = UserCredentials & UserDetails & UserSharedConnections & UserChats & UserProfile
+
+export function hasUserCredentials(user: Partial<User>): user is UserCredentials {
+    return (!!(
+        (user as UserCredentials).id &&
+        (user as UserCredentials).email &&
+        (user as UserCredentials).name &&
+        (user as UserCredentials).surname
+    ))
+}
+
+export function hasUserDetails(user: Partial<User>): user is UserDetails {
+    return (!!(
+        (user as UserDetails).role &&
+        (user as UserDetails).isNotificationShown &&
+        (user as UserDetails).isVerified &&
+        (user as UserDetails).isActive &&
+        (user as UserDetails).isOnlineShown
+    ))
+}
+
+export function hasUserSharedConnections(user: Partial<User>): user is UserSharedConnections {
+    return (!!(
+        (user as UserSharedConnections).communities.length &&
+        (user as UserSharedConnections).friendships.length &&
+        (user as UserSharedConnections).posts.length
+    ))
+}
+
+export function hasUserChats(user: Partial<User>): user is UserChats {
+    return (!!(user as UserChats).list.length)
+}
+
+export function hasUserPreview(user: Partial<User>): user is UserPreview {
+    return (hasUserCredentials(user) &&
+        !!(user as UserPreview).group &&
+        !!(user as UserPreview).school &&
+        !!(user as UserPreview).status &&
+        !!(user as UserPreview).isOnline
+    )
+}
 
 export type UserCredentials = {
     id: number;
     email: string;
-    password: string;
+    name: string;
+    surname: string
 }
 
 export type UserDetails = {
-    id: number;
     role: Role;
     isOnlineShown: boolean;
     isNotificationShown: boolean;
@@ -22,20 +62,16 @@ export type UserDetails = {
 }
 
 export type UserSharedConnections = {
-    id: number;
-    communities: Community[];
+    communities: CommunityPreview[];
     friendships: Friendship[];
-    posts: Post[];
+    posts: PostPreview[];
 }
 
 export type UserChats = {
-    id: number;
-    list: Chat[];
+    list: ChatPreview[];
 }
 
-export type UserPreview = {
-    id: number;
-    name: string;
+export type UserPreview = UserCredentials & {
     group: string;
     school: string;
     status: "teacher" | "student" | "guest";
