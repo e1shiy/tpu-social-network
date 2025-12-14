@@ -6,7 +6,7 @@ import {
     MESSENGER_ROUTE,
     PROFILE_ROUTE,
     SCHEDULE_ROUTE
-} from "../constants/routes.ts";
+} from "../constants";
 import {createContext} from "react";
 
 export interface NavHandlers {
@@ -30,7 +30,7 @@ function NavHandlersProvider({children}: NavHandlersProviderProps) {
         onScheduleClick: () => window.open(SCHEDULE_ROUTE),
         onInboxClick: () => window.open(INBOX_ROUTE),
         onFriendsClick: () => navigate(FRIENDS_ROUTE),
-        onProfileClick: (userId: number) => navigate(PROFILE_ROUTE(userId)),
+        onProfileClick: (userId: string) => navigate(PROFILE_ROUTE(userId)),
     }
 
     return (

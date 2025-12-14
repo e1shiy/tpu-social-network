@@ -7,7 +7,7 @@ import type {NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks/useNavHandlers.ts";
 import {useLocation} from "react-router-dom";
 import isCorrectLocation from "../utils/isCorrectLocation.ts";
-import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants/routes.ts";
+import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
 
 function Footer() {
     const {onMessengerClick, onCommunitiesClick, onScheduleClick, onInboxClick}: NavHandlers = useNavHandlers()

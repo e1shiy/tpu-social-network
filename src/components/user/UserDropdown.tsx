@@ -9,7 +9,7 @@ import type {NavHandlers} from "../../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../../hooks/useNavHandlers.ts";
 import isCorrectLocation from "../../utils/isCorrectLocation.ts";
 import {useLocation} from "react-router-dom";
-import {FRIENDS_ROUTE, PROFILE_ROUTE} from "../../constants/routes.ts";
+import {FRIENDS_ROUTE, PROFILE_ROUTE} from "../../constants";
 import DropdownButton, {type ContentProps, type TriggerProps} from "../DropdownButton.tsx";
 import {twMerge} from "tailwind-merge";
 import clsx from "clsx";

@@ -4,4 +4,9 @@ export const FRIENDS_ROUTE = "/friends"
 export const PROFILE_ROUTE = (id: string) => `/${id}`
 export const SCHEDULE_ROUTE = `https://ro-rasp.tpu.ru`
 export const INBOX_ROUTE = "https://ex2.tpu.ru"
-
+export const AUTH_ROUTE = (params: {
+    state?: string,
+    codeChallenge?: string,
+    clientId: string,
+    redirectUrl: string
+}) => "https://oauth.tpu.ru/authorize/" + new URLSearchParams(params).toString()

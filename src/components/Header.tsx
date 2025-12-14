@@ -7,7 +7,7 @@ import {UserDropdown} from "./user";
 import {type NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks/useNavHandlers.ts";
 import {useLocation} from "react-router-dom";
-import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants/routes.ts";
+import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
 import clsx from "clsx";
 import {twMerge} from "tailwind-merge";
 
