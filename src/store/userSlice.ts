@@ -119,11 +119,15 @@ import {Store} from "./store.ts";
 // })
 
 export type UserState = {
-    userId: string | undefined,
+    userId: string | null,
+    accessToken: string | null,
     login: (userId: string) => void;
+    setAccessToken: (token: string) => void;
 }
 
 export const createUserSlice: StateCreator<Store, [], [], UserState> = (set, ) => ({
-    userId: undefined,
+    userId: null,
+    accessToken: null,
     login: (userId: string) => set({ userId }),
+    setAccessToken: (token: string) => set({ accessToken: token }),
 })
