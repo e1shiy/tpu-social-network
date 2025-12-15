@@ -24,7 +24,9 @@
     --color-error: rgb(210, 45, 36);
     --color-error-alt: rgba(255, 56, 60, 1);
     --color-dark: rgba(0, 0, 0, 1);
-    --color-light: rgba(255, 255, 255, 1);
+    --color-light: rgba(243, 245, 246, 1);
+
+    --shadow-base: 0 0 20px 0 rgba(0, 0, 0, 0.1);
 
     --font-primary: "ALS Sirius", sans-serif;
     --font-secondary: "Arial", sans-serif;
@@ -45,7 +47,7 @@
     }
 
     body {
-        @apply font-primary font-normal mx-auto md:max-w-367 relative
+        @apply font-primary font-normal mx-auto relative
         text-[0.75rem] md:text-[0.825rem] lg:text-[0.9rem] xl:text-[0.95rem] 2xl:text-[1rem]
         bg-light text-dark;
     }
@@ -95,4 +97,14 @@
 
 @utility flex-center {
     @apply flex items-center justify-center;
+}
+
+@utility container {
+    @apply mx-auto
+    max-w-367 sm:max-w-367 md:max-w-367 lg:max-w-367 xl:max-w-367 2xl:max-w-367
+    p-4.25 sm:p-4.75 md:p-5 lg:p-5.5 xl:p-5.75 2xl:p-6.25
+}
+
+@utility truncate {
+    @apply whitespace-nowrap text-start text-ellipsis overflow-hidden max-w-full
 }
