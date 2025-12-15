@@ -14,6 +14,7 @@ function AuthCallback() {
     useEffect(() => {
         if (state && state === sessionStorage.getItem(AUTH_STATE_KEY) && code) {
             mutate(code)
+            sessionStorage.removeItem(AUTH_STATE_KEY)
         }
     }, [state, code])
 

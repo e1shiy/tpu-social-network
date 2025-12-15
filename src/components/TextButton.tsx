@@ -7,7 +7,7 @@ interface TextButtonProps {
 
 function TextButton({children, className, onClick, isActive=false} : TextButtonProps) {
     return(
-        <button className={`font-bold cursor-pointer ${isActive && "text-primary"} hover:text-primary ${className}`} onClick={onClick}>{children}</button>
+        <button className={`font-bold cursor-pointer ${isActive ? "text-primary" : ""} hover:text-primary ${className}`} onClick={onClick}>{children}</button>
     )
 }
 
