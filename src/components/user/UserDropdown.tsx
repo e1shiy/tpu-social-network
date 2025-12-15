@@ -14,6 +14,7 @@ import DropdownButton, {type ContentProps, type TriggerProps} from "../DropdownB
 import {twMerge} from "tailwind-merge";
 import clsx from "clsx";
 import Button from "../Button.tsx";
+import {useStore} from "../../store/store.ts";
 
 interface UserDropdown {
     userId: string,
@@ -24,6 +25,7 @@ function UserDropdown({userId}: UserDropdown) {
     const location = useLocation()
 
     // todo user info
+    const store = useStore()
     const userName = "Веретнов Алексей"
     const userAvatarUrl = avatarUrl
 
@@ -65,8 +67,8 @@ function UserDropdown({userId}: UserDropdown) {
                 }, isActive: false
             }, // TODO path check
             {
-                children: "Выйти из аккаунта", TrailingIcon: LogoutIcon, onClick: () => { /* TODO: logout */
-                }, isActive: false
+                children: "Выйти из аккаунта", TrailingIcon: LogoutIcon, onClick: () => store.logout(),
+                isActive: false
             }, // TODO path check
         ]}
     />

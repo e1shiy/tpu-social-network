@@ -10,9 +10,10 @@ import {useLocation} from "react-router-dom";
 import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
 import clsx from "clsx";
 import {twMerge} from "tailwind-merge";
+import redirectToExternalAuth from "../services/authService.ts";
 
 interface HeaderProps {
-    userId: string | undefined;
+    userId: string | null;
 }
 
 function Header({userId}: HeaderProps) {
@@ -30,32 +31,29 @@ function Header({userId}: HeaderProps) {
     </>
 
     return (
-        <div className={twMerge(clsx(`
-        flex w-full items-center justify-between gap-7.5
-        p-4.25 sm:p-4.75 md:p-5 lg:p-5.5 xl:p-5.75 2xl:p-6.25
-        `))}>
-            <Logo/>
-            <div className={twMerge(clsx(`
-            flex w-full justify-end items-center
-            gap-1.75 sm:gap-2.5 md:gap-3.5 lg:gap-4.65 xl:gap-6 2xl:gap-7.5
-            `))}>
-                {navLinks}
-                <Button className="basis-25 lg:basis-50" TrailingIcon={SearchIcon}>
-                    Поиск
-                </Button>
-                {userId
-                    ?
-                    <UserDropdown userId={userId}/>
-                    :
-                    <Button
-                        className="basis-25 lg:basis-50" TrailingIcon={LoginIcon}
-                        onClick={() => { /* TODO: login */
-                        }}
-                    >
-                        Войти
+        <div className="w-full shadow-base">
+            <div className="container flex items-center justify-between gap-7.5">
+                <Logo/>
+                <div className={twMerge(clsx(`
+                flex w-full justify-end items-center
+                gap-1.75 sm:gap-2.5 md:gap-3.5 lg:gap-4.65 xl:gap-6 2xl:gap-7.5
+                `))}>
+                    {navLinks}
+                    <Button className="basis-25 lg:basis-50" TrailingIcon={SearchIcon}>
+                        Поиск
                     </Button>
-                }
-
+                    {userId
+                        ?
+                        <UserDropdown userId={userId}/>
+                        :
+                        <Button
+                            className="basis-25 lg:basis-50" TrailingIcon={LoginIcon}
+                            onClick={() => redirectToExternalAuth()}
+                        >
+                            Войти
+                        </Button>
+                    }
+                </div>
             </div>
         </div>
     )

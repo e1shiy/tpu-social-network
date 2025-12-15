@@ -122,12 +122,14 @@ export type UserState = {
     userId: string | null,
     accessToken: string | null,
     login: (userId: string) => void;
+    logout: () => void;
     setAccessToken: (token: string) => void;
 }
 
 export const createUserSlice: StateCreator<Store, [], [], UserState> = (set, ) => ({
-    userId: null,
+    userId: "1", // todo null
     accessToken: null,
     login: (userId: string) => set({ userId }),
+    logout: () => set({ userId: null, accessToken: null }),
     setAccessToken: (token: string) => set({ accessToken: token }),
 })

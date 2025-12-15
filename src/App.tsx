@@ -8,9 +8,10 @@ import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./services";
 import "./index.css"
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import {useStore} from "./store/store.ts";
 
 function App() {
-    const userId = 1 // TODO userId
+    const {userId} = useStore()
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -19,10 +20,10 @@ function App() {
                     <Route element={<ProtectedRoute/>}>
                         <Route path="/messenger/:id?" element={<MessengerPage />} />
                         <Route path="/friends" element={<FriendsPage />} />
+                        <Route path="/" element={<Navigate to={`/${userId}`} />} /> {/* todo auth check */}
                     </Route>
 
                     <Route path="/communities/:id?" element={<CommunitiesPage />} />
-                    <Route path="/" element={<Navigate to={`/${userId}`} />} /> {/* todo auth check */}
                     <Route path="/:id?" element={<ProfilePage />} />
 
                     <Route path="*" element={<NotFoundPage />} />
