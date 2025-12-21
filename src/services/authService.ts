@@ -10,6 +10,7 @@ export async function redirectToExternalAuth() {
     const codeChallenge = "codeChallenge" // todo code challenge
 
     window.location.replace(AUTH_ROUTE({clientId: import.meta.env.VITE_TPU_OAUTH_CLIENT_ID, redirectUrl: redirectUrl, state: state, codeChallenge: codeChallenge}));
+    // todo при попытке входа с главной страницы стрелка назад туповатая, мб в проде такого не будет, надо смотреть
 }
 
 async function _generateState() {

@@ -5,18 +5,16 @@ import SearchIcon from "../assets/images/search.svg?react"
 import LoginIcon from "../assets/images/log-in.svg?react"
 import {UserDropdown} from "./user";
 import {type NavHandlers} from "../providers/NavHandlersProvider.tsx";
-import {useNavHandlers} from "../hooks/useNavHandlers.ts";
+import {useNavHandlers} from "../hooks";
 import {useLocation} from "react-router-dom";
 import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
 import clsx from "clsx";
 import {twMerge} from "tailwind-merge";
 import redirectToExternalAuth from "../services/authService.ts";
+import {useStore} from "../store/store.ts";
 
-interface HeaderProps {
-    userId: string | null;
-}
-
-function Header({userId}: HeaderProps) {
+function Header() {
+    const {userId} = useStore()
     const {onMessengerClick, onCommunitiesClick, onScheduleClick, onInboxClick}: NavHandlers = useNavHandlers()
     const location = useLocation();
     const navLinks = <>
@@ -44,7 +42,7 @@ function Header({userId}: HeaderProps) {
                     </Button>
                     {userId
                         ?
-                        <UserDropdown userId={userId}/>
+                        <UserDropdown/>
                         :
                         <Button
                             className="basis-25 lg:basis-50" TrailingIcon={LoginIcon}

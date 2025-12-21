@@ -71,6 +71,10 @@
     h5 {
         @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
     }
+
+    textarea {
+        @apply w-full h-full block resize-none overflow-auto border-none outline-none
+    }
 }
 
 @layer components {

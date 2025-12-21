@@ -1,3 +1,4 @@
+export const NOT_FOUND_ROUTE = "/not-found"
 export const MESSENGER_ROUTE = "/messenger"
 export const COMMUNITIES_ROUTE = "/communities"
 export const FRIENDS_ROUTE = "/friends"

@@ -15,16 +15,16 @@ function App() {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
+            <BrowserRouter basename={"/tpu-social-network/"}>
                 <Routes>
                     <Route element={<ProtectedRoute/>}>
                         <Route path="/messenger/:id?" element={<MessengerPage />} />
                         <Route path="/friends" element={<FriendsPage />} />
-                        <Route path="/" element={<Navigate to={`/${userId}`} />} /> {/* todo auth check */}
+                        <Route path="/" element={<Navigate to={`/${userId}`} />} />
                     </Route>
 
                     <Route path="/communities/:id?" element={<CommunitiesPage />} />
-                    <Route path="/:id?" element={<ProfilePage />} />
+                    <Route path="/:id" element={<ProfilePage />} />
 
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>

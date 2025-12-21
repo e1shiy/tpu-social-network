@@ -6,7 +6,7 @@ import FriendsIcon from "../../assets/images/two_users.svg?react"
 import SettingsIcon from "../../assets/images/settings.svg?react"
 import LogoutIcon from "../../assets/images/log-out.svg?react"
 import type {NavHandlers} from "../../providers/NavHandlersProvider.tsx";
-import {useNavHandlers} from "../../hooks/useNavHandlers.ts";
+import {useNavHandlers} from "../../hooks";
 import isCorrectLocation from "../../utils/isCorrectLocation.ts";
 import {useLocation} from "react-router-dom";
 import {FRIENDS_ROUTE, PROFILE_ROUTE} from "../../constants";
@@ -14,18 +14,16 @@ import DropdownButton, {type ContentProps, type TriggerProps} from "../DropdownB
 import {twMerge} from "tailwind-merge";
 import clsx from "clsx";
 import Button from "../Button.tsx";
+import {useUserId} from "../../hooks";
 import {useStore} from "../../store/store.ts";
 
-interface UserDropdown {
-    userId: string,
-}
-
-function UserDropdown({userId}: UserDropdown) {
+function UserDropdown() {
     const {onFriendsClick, onProfileClick}: NavHandlers = useNavHandlers()
     const location = useLocation()
 
-    // todo user info
     const store = useStore()
+    const userId = useUserId()
+    // todo user info
     const userName = "Веретнов Алексей"
     const userAvatarUrl = avatarUrl
 
