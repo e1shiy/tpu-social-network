@@ -4,7 +4,7 @@ import InboxIcon from "../assets/images/inbox.svg?react"
 import CommunitiesIcon from "../assets/images/three_users.svg?react"
 import ScheduleIcon from "../assets/images/calendar.svg?react"
 import type {NavHandlers} from "../providers/NavHandlersProvider.tsx";
-import {useNavHandlers} from "../hooks/useNavHandlers.ts";
+import {useNavHandlers} from "../hooks";
 import {useLocation} from "react-router-dom";
 import isCorrectLocation from "../utils/isCorrectLocation.ts";
 import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
@@ -16,7 +16,7 @@ function Footer() {
     return (
         <ButtonMenu
             className={`
-            flex-row w-full absolute top-[100vh] -translate-y-full lg:hidden
+            flex-row w-full sticky bottom-0 lg:hidden
             `}
             buttons={[
                 {
