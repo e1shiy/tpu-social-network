@@ -5,6 +5,7 @@ import Footer from "../components/Footer.tsx";
 import {useStore} from "../store/store.ts";
 import {NOT_FOUND_ROUTE} from "../constants";
 import {UserAuthorizedProfile, UserProfile} from "../components/user";
+import Content from "../components/Content.tsx";
 
 function ProfilePage() {
     const {id} = useParams()
@@ -21,7 +22,9 @@ function ProfilePage() {
         <NavHandlersProvider>
             <Header/>
 
-            {userId && userId === id ? <UserAuthorizedProfile/> : <UserProfile id={id}/>}
+            <Content>
+                {userId && userId === id ? <UserAuthorizedProfile/> : <UserProfile id={id}/>}
+            </Content>
 
             <Footer/>
         </NavHandlersProvider>
