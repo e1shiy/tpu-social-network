@@ -43,13 +43,32 @@
     ::before,
     ::after {
         transition: 0.35s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-        transition-property: opacity, color, background-color, border-color;
+        transition-property: opacity, color, background-color, border-color, box-shadow;
+    }
+
+    *::-webkit-scrollbar{
+        @apply w-4
+    }
+    *::-webkit-scrollbar-track {
+        @apply bg-transparent
+    }
+    *::-webkit-scrollbar-thumb{
+        @apply bg-primary/75 rounded-[10px] cursor-default;
+        border: 5px solid transparent;
+        background-clip: content-box;
+    }
+    *::-webkit-scrollbar-thumb:hover{
+        @apply bg-primary-alt;
     }
 
     body {
         @apply font-primary font-normal mx-auto relative
         text-[0.75rem] md:text-[0.825rem] lg:text-[0.9rem] xl:text-[0.95rem] 2xl:text-[1rem]
         bg-light text-dark;
+    }
+
+    #root {
+        @apply flex flex-col h-screen;
     }
 
     h1 {
@@ -70,10 +89,6 @@
 
     h5 {
         @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
-    }
-
-    textarea {
-        @apply w-full h-full block resize-none overflow-auto border-none outline-none
     }
 }
 
@@ -97,6 +112,10 @@
     h5 {
         @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
     }
+}
+
+@utility radiance {
+    box-shadow: 0 0 10px 0 var(--color-primary);
 }
 
 @utility flex-center {
