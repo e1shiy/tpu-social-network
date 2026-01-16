@@ -16,7 +16,7 @@ function Footer() {
     return (
         <ButtonMenu
             className={`
-            flex-row w-full sticky bottom-0 lg:hidden
+            flex-row w-full sticky bottom-0 lg:hidden z-1000
             `}
             buttons={[
                 {

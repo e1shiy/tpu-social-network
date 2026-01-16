@@ -29,7 +29,7 @@ function Header() {
     </>
 
     return (
-        <div className="w-full shadow-base">
+        <div className="w-full shadow-base sticky top-0 bg-white z-1000">
             <div className="container flex items-center justify-between gap-7.5">
                 <Logo/>
                 <div className={twMerge(clsx(`
