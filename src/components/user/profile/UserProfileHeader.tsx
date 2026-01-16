@@ -4,6 +4,7 @@ import avatarUrl from "../../../assets/images/i.webp";
 import TextButton from "../../TextButton.tsx";
 import Card from "../../Card.tsx";
 import {UserProfileInfo} from "./index.ts";
+import {AnimatePresence, motion} from "framer-motion";
 
 interface UserProfileHeaderProps {
     actions?: React.ReactNode,
@@ -25,6 +26,8 @@ function UserProfileHeader({actions, id, isInfoActive = false}: UserProfileHeade
         <TextButton className="font-normal truncate max-w-full">25345 друзей</TextButton>
         <TextButton className="font-normal truncate max-w-full">3 подписки</TextButton>
     </>
+
+    const MotionContent = motion.create(UserProfileInfo, {forwardMotionProps: true})
 
     return (
         <Card className={`w-full flex flex-col items-stretch gap-4 md:gap-5`}>
@@ -68,7 +71,19 @@ function UserProfileHeader({actions, id, isInfoActive = false}: UserProfileHeade
                 <div className="md:hidden w-full">{actions}</div>
             </div>
 
-            {isInfoActive && <UserProfileInfo id={id}/>}
+            <AnimatePresence>
+                {isInfoActive && <MotionContent
+                    initial={{height: 0}}
+                    animate={{height: "auto"}}
+                    exit={{height: 0}}
+                    transition={{duration: .1}}
+                    id={id}
+                    className={twMerge(clsx(
+                        "overflow-hidden",
+                        "flex flex-col items-stretch gap-4 md:gap-5"
+                    ))}
+                />}
+            </AnimatePresence>
         </Card>
     )
 }
