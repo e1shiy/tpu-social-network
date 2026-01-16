@@ -5,7 +5,7 @@ import NavHandlersProvider from "../providers/NavHandlersProvider.tsx";
 function MessengerPage() {
     return (
         <NavHandlersProvider>
-            <Header userId={"1"}/>
+            <Header/>
             MessengerPage
             <Footer/>
         </NavHandlersProvider>
