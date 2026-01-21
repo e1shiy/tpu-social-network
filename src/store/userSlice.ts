@@ -1,5 +1,4 @@
-import { StateCreator } from "zustand/vanilla";
-import {Store} from "./store.ts";
+import { StateCreator } from "zustand";
 
 export type UserState = {
     userId: string | null,
@@ -9,7 +8,7 @@ export type UserState = {
     setAccessToken: (token: string) => void;
 }
 
-export const createUserSlice: StateCreator<Store, [], [], UserState> = (set, ) => ({
+export const createUserSlice: StateCreator<UserState> = (set, ) => ({
     userId: "1", // todo null
     accessToken: "1", // todo null
     login: (userId: string) => set({ userId }),
