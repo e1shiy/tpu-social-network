@@ -6,6 +6,7 @@ import Card from "../../wrappers/Card.tsx";
 import {ProfileInfo} from "./index.ts";
 import ProfileAvatar from "./ProfileAvatar.tsx";
 import SlideDown from "../../wrappers/animations/SlideDown.tsx";
+import {AnimatePresence} from "framer-motion";
 
 interface UserProfileHeaderProps {
     actions?: React.ReactNode,
@@ -65,9 +66,14 @@ function ProfileHeader({actions, isInfoActive = false}: UserProfileHeaderProps) 
                 <div className="md:hidden w-full">{actions}</div>
             </div>
 
-            <SlideDown isVisible={isInfoActive}>
-                <ProfileInfo className={"flex flex-col items-stretch gap-4 md:gap-5"}/>
-            </SlideDown>
+            <AnimatePresence>
+                {isInfoActive &&
+                    <SlideDown>
+                        <ProfileInfo className={"flex flex-col items-stretch gap-4 md:gap-5"}/>
+                    </SlideDown>
+                }
+            </AnimatePresence>
+
         </Card>
     )
 }

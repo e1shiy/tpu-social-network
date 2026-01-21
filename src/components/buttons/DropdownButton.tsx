@@ -3,6 +3,7 @@ import {twMerge} from "tailwind-merge";
 import clsx from "clsx";
 import {useClickOutside} from "../../hooks";
 import Fade from "../wrappers/animations/Fade.tsx";
+import {AnimatePresence} from "framer-motion";
 
 export interface TriggerProps extends HTMLAttributes<HTMLElement> {
     onClick?: () => void;
@@ -26,15 +27,20 @@ function DropdownButton({Trigger, Content, className}: DropdownButtonProps) {
     const dropdownRef = useRef<HTMLDivElement>(null);
     useClickOutside(dropdownRef, () => setIsActive(false))
 
-    return(
+    return (
         <div className={"relative"} ref={dropdownRef}>
-            <Trigger isActive={isActive} onClick={() => setIsActive(i => !i)} />
-            <Fade isVisible={isActive}>
-                <Content className={twMerge(clsx(
-                    "absolute top-full translate-y-1.25 md:translate-y-1.75 xl:translate-y-2.5 w-full",
-                    className
-                ))}/>
-            </Fade>
+            <Trigger isActive={isActive} onClick={() => setIsActive(i => !i)}/>
+            <AnimatePresence>
+                {isActive &&
+                    <Fade>
+                        <Content className={twMerge(clsx(
+                            "absolute top-full translate-y-1.25 md:translate-y-1.75 xl:translate-y-2.5 w-full",
+                            className
+                        ))}/>
+                    </Fade>
+                }
+            </AnimatePresence>
+
         </div>
     )
 }
