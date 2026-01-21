@@ -1,4 +1,4 @@
-import ButtonMenu from "./ButtonMenu.tsx";
+import ButtonMenu from "./wrappers/ButtonMenu.tsx";
 import MessengerIcon from "../assets/images/message-circle.svg?react"
 import InboxIcon from "../assets/images/inbox.svg?react"
 import CommunitiesIcon from "../assets/images/three_users.svg?react"

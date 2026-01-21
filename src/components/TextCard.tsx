@@ -5,17 +5,18 @@ import EditIcon from "../assets/images/edit.svg?react"
 import CopyIcon from "../assets/images/copy.svg?react"
 import SaveIcon from "../assets/images/accept.svg?react"
 import RejectIcon from "../assets/images/reject.svg?react"
-import IconButton from "./IconButton.tsx";
+import IconButton from "./buttons/IconButton.tsx";
 
 interface TextCardProps {
     text: string,
     title: string,
     className?: string,
     isReadonly?: boolean,
-    onEdit?: (value: string) => void
+    onEdit?: (value: string) => void,
+    maxLength?: number
 }
 
-function TextCard({text, title, className, isReadonly = true, onEdit}: TextCardProps) {
+function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}: TextCardProps) {
     const [isActive, setIsActive] = useState(false)
     const [value, setValue] = useState(text)
 
@@ -80,9 +81,10 @@ function TextCard({text, title, className, isReadonly = true, onEdit}: TextCardP
 
             <textarea
                 className={twMerge(clsx(
-                    "text-dark/60 h-full field-sizing-content min-h-16 max-h-90 resize-none outline-none",
+                    "text-dark/60 h-full field-sizing-content min-h-16 max-h-90 resize-none outline-none rounded-sm",
                 ))}
                 disabled={!isActive}
+                maxLength={maxLength}
                 spellCheck={false}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
