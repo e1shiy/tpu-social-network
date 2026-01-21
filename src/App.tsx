@@ -9,12 +9,14 @@ import {queryClient} from "./services";
 import "./index.css"
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import {useStore} from "./store/store.ts";
+import PopUpManager from "./components/PopUpManager.tsx";
 
 function App() {
     const {userId} = useStore()
 
     return (
         <QueryClientProvider client={queryClient}>
+            <PopUpManager/>
             <BrowserRouter basename={"/tpu-social-network/"}>
                 <Routes>
                     <Route element={<ProtectedRoute/>}>
