@@ -9,9 +9,10 @@ export type UserCredentialsResponse = UserCredentials
 export type UserPreviewResponse = UserPreview
 export type UserProfileResponse = UserPreviewResponse & {
     bio: string;
-    gender: boolean; // 0 - man, 1 - woman
-    birthday: string; // date
-    lastLogin: string; // date
+    lifePosition: string;
+    // gender: boolean; // 0 - man, 1 - woman
+    // birthday: string; // date
+    // lastLogin: string; // date
     posts?: PostResponse[];
     communities?: CommunityPreviewResponse[];
     friendships?: FriendshipResponse[];

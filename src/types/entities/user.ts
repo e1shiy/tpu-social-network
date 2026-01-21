@@ -7,10 +7,10 @@ import type {PostPreview} from "./post.ts";
 export type User = UserCredentials & UserDetails & UserSharedConnections & UserChats & UserProfile
 
 export type UserCredentials = {
-    id: number;
+    id: string;
     email: string;
     name: string;
-    surname: string
+    surname: string;
 }
 
 export type UserDetails = {
@@ -23,7 +23,7 @@ export type UserDetails = {
 
 export type UserSharedConnections = {
     communities: CommunityPreview[];
-    friendships: Friendship[];
+    friendships: Friendship[]; // todo может по чужому профилю будут приходить только действующие друзья?
     posts: PostPreview[];
 }
 
@@ -32,6 +32,7 @@ export type UserChats = {
 }
 
 export type UserPreview = UserCredentials & {
+    avatarUrl: string;
     group: string;
     school: string;
     status: "teacher" | "student" | "guest";
@@ -40,8 +41,9 @@ export type UserPreview = UserCredentials & {
 
 export type UserProfile = UserPreview & UserSharedConnections & {
     bio: string;
-    gender: boolean; // 0 - man, 1 - woman
-    birthday: Date;
-    lastLogin: Date;
+    lifePosition: string;
+    // gender: boolean; // 0 - man, 1 - woman
+    // birthday: Date;
+    // lastLogin: Date;
 }
 
