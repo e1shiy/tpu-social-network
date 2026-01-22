@@ -6,6 +6,9 @@ import CopyIcon from "../assets/images/copy.svg?react"
 import SaveIcon from "../assets/images/accept.svg?react"
 import RejectIcon from "../assets/images/reject.svg?react"
 import IconButton from "./buttons/IconButton.tsx";
+import {AnimatePresence} from "framer-motion";
+import Fade from "./wrappers/animations/Fade.tsx";
+import Bubble from "./wrappers/animations/Bubble.tsx";
 
 interface TextCardProps {
     text: string,
@@ -21,50 +24,21 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
     const [value, setValue] = useState(text)
 
     const [isCopied, setIsCopied] = useState(false)
+    const [isCopyError, setIsCopyError] = useState(false)
     const handleCopy = async () => {
         try {
+            setIsCopyError(false)
+
             await navigator.clipboard.writeText(value);
             setIsCopied(true);
 
             setTimeout(() => setIsCopied(false), 2000);
         } catch (e) {
+            setIsCopyError(true)
+            setTimeout(() => setIsCopyError(false), 2000);
             console.error("Error while copying: " + e)
         }
     }
-
-    // todo fade in/out у иконок
-    const actionButtons = isActive ?
-        <>
-            <IconButton
-                Icon={SaveIcon}
-                className={"scale-110"}
-                color="primary"
-                onClick={() => {
-                    onEdit && onEdit(value)
-                    setIsActive(false)
-                }}
-            />
-            <IconButton
-                Icon={RejectIcon}
-                className={"scale-110"}
-                color="error"
-                onClick={() => {
-                    setValue(text)
-                    setIsActive(false)
-                }}
-            />
-        </> :
-        <>
-            {!isReadonly &&
-                <IconButton Icon={EditIcon} onClick={() => setIsActive(true)}/>
-            }
-
-            {isCopied ?
-                <IconButton Icon={SaveIcon} color="primary"/> :
-                <IconButton Icon={CopyIcon} onClick={handleCopy}/>
-                // todo анимация смены иконки
-            }
-        </>
 
     return (
         <div className={twMerge(clsx(
@@ -75,7 +49,92 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
             <div className="flex w-full h-max items-center justify-between gap-1.5 md:gap-2.5">
                 <h5>{title}</h5>
                 <div className={"flex gap-2 md:gap-3"}>
-                    {actionButtons}
+                    <AnimatePresence mode="popLayout" initial={false}>
+                        {isActive ? (
+                            <div key="active-actions" className="flex gap-2">
+                                <Fade key={"saveChanges"}>
+                                    <Bubble>
+                                        <IconButton
+                                            Icon={SaveIcon}
+                                            className={"scale-110"}
+                                            color="primary"
+                                            onClick={() => {
+                                                onEdit && onEdit(value)
+                                                setIsActive(false)
+                                            }}
+                                        />
+                                    </Bubble>
+                                </Fade>
+                                <Fade key={"discardChanges"}>
+                                    <Bubble>
+                                        <IconButton
+                                            Icon={RejectIcon}
+                                            className={"scale-110"}
+                                            color="error"
+                                            onClick={() => {
+                                                setValue(text)
+                                                setIsActive(false)
+                                            }}
+                                        />
+                                    </Bubble>
+                                </Fade>
+                            </div>
+                        ) : (
+                            <div key="edit-action">
+                                {!isReadonly && (
+                                    <Fade key={"editBio"}>
+                                        <Bubble>
+                                            <IconButton
+                                                Icon={EditIcon}
+                                                onClick={() => setIsActive(true)}
+                                            />
+                                        </Bubble>
+                                    </Fade>
+                                )}
+                            </div>
+                        )}
+                    </AnimatePresence>
+
+                    <AnimatePresence mode="popLayout" initial={false}>
+                        {!isActive && (
+                            isCopied ? (
+                                <div key={"copied-wrapper"}>
+                                    <Fade key={"copied"}>
+                                        <Bubble>
+                                            <IconButton
+                                                Icon={SaveIcon}
+                                                color="primary"
+                                                className={"scale-110"}
+                                            />
+                                        </Bubble>
+                                    </Fade>
+                                </div>
+                            ) : (isCopyError ? (
+                                <div key={"not-copied-wrapper"}>
+                                    <Fade key={"not-copied"}>
+                                        <Bubble>
+                                            <IconButton
+                                                Icon={RejectIcon}
+                                                color={"error"}
+                                                className={"scale-110"}
+                                            />
+                                        </Bubble>
+                                    </Fade>
+                                </div>
+                            ) : (
+                                <div key={"copy-wrapper"}>
+                                    <Fade key={"copy"}>
+                                        <Bubble>
+                                            <IconButton
+                                                Icon={CopyIcon}
+                                                onClick={handleCopy}
+                                            />
+                                        </Bubble>
+                                    </Fade>
+                                </div>
+                            ))
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
 
