@@ -1,4 +1,4 @@
-import {ProfileHeader} from "./index.ts";
+import ProfileHeader from "./ProfileHeader.tsx";
 import Button from "../../buttons/Button.tsx";
 import InfoIcon from "../../../assets/images/info.svg?react"
 import AddFriendIcon from "../../../assets/images/user-plus.svg?react"

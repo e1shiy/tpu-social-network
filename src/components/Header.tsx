@@ -3,7 +3,7 @@ import TextButton from "./buttons/TextButton.tsx";
 import Button from "./buttons/Button.tsx";
 import SearchIcon from "../assets/images/search.svg?react"
 import LoginIcon from "../assets/images/log-in.svg?react"
-import {UserDropdown} from "./user";
+import UserDropdown from "./user/UserDropdown.tsx";
 import {type NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks";
 import {useLocation} from "react-router-dom";

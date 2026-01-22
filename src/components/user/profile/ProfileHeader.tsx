@@ -3,7 +3,7 @@ import {twMerge} from "tailwind-merge";
 import avatarUrl from "../../../assets/images/i.webp";
 import TextButton from "../../buttons/TextButton.tsx";
 import Card from "../../wrappers/Card.tsx";
-import {ProfileInfo} from "./index.ts";
+import ProfileInfo from "./ProfileInfo.tsx";
 import ProfileAvatar from "./ProfileAvatar.tsx";
 import SlideDown from "../../wrappers/animations/SlideDown.tsx";
 import {AnimatePresence} from "framer-motion";

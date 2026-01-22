@@ -42,7 +42,7 @@ function ProfileInfo({className, ref}: UserProfileInfoProps) {
 
                 <span>
                     <span className={"font-bold max-sm:hidden"}>Корпоративная почта: </span>
-                    <TextButton className={"font-normal"} onClick={() => window.open("mailto:1eshiy@tpu.ru")}>1eshiy@tpu.ru</TextButton>
+                    <TextButton className={"font-normal text-dark/60"} onClick={() => window.open("mailto:1eshiy@tpu.ru")}>1eshiy@tpu.ru</TextButton>
                 </span>
             </div>
         </div>
