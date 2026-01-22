@@ -23,18 +23,20 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isContextMenuOpen, setIsContextMenuOpen] = useState(false)
     const isMyProfile = useIsMyProfile()
-    const { showPopUp } = useStore()
+    const {showPopUp} = useStore()
 
+    const inputRef = useRef<HTMLInputElement>(null)
     const clickHandler = () => {
         if (!isMyProfile) return
-
         if (window.matchMedia("(pointer: coarse)").matches) {
             if (!isContextMenuOpen) setIsContextMenuOpen(true)
             else {
                 // todo choose photo
+                inputRef.current?.click()
             }
         } else {
             // todo choose photo
+            inputRef.current?.click()
         }
     }
 
@@ -57,15 +59,17 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                 isMyProfile && "hover:cursor-pointer hover:before:blur-[1px]",
                 isMyProfile && isContextMenuOpen && "before:blur-[1px]"
             ))}
-            onClick={clickHandler}
             ref={ref}
         >
-            <div className={twMerge(clsx(
-                "group/wrapper rounded-full",
-                "after:absolute after:rounded-full after:aspect-square after:w-full after:inset-0 after:z-10",
-                isMyProfile && "group-hover:after:bg-dark/30",
-                isMyProfile && isContextMenuOpen && "after:bg-dark/30"
-            ))}>
+            <div
+                className={twMerge(clsx(
+                    "group/wrapper rounded-full",
+                    "after:absolute after:rounded-full after:aspect-square after:w-full after:inset-0 after:z-10",
+                    isMyProfile && "group-hover:after:bg-dark/30",
+                    isMyProfile && isContextMenuOpen && "after:bg-dark/30"
+                ))}
+                onClick={clickHandler}
+            >
                 <img className={twMerge(clsx(
                     "aspect-square h-full rounded-full",
                     isMyProfile && "group-hover:blur-[1px]",
@@ -94,6 +98,13 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                 <span>Удалить <span className={"max-lg:hidden"}>фото профиля</span></span>
             </Button>
             }
+
+            <input
+                ref={inputRef}
+                type={"file"}
+                className={"hidden"}
+                accept={"image/*"}
+            />
 
             {isModalOpen &&
                 <Modal onClose={() => setIsModalOpen(false)}>
