@@ -1,4 +1,4 @@
-import defaultAvatarUrl from "../../assets/images/default-avatar.png";
+import defaultAvatarUrl from "../../assets/images/default-avatar.svg";
 import {UserPreview, UserProfile} from "../../types/entities";
 
 export const FALLBACK_USER_PREVIEW: UserPreview = {

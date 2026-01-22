@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import {twMerge} from "tailwind-merge";
-import avatarUrl from "../../../assets/images/i.webp";
+import avatarUrl from "../../../assets/images/user-avatar.jpg";
 import TextButton from "../../buttons/TextButton.tsx";
 import Card from "../../wrappers/Card.tsx";
 import ProfileInfo from "./ProfileInfo.tsx";
