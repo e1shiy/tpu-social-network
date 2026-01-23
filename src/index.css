@@ -27,7 +27,7 @@
     --color-dark: rgba(0, 0, 0, 1);
     --color-light: rgba(243, 245, 246, 1);
 
-    --shadow-base: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    --shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
 
     --font-primary: "ALS Sirius", sans-serif;
     --font-secondary: "Arial", sans-serif;
@@ -120,10 +120,6 @@
     h5 {
         @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
     }
-}
-
-@utility shine {
-    @apply shadow-[0_0_10px_0];
 }
 
 @utility flex-center {

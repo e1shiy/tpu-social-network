@@ -10,12 +10,12 @@ interface TextButtonProps {
 }
 
 const colorSchemes = {
-    "default": (isActive: boolean) => `text-dark hover:text-primary ${isActive && "text-primary"}`,
+    "dark": (isActive: boolean) => `text-dark hover:text-primary ${isActive && "text-primary"}`,
     "primary": (isActive: boolean) => `text-primary hover:text-primary-alt ${isActive && "text-primary-alt"}`,
     "error": (isActive: boolean) => `text-error hover:text-error-alt ${isActive && "text-error-alt"}`,
 }
 
-function TextButton({children, className, onClick, color="default", isActive=false} : TextButtonProps) {
+function TextButton({children, className, onClick, color="dark", isActive=false} : TextButtonProps) {
     const colorStyles = colorSchemes[color]
     return(
         <button className={twMerge(clsx(

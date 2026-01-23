@@ -15,12 +15,12 @@ const baseStyles = twMerge(clsx(
 ))
 
 const colorSchemes = {
-    "default": (isActive: boolean) => isActive ? "text-dark" : "text-dark/60 hover:text-dark",
+    "dark": (isActive: boolean) => isActive ? "text-dark" : "text-dark/60 hover:text-dark",
     "primary": (isActive: boolean) => isActive ? "text-primary" : "text-primary hover:text-primary-alt",
     "error": (isActive: boolean) => isActive ? "text-error" : "text-error hover:text-error-alt"
 }
 
-function IconButton({className, Icon, color="default", isActive=false, onClick} : IconButtonProps) {
+function IconButton({className, Icon, color="dark", isActive=false, onClick} : IconButtonProps) {
     const colorStyles = colorSchemes[color]
 
     return(
