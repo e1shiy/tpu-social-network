@@ -1,7 +1,7 @@
-import TextCard from "../../TextCard.tsx";
-import TextButton from "../../buttons/TextButton.tsx";
+import TextCard from "../TextCard.tsx";
+import TextButton from "../buttons/TextButton.tsx";
 import type {Ref} from "react";
-import {useIsMyProfile} from "../../../hooks";
+import {useIsMyProfile} from "../../hooks";
 
 interface UserProfileInfoProps {
     ref?: Ref<HTMLDivElement>;

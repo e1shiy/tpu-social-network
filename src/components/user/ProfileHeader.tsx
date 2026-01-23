@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import {twMerge} from "tailwind-merge";
-import avatarUrl from "../../../assets/images/user-avatar.jpg";
-import TextButton from "../../buttons/TextButton.tsx";
-import Card from "../../wrappers/Card.tsx";
+import avatarUrl from "../../assets/images/user-avatar.jpg";
+import TextButton from "../buttons/TextButton.tsx";
+import Card from "../wrappers/Card.tsx";
 import ProfileInfo from "./ProfileInfo.tsx";
 import ProfileAvatar from "./ProfileAvatar.tsx";
-import SlideDown from "../../wrappers/animations/SlideDown.tsx";
+import SlideDown from "../wrappers/animations/SlideDown.tsx";
 import {AnimatePresence} from "framer-motion";
 
 interface UserProfileHeaderProps {

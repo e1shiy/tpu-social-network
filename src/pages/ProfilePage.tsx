@@ -3,7 +3,7 @@ import NavHandlersProvider from "../providers/NavHandlersProvider.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import Footer from "../components/Footer.tsx";
 import {NOT_FOUND_ROUTE} from "../constants";
-import Profile from "../components/user/profile/Profile.tsx";
+import Profile from "../components/user/Profile.tsx";
 import Content from "../components/wrappers/Content.tsx";
 
 function ProfilePage() {

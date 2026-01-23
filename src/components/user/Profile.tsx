@@ -1,10 +1,11 @@
 import ProfileHeader from "./ProfileHeader.tsx";
-import Button from "../../buttons/Button.tsx";
-import InfoIcon from "../../../assets/images/info.svg?react"
-import AddFriendIcon from "../../../assets/images/user-plus.svg?react"
-import MessageIcon from "../../../assets/images/message-circle.svg?react"
+import Button from "../buttons/Button.tsx";
+import InfoIcon from "../../assets/images/info.svg?react"
+import AddFriendIcon from "../../assets/images/user-plus.svg?react"
+import MessageIcon from "../../assets/images/message-circle.svg?react"
 import {useState} from "react";
-import {useIsMyProfile} from "../../../hooks";
+import {useIsMyProfile} from "../../hooks";
+import ProfilePostCreator from "./ProfilePostCreator.tsx";
 
 function Profile() {
     const [isInfoActive, setIsInfoActive] = useState(false)
@@ -13,9 +14,12 @@ function Profile() {
     return(
         <div className="container flex flex-col gap-2.5 md:gap-4 lg:gap-5">
             {isMyProfile ?
-                <ProfileHeader isInfoActive={isInfoActive} actions={
-                    <Button TrailingIcon={InfoIcon} isActive={isInfoActive} onClick={() => setIsInfoActive(i => !i)} className="w-full">Подробнее</Button>
-                }/> :
+                <>
+                    <ProfileHeader isInfoActive={isInfoActive} actions={
+                        <Button TrailingIcon={InfoIcon} isActive={isInfoActive} onClick={() => setIsInfoActive(i => !i)} className="w-full">Подробнее</Button>
+                    }/>
+                    <ProfilePostCreator/>
+                </> :
                 <ProfileHeader isInfoActive={isInfoActive} actions={
                     <div className="flex gap-1.25 max-w-full">
                         <Button TrailingIcon={MessageIcon} className="w-full text-nowrap">Написать сообщение</Button>

@@ -1,17 +1,17 @@
 import {twMerge} from "tailwind-merge";
 import clsx from "clsx";
-import CameraIcon from "../../../assets/images/camera.svg?react"
-import TrashIcon from "../../../assets/images/trash.svg?react"
-import Button from "../../buttons/Button.tsx";
+import CameraIcon from "../../assets/images/camera.svg?react"
+import TrashIcon from "../../assets/images/trash.svg?react"
+import Button from "../buttons/Button.tsx";
 import {ChangeEvent, RefObject, useRef, useState} from "react";
-import {useClickOutside, useIsMyProfile} from "../../../hooks";
-import Modal from "../../Modal.tsx";
-import Card from "../../wrappers/Card.tsx";
-import TextButton from "../../buttons/TextButton.tsx";
-import {useStore} from "../../../store/store.ts";
-import FileUploader from "../../FileUploader.tsx";
-import {ALLOWED_TYPES} from "../../../constants/services/avatarValidator.ts";
-import {validateAvatar} from "../../../services/avatarValidator.ts";
+import {useClickOutside, useIsMyProfile} from "../../hooks";
+import Modal from "../Modal.tsx";
+import Card from "../wrappers/Card.tsx";
+import TextButton from "../buttons/TextButton.tsx";
+import {useStore} from "../../store/store.ts";
+import FileUploader from "../FileUploader.tsx";
+import {ALLOWED_TYPES} from "../../constants/services/avatarValidator.ts";
+import {validateAvatar} from "../../services/avatarValidator.ts";
 
 interface UserProfileAvatarProps {
     isOnline?: boolean,
