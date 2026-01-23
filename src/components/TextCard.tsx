@@ -51,7 +51,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                 <div className={"flex gap-2 md:gap-3"}>
                     <AnimatePresence mode="popLayout" initial={false}>
                         {isActive ? (
-                            <div key="active-actions" className="flex gap-2">
+                            <div key="active-actions" className="flex gap-1.5 md:gap-2.5">
                                 <Fade key={"saveChanges"}>
                                     <Bubble>
                                         <IconButton
