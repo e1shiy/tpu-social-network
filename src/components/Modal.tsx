@@ -1,5 +1,7 @@
 import {useEffect} from "react";
 import BaseModal from "./BaseModal.tsx";
+import {AnimatePresence} from "framer-motion";
+import Fade from "./wrappers/animations/Fade.tsx";
 
 interface ModalProps {
     children: React.ReactNode,
@@ -21,16 +23,20 @@ function Modal({children, onClose, onOpen}: ModalProps) {
 
     return(
         <BaseModal>
-            <div
-                onClick={onClose}
-                className={"fixed inset-0 flex-center w-screen h-screen bg-dark/60 z-1002"}
-                role={"dialog"}
-                aria-modal={"true"}
-            >
-                <div onClick={(e) => e.stopPropagation()}>
-                    {children}
-                </div>
-            </div>
+            <AnimatePresence>
+                <Fade>
+                    <div
+                        onClick={onClose}
+                        className={"fixed inset-0 flex-center w-screen h-screen bg-dark/60"}
+                        role={"dialog"}
+                        aria-modal={"true"}
+                    >
+                        <div onClick={(e) => e.stopPropagation()}>
+                            {children}
+                        </div>
+                    </div>
+                </Fade>
+            </AnimatePresence>
         </BaseModal>
     )
 }

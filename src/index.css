@@ -47,18 +47,21 @@
         transition-property: opacity, color, background-color, border-color, box-shadow, filter, visibility;
     }
 
-    *::-webkit-scrollbar{
+    *::-webkit-scrollbar {
         @apply w-4
     }
+
     *::-webkit-scrollbar-track {
         @apply bg-transparent
     }
-    *::-webkit-scrollbar-thumb{
+
+    *::-webkit-scrollbar-thumb {
         @apply bg-primary/75 rounded-[10px] cursor-default;
         border: 5px solid transparent;
         background-clip: content-box;
     }
-    *::-webkit-scrollbar-thumb:hover{
+
+    *::-webkit-scrollbar-thumb:hover {
         @apply bg-primary-alt;
     }
 
@@ -70,6 +73,10 @@
 
     #root {
         @apply flex flex-col h-[100dvh];
+    }
+
+    #modal-root {
+        @apply relative z-1000;
     }
 
     h1 {

@@ -7,7 +7,7 @@ function PopUpManager() {
     const {popUps, hidePopUp} = useStore()
     return (
         <BaseModal>
-            <div className={"z-1001 flex flex-col items-end fixed right-3 bottom-3 gap-2 lg:right-5 lg:bottom-5 lg:gap-3"}>
+            <div className={"flex flex-col items-end fixed right-3 bottom-3 gap-2 lg:right-5 lg:bottom-5 lg:gap-3"}>
                 <AnimatePresence>
                     {popUps.map(p => (
                         <motion.div
