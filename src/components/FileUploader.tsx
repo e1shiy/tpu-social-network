@@ -13,7 +13,6 @@ function FileUploader({children, onChange, onClick, accept}: FileUploaderProps) 
         <>
             <label
                 htmlFor={"file-uploader"}
-                className={"cursor-pointer"}
                 onClick={() => onClick ? onClick(inputRef) : inputRef.current?.click()}
             >
                 {children}
