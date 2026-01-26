@@ -1,15 +1,16 @@
-import {motion} from "framer-motion";
+import {HTMLMotionProps, motion} from "framer-motion";
 
-interface BubbleProps {
+interface BubbleProps extends HTMLMotionProps<"div"> {
     children: React.ReactNode,
 }
 
-function Bubble({children} : BubbleProps) {
+function Bubble({children, ...props} : BubbleProps) {
     return(
         <motion.div
             initial={{scale: 0}}
             animate={{scale: 1}}
             exit={{scale: 0}}
+            {...props}
         >
             {children}
         </motion.div>
