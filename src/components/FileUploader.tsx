@@ -4,10 +4,11 @@ interface FileUploaderProps {
     children?: React.ReactNode,
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
     onClick?: (inputRef: RefObject<HTMLInputElement | null>) => void;
-    accept?: string
+    accept?: string,
+    multiple?: boolean
 }
 
-function FileUploader({children, onChange, onClick, accept}: FileUploaderProps) {
+function FileUploader({children, onChange, onClick, accept, multiple=false}: FileUploaderProps) {
     const inputRef = useRef<HTMLInputElement>(null)
     return (
         <>
@@ -23,6 +24,7 @@ function FileUploader({children, onChange, onClick, accept}: FileUploaderProps) 
                 type={"file"}
                 className={"hidden"}
                 accept={accept}
+                multiple={multiple}
                 onChange={onChange}
             />
         </>

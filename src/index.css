@@ -126,6 +126,10 @@
     @apply flex items-center justify-center;
 }
 
+@utility abs-center {
+    @apply absolute top-1/2 left-1/2 -translate-1/2
+}
+
 @utility container {
     @apply mx-auto
     max-w-367 sm:max-w-367 md:max-w-367 lg:max-w-367 xl:max-w-367 2xl:max-w-367

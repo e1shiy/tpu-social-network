@@ -8,8 +8,8 @@ import Card from "../wrappers/Card.tsx";
 import TextButton from "../buttons/TextButton.tsx";
 import {useStore} from "../../store/store.ts";
 import FileUploader from "../FileUploader.tsx";
-import {ALLOWED_TYPES} from "../../constants/services/avatarValidator.ts";
-import {validateAvatar} from "../../services/avatarValidator.ts";
+import {IMAGE_TYPES} from "../../constants/services/fileTypes.ts";
+import {validateAvatar} from "../../services/fileValidator.ts";
 import {cn} from "../../utils/cn.ts";
 
 interface UserProfileAvatarProps {
@@ -51,9 +51,9 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     const handleUploaderChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file) {
-            const {isError, messages} = validateAvatar(file)
-            if (isError) {
-                messages.forEach(message => showPopUp(message, "error"))
+            const {data} = validateAvatar(file)
+            if (data.length) {
+                data.forEach(message => showPopUp(message, "error"))
             } else {
                 // todo upload avatar
                 showPopUp("Новое фото профиля загружено", "success")
@@ -66,7 +66,7 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     return (
         <div className={"group relative"} ref={ref}>
             <FileUploader
-                accept={ALLOWED_TYPES.join(", ")}
+                accept={IMAGE_TYPES.join(", ")}
                 onClick={handleUploaderClick}
                 onChange={handleUploaderChange}
             >
