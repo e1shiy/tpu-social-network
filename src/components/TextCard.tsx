@@ -1,5 +1,3 @@
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
 import {useState} from "react";
 import EditIcon from "../assets/images/edit.svg?react"
 import CopyIcon from "../assets/images/copy.svg?react"
@@ -9,6 +7,7 @@ import IconButton from "./buttons/IconButton.tsx";
 import {AnimatePresence} from "framer-motion";
 import Fade from "./wrappers/animations/Fade.tsx";
 import Bubble from "./wrappers/animations/Bubble.tsx";
+import {cn} from "../utils/cn.ts";
 
 interface TextCardProps {
     text: string,
@@ -41,11 +40,11 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
     }
 
     return (
-        <div className={twMerge(clsx(
+        <div className={cn(
             "flex flex-col gap-1.5 md:gap-2.5 p-3 md:p-4 rounded-[0.9375rem] md:rounded-[1.25rem] border-1",
             isActive ? "border-primary" : "border-dark/60",
             className
-        ))}>
+        )}>
             <div className="flex w-full h-max items-center justify-between gap-1.5 md:gap-2.5">
                 <h5>{title}</h5>
                 <div className={"flex gap-2 md:gap-3"}>
@@ -139,9 +138,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
             </div>
 
             <textarea
-                className={twMerge(clsx(
-                    "text-dark/60 h-full field-sizing-content min-h-16 max-h-90 resize-none outline-none rounded-sm",
-                ))}
+                className={"text-dark/60 h-full field-sizing-content min-h-16 max-h-90 resize-none outline-none rounded-sm"}
                 disabled={!isActive}
                 maxLength={maxLength}
                 spellCheck={false}

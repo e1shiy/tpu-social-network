@@ -1,9 +1,8 @@
 import {useState, type FC, type HTMLAttributes, useRef, type Ref} from 'react';
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
 import {useClickOutside} from "../../hooks";
 import Fade from "../wrappers/animations/Fade.tsx";
 import {AnimatePresence} from "framer-motion";
+import {cn} from "../../utils/cn.ts";
 
 export interface TriggerProps extends HTMLAttributes<HTMLElement> {
     onClick?: () => void;
@@ -33,10 +32,10 @@ function DropdownButton({Trigger, Content, className}: DropdownButtonProps) {
             <AnimatePresence>
                 {isActive &&
                     <Fade>
-                        <Content className={twMerge(clsx(
+                        <Content className={cn(
                             "absolute top-full translate-y-1.25 md:translate-y-1.75 xl:translate-y-2.5 w-full",
                             className
-                        ))}/>
+                        )}/>
                     </Fade>
                 }
             </AnimatePresence>

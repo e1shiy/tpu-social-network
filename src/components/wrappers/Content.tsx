@@ -1,5 +1,4 @@
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
+import {cn} from "../../utils/cn.ts";
 
 interface ContentProps {
     className?: string,
@@ -8,10 +7,10 @@ interface ContentProps {
 
 function Content({className, children}: ContentProps) {
     return(
-        <div className={twMerge(clsx(
+        <div className={cn(
             "grow overflow-y-auto",
             className
-        ))}>
+        )}>
             {children}
         </div>
     )

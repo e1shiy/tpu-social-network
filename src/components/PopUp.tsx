@@ -3,9 +3,8 @@ import InfoIcon from "../assets/images/info.svg?react"
 import ErrorIcon from "../assets/images/error.svg?react"
 import SuccessIcon from "../assets/images/accept.svg?react"
 import {useCallback, useEffect, useRef, useState} from "react";
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
 import {motion, useAnimation} from "framer-motion";
+import {cn} from "../utils/cn.ts";
 
 interface PopUpProps {
     id: number,
@@ -71,13 +70,14 @@ function PopUp({children, status, onClose, id}: PopUpProps) {
             onMouseLeave={() => setIsPaused(false)}
         >
             {children}
-            <Icon className={twMerge(clsx("h-4 md:h-4.5 xl:h-5 shrink-0", iconColor))}/>
+            <Icon className={cn("h-4 md:h-4.5 xl:h-5 shrink-0", iconColor)}/>
             <motion.span
                 initial={{width: "90%"}}
                 animate={animation}
-                className={twMerge(clsx(
-                    "absolute left-1/2 -translate-x-1/2 bottom-1.5 h-0.5 lg:h-1 rounded-full", timelineColor
-                ))}
+                className={cn(
+                    "absolute left-1/2 -translate-x-1/2 bottom-1.5 h-0.5 lg:h-1 rounded-full",
+                    timelineColor
+                )}
             />
         </Card>
     )

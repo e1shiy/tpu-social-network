@@ -8,10 +8,9 @@ import {type NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks";
 import {useLocation} from "react-router-dom";
 import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
-import clsx from "clsx";
-import {twMerge} from "tailwind-merge";
 import redirectToExternalAuth from "../services/authService.ts";
 import {useStore} from "../store/store.ts";
+import {cn} from "../utils/cn.ts";
 
 function Header() {
     const {userId} = useStore()
@@ -32,10 +31,10 @@ function Header() {
         <div className="w-full shadow sticky top-0 bg-white z-100">
             <div className="container flex items-center justify-between gap-7.5">
                 <Logo/>
-                <div className={twMerge(clsx(`
-                flex w-full justify-end items-center
-                gap-1.75 sm:gap-2.5 md:gap-3.5 lg:gap-4.65 xl:gap-6 2xl:gap-7.5
-                `))}>
+                <div className={cn(
+                    "flex w-full justify-end items-center",
+                    "gap-1.75 sm:gap-2.5 md:gap-3.5 lg:gap-4.65 xl:gap-6 2xl:gap-7.5"
+                )}>
                     {navLinks}
                     <Button className="basis-25 lg:basis-50" TrailingIcon={SearchIcon}>
                         Поиск

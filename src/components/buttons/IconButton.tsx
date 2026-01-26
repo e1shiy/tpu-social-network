@@ -1,5 +1,4 @@
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
+import {cn} from "../../utils/cn.ts";
 
 interface IconButtonProps {
     className?: string,
@@ -9,10 +8,10 @@ interface IconButtonProps {
     onClick?: () => void;
 }
 
-const baseStyles = twMerge(clsx(
+const baseStyles = cn(
     "h-3.5 md:h-4 lg:h-5 2xl:h-6",
     "text-dark cursor-pointer active:opacity-60 focus:outline-none"
-))
+)
 
 const colorSchemes = {
     "dark": (isActive: boolean) => isActive ? "text-dark" : "text-dark/60 hover:text-dark",
@@ -25,11 +24,11 @@ function IconButton({className, Icon, color="dark", isActive=false, onClick} : I
 
     return(
         <Icon
-            className={twMerge(clsx(
+            className={cn(
                 baseStyles,
                 colorStyles(isActive),
                 className
-            ))}
+            )}
             onClick={onClick}
         />
     )

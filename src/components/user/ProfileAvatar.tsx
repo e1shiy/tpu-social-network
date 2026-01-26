@@ -1,5 +1,3 @@
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
 import CameraIcon from "../../assets/images/camera.svg?react"
 import TrashIcon from "../../assets/images/trash.svg?react"
 import Button from "../buttons/Button.tsx";
@@ -12,6 +10,7 @@ import {useStore} from "../../store/store.ts";
 import FileUploader from "../FileUploader.tsx";
 import {ALLOWED_TYPES} from "../../constants/services/avatarValidator.ts";
 import {validateAvatar} from "../../services/avatarValidator.ts";
+import {cn} from "../../utils/cn.ts";
 
 interface UserProfileAvatarProps {
     isOnline?: boolean,
@@ -72,24 +71,24 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                 onChange={handleUploaderChange}
             >
                 <div
-                    className={twMerge(clsx(
+                    className={cn(
                         baseStyles, ringStyles, isOnline && greenCircleStyles, "group/wrapper",
                         isMyProfile && "hover:cursor-pointer hover:before:blur-[1px] group-hover:after:bg-dark/30",
                         isMyProfile && isContextMenuOpen && "before:blur-[1px] after:bg-dark/30"
-                    ))}
+                    )}
                 >
-                    <img className={twMerge(clsx(
+                    <img className={cn(
                         "aspect-square h-full rounded-full",
                         isMyProfile && "group-hover:blur-[1px]",
                         isMyProfile && isContextMenuOpen && "blur-[1px]"
-                    ))} src={avatarUrl} alt="avatar"/>
+                    )} src={avatarUrl} alt="avatar"/>
                     {isMyProfile && <CameraIcon
-                        className={twMerge(clsx(
+                        className={cn(
                             "absolute z-11 w-3/7 inset-1/2 -translate-1/2 stroke-1 text-light",
                             isContextMenuOpen ?
                                 "opacity-100 group-active/wrapper:opacity-50" :
                                 "opacity-0 group-hover:opacity-100 group-hover:group-active/wrapper:opacity-50"
-                        ))}
+                        )}
                     />}
                 </div>
             </FileUploader>
@@ -97,11 +96,11 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
             {
                 isMyProfile && <Button
                     color={"error"}
-                    className={twMerge(clsx(
+                    className={cn(
                         "absolute w-max -translate-x-1/2 translate-y-full left-1/2 -bottom-2",
                         "invisible opacity-0 group-hover:visible group-hover:opacity-100",
                         isContextMenuOpen && "visible opacity-100"
-                    ))}
+                    )}
                     TrailingIcon={TrashIcon}
                     onClick={() => setIsModalOpen(true)}
                 >

@@ -1,5 +1,4 @@
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
+import {cn} from "../../utils/cn.ts";
 
 interface TextButtonProps {
     children?: React.ReactNode,
@@ -18,11 +17,11 @@ const colorSchemes = {
 function TextButton({children, className, onClick, color="dark", isActive=false} : TextButtonProps) {
     const colorStyles = colorSchemes[color]
     return(
-        <button className={twMerge(clsx(
+        <button className={cn(
             `font-bold cursor-pointer active:opacity-60`,
             colorStyles(isActive),
             className
-        ))} onClick={onClick}>
+        )} onClick={onClick}>
             {children}
         </button>
     )

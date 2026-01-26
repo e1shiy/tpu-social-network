@@ -10,19 +10,18 @@ import isCorrectLocation from "../../utils/isCorrectLocation.ts";
 import {useLocation} from "react-router-dom";
 import {FRIENDS_ROUTE, PROFILE_ROUTE} from "../../constants";
 import DropdownButton, {type ContentProps, type TriggerProps} from "../buttons/DropdownButton.tsx";
-import {twMerge} from "tailwind-merge";
-import clsx from "clsx";
 import Button from "../buttons/Button.tsx";
 import {useUserId} from "../../hooks";
 import {useStore} from "../../store/store.ts";
 import {useGetUserPreview} from "../../api";
 import {FALLBACK_USER_PREVIEW} from "../../constants/api/users.ts";
+import {cn} from "../../utils/cn.ts";
 
 function UserDropdown() {
     const {onFriendsClick, onProfileClick}: NavHandlers = useNavHandlers()
     const location = useLocation()
 
-    const { logout } = useStore()
+    const {logout} = useStore()
     const userId = useUserId()
     const {data} = useGetUserPreview()
     const userPreview = data ?? FALLBACK_USER_PREVIEW
@@ -30,27 +29,29 @@ function UserDropdown() {
     return (
         <DropdownButton
             Trigger={({isActive, onClick, className}: TriggerProps) => <Button
-                className={twMerge(clsx(
-                    `py-[0.3125rem] sm:py-[0.32rem] md:py-[0.33rem] lg:py-[0.345rem] xl:py-[0.36rem] 2xl:py-[0.375rem] max-sm:w-max sm:w-full`,
+                className={cn(
+                    "py-[0.3125rem] sm:py-[0.32rem] md:py-[0.33rem] lg:py-[0.345rem] xl:py-[0.36rem] 2xl:py-[0.375rem]",
+                    "max-sm:w-max sm:w-full",
                     className
-                ))}
+                )}
                 onClick={onClick}
             >
                 <img src={userPreview.avatarUrl} className="aspect-square h-full rounded-full shrink-0" alt="avatar"/>
-                <span className={twMerge(clsx("max-sm:hidden text-ellipsis text-nowrap overflow-hidden"))}
-                >
-            {userPreview.surname} {userPreview.name}
-        </span>
-                <ChevronRight className={twMerge(clsx(
-                    `h-4 sm:h-4.5 md:h-5 lg:h-5.3 xl:h-5.6 2xl:h-6 aspect-square text-current transition-transform shrink-0`,
+                <span className={"max-sm:hidden text-ellipsis text-nowrap overflow-hidden"}>
+                    {userPreview.surname} {userPreview.name}
+                </span>
+                <ChevronRight className={cn(
+                    "h-4 sm:h-4.5 md:h-5 lg:h-5.3 xl:h-5.6 2xl:h-6",
+                    "aspect-square text-current transition-transform shrink-0",
                     isActive && "rotate-90"
-                ))}/>
+                )}/>
             </Button>}
 
             Content={({className, ref}: ContentProps) => <ButtonMenu
-                className={twMerge(clsx(
-                    `rounded-md md:rounded-lg lg:rounded-[0.625rem] min-w-max right-0`, className
-                ))}
+                className={cn(
+                    "rounded-md md:rounded-lg lg:rounded-[0.625rem] min-w-max right-0",
+                    className
+                )}
                 ref={ref}
                 buttons={[
                     {

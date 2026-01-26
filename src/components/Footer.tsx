@@ -9,36 +9,36 @@ import {useLocation} from "react-router-dom";
 import isCorrectLocation from "../utils/isCorrectLocation.ts";
 import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
 
+const buttonStyle = "grow py-2 sm:py-2 md:py-2"
+
 function Footer() {
     const {onMessengerClick, onCommunitiesClick, onScheduleClick, onInboxClick}: NavHandlers = useNavHandlers()
     const location = useLocation()
 
     return (
         <ButtonMenu
-            className={`
-            flex-row w-full sticky bottom-0 lg:hidden z-100
-            `}
+            className={"flex-row w-full sticky bottom-0 lg:hidden z-100"}
             buttons={[
                 {
-                    className: "grow py-2 sm:py-2 md:py-2",
+                    className: buttonStyle,
                     TrailingIcon: MessengerIcon,
                     onClick: onMessengerClick,
                     isActive: isCorrectLocation(MESSENGER_ROUTE, location)
                 },
                 {
-                    className: "grow py-2 sm:py-2 md:py-2",
+                    className: buttonStyle,
                     TrailingIcon: CommunitiesIcon,
                     onClick: onCommunitiesClick,
                     isActive: isCorrectLocation(COMMUNITIES_ROUTE, location)
                 },
                 {
-                    className: "grow py-2 sm:py-2 md:py-2",
+                    className: buttonStyle,
                     TrailingIcon: ScheduleIcon,
                     onClick: onScheduleClick,
                     isActive: isCorrectLocation(SCHEDULE_ROUTE, location)
                 },
                 {
-                    className: "grow py-2 sm:py-2 md:py-2",
+                    className: buttonStyle,
                     TrailingIcon: InboxIcon,
                     onClick: onInboxClick,
                     isActive: isCorrectLocation(INBOX_ROUTE, location)
