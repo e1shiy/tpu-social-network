@@ -5,7 +5,7 @@ import AddFriendIcon from "../../assets/images/user-plus.svg?react"
 import MessageIcon from "../../assets/images/message-circle.svg?react"
 import {useState} from "react";
 import {useIsMyProfile} from "../../hooks";
-import ProfilePostCreator from "./ProfilePostCreator.tsx";
+import ProfilePostCreator from "../post/PostCreator.tsx";
 
 function Profile() {
     const [isInfoActive, setIsInfoActive] = useState(false)

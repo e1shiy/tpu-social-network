@@ -1,0 +1,107 @@
+import SendIcon from "../../assets/images/send.svg?react"
+import PhotoIcon from "../../assets/images/camera.svg?react"
+import VideoIcon from "../../assets/images/video.svg?react"
+import FileIcon from "../../assets/images/file.svg?react"
+import {ChangeEvent, useState} from "react";
+import Card from "../wrappers/Card.tsx";
+import IconButton from "../buttons/IconButton.tsx";
+import Button from "../buttons/Button.tsx";
+import {cn} from "../../utils/cn.ts";
+import {FILE_TYPES, IMAGE_TYPES, VIDEO_TYPES} from "../../constants/services/fileTypes.ts";
+import FileUploader from "../FileUploader.tsx";
+import {AnimatePresence} from "framer-motion";
+import {useStore} from "../../store/store.ts";
+import {validatePostAttachment} from "../../services/fileValidator.ts";
+import PostCreatorAttachment, {PostAttachment} from "./PostCreatorAttachment.tsx";
+
+function ProfilePostCreator() {
+    const {showPopUp} = useStore()
+
+    const createPost = () => {
+        setAttachments([])
+        setIsMediaLayerOpen(false)
+        setValue("")
+        showPopUp("Пост опубликован", "success")
+    }
+    const [value, setValue] = useState("")
+    const [attachments, setAttachments] = useState<PostAttachment[]>([])
+    const [isMediaLayerOpen, setIsMediaLayerOpen] = useState(false)
+
+    const uploadAttachment = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return
+
+        const files = Array.from(e.target.files)
+        const newAttachments: PostAttachment[] = []
+        for (const file of files) {
+            if (attachments.length + newAttachments.length === 10) {
+                showPopUp("Нельзя загрузить более 10 вложений", "error")
+                break
+            }
+            const {data, isError} = validatePostAttachment(file)
+            if (isError) {
+                data.forEach(message => showPopUp(message, "error"))
+                continue
+            }
+            const id = String(Date.now() * Math.random()) // todo crypto.randomUUID()
+            // const id = crypto.randomUUID()
+            const previewSrc = data[0]
+            newAttachments.push({id, file, previewSrc})
+        }
+        setAttachments(a => [...a, ...newAttachments])
+        setIsMediaLayerOpen(true)
+        e.target.value = ""
+    }
+
+    return (
+        <Card className={"flex flex-col gap-3.75 md:gap-5 pb-2.5 md:pb-3.75 lg:pb-4.5 xl:pb-5"}>
+            <div className={cn(
+                "flex flex-wrap gap-2 md:gap-3",
+                !isMediaLayerOpen && "hidden"
+            )}>
+                <AnimatePresence onExitComplete={() => !attachments.length && setIsMediaLayerOpen(false)}>
+                    {attachments.map(a => (
+                        <PostCreatorAttachment
+                            key={a.id}
+                            onClose={() => setAttachments(at => at.filter(attachment => attachment.id !== a.id))}
+                            file={a.file}
+                            previewSrc={a.previewSrc}
+                        />
+                    ))}
+                </AnimatePresence>
+            </div>
+            <textarea
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder={"Текст нового поста"}
+                maxLength={2000}
+                className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-50 field-sizing-content resize-none outline-none"}
+            />
+            <div className={"flex gap-1 justify-between items-center w-full"}>
+                <div className="flex gap-2.5 md:gap-3.75">
+                    <FileUploader accept={IMAGE_TYPES.join(", ")} multiple onChange={uploadAttachment}>
+                        <Button LeadingIcon={PhotoIcon} color={"dark"} size={"small"}>Фото</Button>
+                    </FileUploader>
+
+                    <FileUploader accept={VIDEO_TYPES.join(", ")} multiple onChange={uploadAttachment}>
+                        <Button LeadingIcon={VideoIcon} color={"dark"} size={"small"}>Видео</Button>
+                    </FileUploader>
+
+                    <FileUploader accept={FILE_TYPES.join(", ")} multiple onChange={uploadAttachment}>
+                        <Button LeadingIcon={FileIcon} color={"dark"} size={"small"}>Файл</Button>
+                    </FileUploader>
+                </div>
+
+                <IconButton
+                    Icon={SendIcon}
+                    className={cn(
+                        "aspect-square flex rotate-45 text-dark shrink-0",
+                        !value.length && !attachments.length && "cursor-default opacity-60"
+                    )}
+                    onClick={() => (value.length || attachments.length) && createPost()}
+                />
+            </div>
+        </Card>
+    )
+}
+
+export default ProfilePostCreator
