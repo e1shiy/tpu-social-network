@@ -1,15 +1,14 @@
 import {useEffect} from "react";
 import BaseModal from "./BaseModal.tsx";
-import {AnimatePresence} from "framer-motion";
-import Fade from "./wrappers/animations/Fade.tsx";
 
 interface ModalProps {
     children: React.ReactNode,
+    isOpened: boolean,
     onOpen?: () => void,
     onClose?: () => void
 }
 
-function Modal({children, onClose, onOpen}: ModalProps) {
+function Modal({children, isOpened, onClose, onOpen}: ModalProps) {
     useEffect(() => {
         onOpen?.()
         const handleEsc = (e: KeyboardEvent) => e.code === "Escape" && onClose?.()
@@ -21,22 +20,20 @@ function Modal({children, onClose, onOpen}: ModalProps) {
         }
     }, [])
 
-    return(
+    return (
         <BaseModal>
-            <AnimatePresence>
-                <Fade>
-                    <div
-                        onClick={onClose}
-                        className={"fixed inset-0 flex-center w-screen h-screen bg-dark/60"}
-                        role={"dialog"}
-                        aria-modal={"true"}
-                    >
-                        <div onClick={(e) => e.stopPropagation()}>
-                            {children}
-                        </div>
+            {isOpened &&
+                <div
+                    onClick={onClose}
+                    className={"fixed inset-0 flex-center w-screen h-[100dvh] backdrop-blur-[2px] bg-dark/60"}
+                    role={"dialog"}
+                    aria-modal={"true"}
+                >
+                    <div onClick={(e) => e.stopPropagation()}>
+                        {children}
                     </div>
-                </Fade>
-            </AnimatePresence>
+                </div>
+            }
         </BaseModal>
     )
 }

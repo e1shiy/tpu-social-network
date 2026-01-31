@@ -109,24 +109,21 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                 </Button>
             }
 
-            {
-                isModalOpen &&
-                <Modal onClose={() => setIsModalOpen(false)}>
-                    <Card className={"flex-center flex-col gap-4 text-center"}>
-                        <div>
-                            <h4>Удалить фото профиля?</h4>
-                            <p className={"text-dark/60"}>Это действие нельзя будет отменить</p>
-                        </div>
-                        <div className={"flex w-full justify-between items-center gap-3 md:gap-3.5 xl:gap-4"}>
-                            <TextButton className={"grow"} color={"primary"} onClick={deleteAvatar}>Удалить</TextButton>
-                            <TextButton className={"grow "} color={"error"} onClick={() => {
-                                setIsModalOpen(false)
-                                setIsContextMenuOpen(false)
-                            }}>Отмена</TextButton>
-                        </div>
-                    </Card>
-                </Modal>
-            }
+            <Modal isOpened={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <Card className={"flex-center flex-col gap-4 text-center"}>
+                    <div>
+                        <h4>Удалить фото профиля?</h4>
+                        <p className={"text-dark/60"}>Это действие нельзя будет отменить</p>
+                    </div>
+                    <div className={"flex w-full justify-between items-center gap-3 md:gap-3.5 xl:gap-4"}>
+                        <TextButton className={"grow"} color={"primary"} onClick={deleteAvatar}>Удалить</TextButton>
+                        <TextButton className={"grow"} color={"error"} onClick={() => {
+                            setIsModalOpen(false)
+                            setIsContextMenuOpen(false)
+                        }}>Отмена</TextButton>
+                    </div>
+                </Card>
+            </Modal>
         </div>
     )
 }
