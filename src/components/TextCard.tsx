@@ -8,6 +8,7 @@ import {AnimatePresence} from "framer-motion";
 import Fade from "./wrappers/animations/Fade.tsx";
 import Bubble from "./wrappers/animations/Bubble.tsx";
 import {cn} from "../utils/cn.ts";
+import {copy} from "../utils/copy.ts";
 
 interface TextCardProps {
     text: string,
@@ -24,20 +25,8 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
 
     const [isCopied, setIsCopied] = useState(false)
     const [isCopyError, setIsCopyError] = useState(false)
-    const handleCopy = async () => {
-        try {
-            setIsCopyError(false)
 
-            await navigator.clipboard.writeText(value);
-            setIsCopied(true);
-
-            setTimeout(() => setIsCopied(false), 2000);
-        } catch (e) {
-            setIsCopyError(true)
-            setTimeout(() => setIsCopyError(false), 2000);
-            console.error("Error while copying: " + e)
-        }
-    }
+    const handleCopy = copy(value, setIsCopied, setIsCopyError)
 
     return (
         <div className={cn(

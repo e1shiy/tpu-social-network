@@ -24,7 +24,8 @@ interface DropdownButtonProps {
 function DropdownButton({Trigger, Content, className}: DropdownButtonProps) {
     const [isActive, setIsActive] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
-    useClickOutside(dropdownRef, () => setIsActive(false))
+    const callback = () => setIsActive(false)
+    useClickOutside(dropdownRef, callback)
 
     return (
         <div className={"relative"} ref={dropdownRef}>

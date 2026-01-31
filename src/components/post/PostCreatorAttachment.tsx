@@ -18,7 +18,8 @@ function PostCreatorAttachment({file, previewSrc, onClose} : PostCreatorAttachme
     const [isContextMenuOpen, setIsContextMenuOpen] = useState(false)
 
     const ref = useRef<HTMLDivElement>(null)
-    useClickOutside(ref, () => setIsContextMenuOpen(false))
+    const callback = () => setIsContextMenuOpen(false)
+    useClickOutside(ref, callback)
 
     return(
         <Fade
@@ -42,8 +43,8 @@ function PostCreatorAttachment({file, previewSrc, onClose} : PostCreatorAttachme
             />
             <CloseCircleIcon
                 className={cn(
-                    "abs-center aspect-square w-7.5 md:w-8 xl:w-10 z-2 stroke-1",
-                    "text-light hover:text-light/80 hover:cursor-pointer active:text-light/60",
+                    "abs-center aspect-square w-2/5 z-2 stroke-1",
+                    "text-light cursor-pointer hover:text-light/80 active:text-light/60",
                     "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto",
                     isContextMenuOpen && "opacity-100 pointer-events-auto"
                 )}

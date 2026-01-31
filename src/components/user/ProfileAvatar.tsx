@@ -28,7 +28,8 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     const {showPopUp} = useStore()
 
     const ref = useRef<HTMLDivElement>(null)
-    useClickOutside(ref, () => setIsContextMenuOpen(false))
+    const callback = () => setIsContextMenuOpen(false)
+    useClickOutside(ref, callback)
 
     const deleteAvatar = () => {
         // todo delete avatar
