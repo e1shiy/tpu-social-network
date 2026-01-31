@@ -20,15 +20,18 @@ function App() {
             <BrowserRouter basename={"/tpu-social-network/"}>
                 <Routes>
                     <Route element={<ProtectedRoute/>}>
-                        <Route path="/messenger/:id?" element={<MessengerPage />} />
-                        <Route path="/friends" element={<FriendsPage />} />
-                        <Route path="/" element={<Navigate to={`/${userId}`} />} />
+                        <Route path="/messenger/:id?" element={<MessengerPage/>}/>
+                        <Route path="/friends" element={<FriendsPage/>}/>
+                        <Route path="/" element={<Navigate to={`/${userId}`}/>}/>
                     </Route>
 
-                    <Route path="/communities/:id?" element={<CommunitiesPage />} />
-                    <Route path="/:id" element={<ProfilePage />} />
+                    <Route path="/communities/:id?" element={<CommunitiesPage/>}/>
+                    <Route path="/:id" element={<ProfilePage/>}>
+                        <Route path="posts" element={<ProfilePage/>}/>
+                        <Route path="posts/:postId" element={<ProfilePage/>}/>
+                    </Route>
 
-                    <Route path="*" element={<NotFoundPage />} />
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>
