@@ -13,23 +13,8 @@ function Profile() {
 
     return(
         <div className="container flex flex-col gap-2.5 md:gap-4 lg:gap-5">
-            {isMyProfile ?
-                <>
-                    <ProfileHeader isInfoActive={isInfoActive} actions={
-                        <Button TrailingIcon={InfoIcon} isActive={isInfoActive} onClick={() => setIsInfoActive(i => !i)} className="w-full">Подробнее</Button>
-                    }/>
-                    <ProfilePostCreator/>
-                </> :
-                <ProfileHeader isInfoActive={isInfoActive} actions={
-                    <div className="flex gap-1.25 max-w-full">
-                        <Button TrailingIcon={MessageIcon} className="w-full text-nowrap">Написать сообщение</Button>
-                        <Button TrailingIcon={AddFriendIcon} className="sm:w-1/2">
-                            <span className="max-sm:hidden md:hidden text-nowrap">Добавить в друзья</span>
-                        </Button>
-                        <Button TrailingIcon={InfoIcon} onClick={() => setIsInfoActive(i => !i)} isActive={isInfoActive} />
-                    </div>
-                }/>
-            }
+            <ProfileHeader/>
+            {isMyProfile && <ProfilePostCreator/>}
         </div>
     )
 }

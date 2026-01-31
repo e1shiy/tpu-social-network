@@ -1,17 +1,18 @@
 import avatarUrl from "../../assets/images/user-avatar.jpg";
+import InfoIcon from "../../assets/images/info.svg?react"
+import AddFriendIcon from "../../assets/images/user-plus.svg?react"
+import MessageIcon from "../../assets/images/message-circle.svg?react"
 import TextButton from "../buttons/TextButton.tsx";
 import Card from "../wrappers/Card.tsx";
 import ProfileInfo from "./ProfileInfo.tsx";
 import ProfileAvatar from "./ProfileAvatar.tsx";
 import SlideDown from "../wrappers/animations/SlideDown.tsx";
 import {AnimatePresence} from "framer-motion";
+import {useState} from "react";
+import {useIsMyProfile} from "../../hooks";
+import Button from "../buttons/Button.tsx";
 
-interface UserProfileHeaderProps {
-    actions?: React.ReactNode,
-    isInfoActive: boolean,
-}
-
-function ProfileHeader({actions, isInfoActive = false}: UserProfileHeaderProps) {
+function ProfileHeader() {
     // todo user info
     const userAvatarUrl = avatarUrl
     const userName = "Веретнов Алексей"
@@ -21,11 +22,34 @@ function ProfileHeader({actions, isInfoActive = false}: UserProfileHeaderProps) 
     const userGroup = "8К43"
     const userCourse = "Программная инженерия"
     const userClass = "2"
+    const userFriendsCount = 25345
+    const userSubsCount = 3
+
+    const isMyProfile = useIsMyProfile()
+    const [isInfoActive, setIsInfoActive] = useState(false)
 
     const userShared = <>
-        <TextButton className="text-dark/60 font-normal truncate max-w-full">25345 друзей</TextButton>
-        <TextButton className="text-dark/60 font-normal truncate max-w-full">3 подписки</TextButton>
+        <TextButton className="text-dark/60 font-normal truncate max-w-full">{userFriendsCount} друзей</TextButton>
+        <TextButton className="text-dark/60 font-normal truncate max-w-full">{userSubsCount} подписки</TextButton>
     </>
+
+    const actions = isMyProfile ? (
+        <Button
+            TrailingIcon={InfoIcon}
+            isActive={isInfoActive} onClick={() => setIsInfoActive(i => !i)}
+            className="w-full"
+        >
+            Подробнее
+        </Button>
+    ) : (
+        <div className="flex gap-1.25 max-w-full">
+            <Button TrailingIcon={MessageIcon} className="w-full text-nowrap">Написать сообщение</Button>
+            <Button TrailingIcon={AddFriendIcon} className="sm:w-1/2">
+                <span className="max-sm:hidden md:hidden text-nowrap">Добавить в друзья</span>
+            </Button>
+            <Button TrailingIcon={InfoIcon} onClick={() => setIsInfoActive(i => !i)} isActive={isInfoActive}/>
+        </div>
+    )
 
     return (
         <Card className={`w-full flex flex-col items-stretch gap-4 md:gap-5`}>
