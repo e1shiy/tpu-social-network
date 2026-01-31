@@ -8,6 +8,7 @@ import {AnimatePresence} from "framer-motion";
 import Fade from "./wrappers/animations/Fade.tsx";
 import Bubble from "./wrappers/animations/Bubble.tsx";
 import {cn} from "../utils/cn.ts";
+import Textarea from "./Textarea.tsx";
 import {copy} from "../utils/copy.ts";
 
 interface TextCardProps {
@@ -36,10 +37,10 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
         )}>
             <div className="flex w-full h-max items-center justify-between gap-1.5 md:gap-2.5">
                 <h5>{title}</h5>
-                <div className={"flex gap-2 md:gap-3"}>
+                <div className={"flex gap-2 lg:gap-3"}>
                     <AnimatePresence mode="popLayout" initial={false}>
                         {isActive ? (
-                            <div key="active-actions" className="flex gap-1.5 md:gap-2.5">
+                            <div key="editing-actions" className="flex gap-1.5 md:gap-2.5">
                                 <Fade key={"saveChanges"}>
                                     <Bubble>
                                         <IconButton
@@ -70,7 +71,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                         ) : (
                             <div key="edit-action">
                                 {!isReadonly && (
-                                    <Fade key={"editBio"}>
+                                    <Fade key={"edit"}>
                                         <Bubble>
                                             <IconButton
                                                 Icon={EditIcon}
@@ -82,7 +83,6 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                             </div>
                         )}
                     </AnimatePresence>
-
                     <AnimatePresence mode="popLayout" initial={false}>
                         {!isActive && (
                             isCopied ? (
@@ -126,8 +126,8 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                 </div>
             </div>
 
-            <textarea
-                className={"text-dark/60 h-full field-sizing-content min-h-16 max-h-90 resize-none outline-none rounded-sm"}
+            <Textarea
+                className={"text-dark/60 h-full min-h-16 max-h-90 rounded-sm"}
                 disabled={!isActive}
                 maxLength={maxLength}
                 spellCheck={false}

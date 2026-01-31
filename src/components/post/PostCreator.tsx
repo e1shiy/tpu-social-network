@@ -13,6 +13,7 @@ import {AnimatePresence} from "framer-motion";
 import {useStore} from "../../store/store.ts";
 import {validatePostAttachment} from "../../services/fileValidator.ts";
 import PostCreatorAttachment, {PostAttachment} from "./PostCreatorAttachment.tsx";
+import Textarea from "../Textarea.tsx";
 
 function ProfilePostCreator() {
     const {showPopUp} = useStore()
@@ -69,12 +70,12 @@ function ProfilePostCreator() {
                     ))}
                 </AnimatePresence>
             </div>
-            <textarea
+            <Textarea
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder={"Текст нового поста"}
                 maxLength={2000}
-                className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-50 field-sizing-content resize-none outline-none"}
+                className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-50"}
             />
             <div className={"flex gap-1 justify-between items-center w-full"}>
                 <div className="flex gap-2.5 md:gap-3.75">
