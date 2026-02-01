@@ -7,10 +7,10 @@ import {motion, useAnimation} from "framer-motion";
 import {cn} from "../utils/cn.ts";
 
 interface PopUpProps {
-    id: number,
+    id: number | string,
     children: React.ReactNode,
     status: keyof typeof IconVariants,
-    onClose: (id: number) => void
+    onClose: (id: number | string) => void
 }
 
 const IconVariants = {
