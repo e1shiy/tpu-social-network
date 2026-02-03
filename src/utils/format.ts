@@ -1,0 +1,1 @@
+export const formatBytesToMB = (bytes: number) => (bytes / 1024 / 1024).toFixed(0)
