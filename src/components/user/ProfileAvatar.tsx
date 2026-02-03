@@ -8,8 +8,8 @@ import Card from "../wrappers/Card.tsx";
 import TextButton from "../buttons/TextButton.tsx";
 import {useStore} from "../../store/store.ts";
 import FileUploader from "../FileUploader.tsx";
-import {IMAGE_TYPES} from "../../constants/services/fileTypes.ts";
-import {validateAvatar} from "../../services/fileValidator.ts";
+import {IMAGE_TYPES} from "../../constants/services/mediaFiles.ts";
+import {validateAvatar, ValidateResponse} from "../../services/mediaValidateService.ts";
 import {cn} from "../../utils/cn.ts";
 
 interface UserProfileAvatarProps {
@@ -49,15 +49,16 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
             inputRef.current?.click()
         }
     }
-    const handleUploaderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleUploaderChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file) {
-            const {data} = validateAvatar(file)
-            if (data.length) {
-                data.forEach(message => showPopUp(message, "error"))
-            } else {
-                // todo upload avatar
+            const validate: ValidateResponse = await validateAvatar(file)
+            if (validate.isValid) {
+                const avatarMediaFile = validate.data // todo upload avatar
                 showPopUp("Новое фото профиля загружено", "success")
+            } else {
+                const errors = validate.errors
+                errors.forEach(message => showPopUp(message, "error"))
             }
         }
         e.target.value = ""

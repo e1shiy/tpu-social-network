@@ -8,6 +8,7 @@ import Post from "../post/Post.tsx";
 import {useEffect, useRef} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {NOT_FOUND_ROUTE} from "../../constants";
+import {useImmer} from "use-immer";
 
 function Profile() {
     const isMyProfile = useIsMyProfile()
@@ -19,34 +20,21 @@ function Profile() {
             attachments: [{
                 id: 1,
                 type: "image",
+                file: null,
+                previewUrl: PostImageUrl,
+                sourceUrl: PostImageUrl,
+                name: "user-avatar.jpg",
                 width: 240,
                 height: 240,
-                name: "user-avatar.jpg",
-                size: 20726,
-                url: PostImageUrl
-            }, {
-                id: 2,
-                type: "document",
-                name: "PNG_-SVG.zip",
-                size: 2094840,
-                url: "tpu-social-network/src/assets/PNG_-SVG.zip"
-            }, {
-                id: 3,
-                type: "video",
-                name: "2025-12-04 22-54-40.mp4",
-                size: 19216345,
-                url: "tpu-social-network/src/assets/2025-12-04 22-54-40.mp4",
-                width: 1920,
-                height: 1080,
-                duration: 17
             }, {
                 id: 4,
                 type: "image",
+                file: null,
+                previewUrl: PostImageUrl2,
+                sourceUrl: PostImageUrl2,
+                name: "123.jpg",
                 width: 240,
                 height: 240,
-                name: "123.jpg",
-                size: 20726,
-                url: PostImageUrl2
             }]
         },
         details: {
@@ -75,6 +63,20 @@ function Profile() {
         <div className="container flex flex-col gap-2.5 md:gap-4 lg:gap-5">
             <ProfileHeader/>
             {isMyProfile && <ProfilePostCreator/>}
+            <div className={"contents"} ref={postsRef}>
+                {posts.map(post => (
+                    <Post
+                        key={post.id}
+                        onContentChange={content => setPosts(draft => { // todo api post change
+                            const postToChange = draft.find(po => po.id === post.id)
+                            if (postToChange) {
+                                postToChange.content = content
+                            }
+                        })}
+                        {...post}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
