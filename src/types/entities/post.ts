@@ -1,6 +1,6 @@
 import type {Reaction} from "./reaction.ts";
 import type {UserPreview} from "./user.ts";
-import type {MediaFile} from "../entities";
+import type {MediaFile} from "./index.ts";
 
 export type BasePostPreview = {
     id: number;

@@ -7,13 +7,14 @@ import Card from "../wrappers/Card.tsx";
 import IconButton from "../buttons/IconButton.tsx";
 import Button from "../buttons/Button.tsx";
 import {cn} from "../../utils/cn.ts";
-import {FILE_TYPES, IMAGE_TYPES, VIDEO_TYPES} from "../../constants/services/fileTypes.ts";
+import {AUDIO_TYPES, DOCUMENT_TYPES, IMAGE_TYPES, VIDEO_TYPES} from "../../constants/services/mediaFiles.ts";
 import FileUploader from "../FileUploader.tsx";
 import {AnimatePresence} from "framer-motion";
 import {useStore} from "../../store/store.ts";
-import {validatePostAttachment} from "../../services/fileValidator.ts";
-import PostCreatorAttachment, {PostAttachment} from "./PostCreatorAttachment.tsx";
+import {validatePostAttachment} from "../../services/mediaValidateService.ts";
 import Textarea from "../Textarea.tsx";
+import {MediaFile} from "../../types/entities";
+import PostAttachment from "./attachment/PostAttachment.tsx";
 
 function ProfilePostCreator() {
     const {showPopUp} = useStore()
@@ -25,28 +26,26 @@ function ProfilePostCreator() {
         showPopUp("Пост опубликован", "success")
     }
     const [value, setValue] = useState("")
-    const [attachments, setAttachments] = useState<PostAttachment[]>([])
+    const [attachments, setAttachments] = useState<MediaFile[]>([])
     const [isMediaLayerOpen, setIsMediaLayerOpen] = useState(false)
 
-    const uploadAttachment = (e: ChangeEvent<HTMLInputElement>) => {
+    const uploadAttachment = async (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return
 
         const files = Array.from(e.target.files)
-        const newAttachments: PostAttachment[] = []
+        const newAttachments: MediaFile[] = []
         for (const file of files) {
             if (attachments.length + newAttachments.length === 10) {
                 showPopUp("Нельзя загрузить более 10 вложений", "error")
                 break
             }
-            const {data, isError} = validatePostAttachment(file)
-            if (isError) {
-                data.forEach(message => showPopUp(message, "error"))
-                continue
+
+            const validate = await validatePostAttachment(file)
+            if (validate.isValid) {
+                newAttachments.push(validate.data)
+            } else {
+                validate.errors.forEach(message => showPopUp(message, "error"))
             }
-            const id = String(Date.now() * Math.random()) // todo crypto.randomUUID()
-            // const id = crypto.randomUUID()
-            const previewSrc = data[0]
-            newAttachments.push({id, file, previewSrc})
         }
         setAttachments(a => [...a, ...newAttachments])
         setIsMediaLayerOpen(true)
@@ -61,11 +60,15 @@ function ProfilePostCreator() {
             )}>
                 <AnimatePresence onExitComplete={() => !attachments.length && setIsMediaLayerOpen(false)}>
                     {attachments.map(a => (
-                        <PostCreatorAttachment
+                        <PostAttachment
                             key={a.id}
-                            onClose={() => setAttachments(at => at.filter(attachment => attachment.id !== a.id))}
-                            file={a.file}
-                            previewSrc={a.previewSrc}
+                            file={a}
+                            context={{
+                                isEditing: true,
+                                isModalOpen: false,
+                                onDelete: () => setAttachments(at => at.filter(attachment => attachment.id !== a.id))
+                            }}
+                            size={"small"}
                         />
                     ))}
                 </AnimatePresence>
@@ -87,7 +90,7 @@ function ProfilePostCreator() {
                         <Button LeadingIcon={VideoIcon} color={"dark"} size={"small"}>Видео</Button>
                     </FileUploader>
 
-                    <FileUploader accept={FILE_TYPES.join(", ")} multiple onChange={uploadAttachment}>
+                    <FileUploader accept={DOCUMENT_TYPES.concat(AUDIO_TYPES).join(", ")} multiple onChange={uploadAttachment}>
                         <Button LeadingIcon={FileIcon} color={"dark"} size={"small"}>Файл</Button>
                     </FileUploader>
                 </div>
