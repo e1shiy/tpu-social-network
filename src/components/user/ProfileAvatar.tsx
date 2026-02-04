@@ -51,7 +51,7 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
         if (file) {
             const validate: ValidateResponse = await validateAvatar(file)
             if (validate.isValid) {
-                const avatarMediaFile = validate.data // todo upload avatar
+                // const avatarMediaFile = validate.data // todo upload avatar
                 showPopUp("Новое фото профиля загружено", "success")
             } else {
                 const errors = validate.errors
@@ -63,30 +63,28 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     }
 
     return (
-        <div className={"group relative"} ref={ref}>
+        <div className={"relative"} ref={ref}>
             <FileUploader
                 accept={IMAGE_TYPES.join(", ")}
                 onClick={handleUploaderClick}
                 onChange={handleUploaderChange}
             >
                 <div
+                    onMouseEnter={() => setIsContextMenuOpen(true)}
+                    onMouseLeave={() => setIsContextMenuOpen(false)}
                     className={cn(
-                        baseStyles, ringStyles, isOnline && greenCircleStyles, "group/wrapper",
-                        isMyProfile && "hover:cursor-pointer hover:before:blur-[1px] group-hover:after:bg-dark/30",
-                        isMyProfile && isContextMenuOpen && "before:blur-[1px] after:bg-dark/30"
+                        baseStyles, ringStyles, isOnline && greenCircleStyles,
+                        isMyProfile && isContextMenuOpen && "cursor-pointer before:blur-[1px] after:bg-dark/30"
                     )}
                 >
                     <img className={cn(
                         "aspect-square h-full rounded-full",
-                        isMyProfile && "group-hover:blur-[1px]",
                         isMyProfile && isContextMenuOpen && "blur-[1px]"
                     )} src={avatarUrl} alt="avatar"/>
                     {isMyProfile && <CameraIcon
                         className={cn(
-                            "absolute z-11 w-3/7 inset-1/2 -translate-1/2 stroke-1 text-light",
-                            isContextMenuOpen ?
-                                "opacity-100 group-active/wrapper:opacity-50" :
-                                "opacity-0 group-hover:opacity-100 group-hover:group-active/wrapper:opacity-50"
+                            "absolute z-11 w-3/7 inset-1/2 -translate-1/2 stroke-1 text-light opacity-0",
+                            isContextMenuOpen && "opacity-100 group-active/wrapper:opacity-50"
                         )}
                     />}
                 </div>
@@ -97,11 +95,12 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                     color={"error"}
                     className={cn(
                         "absolute w-max -translate-x-1/2 translate-y-full left-1/2 -bottom-2",
-                        "invisible opacity-0 group-hover:visible group-hover:opacity-100",
-                        isContextMenuOpen && "visible opacity-100"
+                        "invisible opacity-0", isContextMenuOpen && "visible opacity-100"
                     )}
                     TrailingIcon={TrashIcon}
                     onClick={() => setIsModalOpen(true)}
+                    onMouseEnter={() => setIsContextMenuOpen(true)}
+                    onMouseLeave={() => setIsContextMenuOpen(false)}
                 >
                     <span>Удалить <span className={"max-lg:hidden"}>фото профиля</span></span>
                 </Button>
