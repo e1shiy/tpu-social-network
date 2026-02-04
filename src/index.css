@@ -44,7 +44,7 @@
     ::before,
     ::after {
         transition: 0.35s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-        transition-property: opacity, color, background-color, border-color, box-shadow, filter, visibility;
+        transition-property: opacity, color, background-color, border-color, box-shadow, filter, scale, visibility;
     }
 
     *::-webkit-scrollbar {

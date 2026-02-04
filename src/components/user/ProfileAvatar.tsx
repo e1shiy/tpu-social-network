@@ -11,6 +11,7 @@ import FileUploader from "../FileUploader.tsx";
 import {IMAGE_TYPES} from "../../constants/services/mediaFiles.ts";
 import {validateAvatar, ValidateResponse} from "../../services/mediaValidateService.ts";
 import {cn} from "../../utils/cn.ts";
+import {isMobileDevice} from "../../utils/isMobileDevice.ts";
 
 interface UserProfileAvatarProps {
     isOnline?: boolean,
@@ -28,8 +29,7 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     const {showPopUp} = useStore()
 
     const ref = useRef<HTMLDivElement>(null)
-    const callback = () => setIsContextMenuOpen(false)
-    useClickOutside(ref, callback)
+    useClickOutside(ref, () => setIsContextMenuOpen(false))
 
     const deleteAvatar = () => {
         // todo delete avatar
@@ -40,11 +40,8 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     }
     const handleUploaderClick = (inputRef: RefObject<HTMLInputElement | null>) => {
         if (!isMyProfile) return
-        if (window.matchMedia("(pointer: coarse)").matches) {
-            if (!isContextMenuOpen) setIsContextMenuOpen(true)
-            else {
-                inputRef.current?.click()
-            }
+        if (isMobileDevice()) {
+            !isContextMenuOpen ? setIsContextMenuOpen(true) : inputRef.current?.click()
         } else {
             inputRef.current?.click()
         }
