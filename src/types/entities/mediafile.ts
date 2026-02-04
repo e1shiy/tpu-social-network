@@ -24,6 +24,7 @@ export type AudioFile = BaseMediaFile & {
 export type DocumentFile = BaseMediaFile & {
     id: number;
     type: "document";
+    size: number;
 }
 
 export type MediaFile = VideoFile | ImageFile | AudioFile | DocumentFile;

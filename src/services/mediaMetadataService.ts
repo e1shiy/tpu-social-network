@@ -60,6 +60,7 @@ export function getMediaMetadata<T extends MediaFileType>(
                 resolve({
                     previewUrl: "", // todo document file type preview
                     sourceUrl: blobUrl,
+                    size: file.size,
                     type: "document"
                 } as TargetMeta<T>)
                 break
