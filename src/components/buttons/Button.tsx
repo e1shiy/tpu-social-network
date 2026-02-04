@@ -1,12 +1,10 @@
 import {cn} from "../../utils/cn.ts";
+import {ComponentPropsWithoutRef} from "react";
 
-export interface ButtonProps {
-    className?: string,
-    children?: React.ReactNode;
+export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
     color?: keyof typeof colorSchemes;
     size?: keyof typeof sizeSchemes;
     isActive?: boolean;
-    onClick?: () => void;
     TrailingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
     LeadingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
@@ -22,7 +20,6 @@ const sizeSchemes = {
     ),
     "small": cn(
         "h-7 sm:h-7.25 md:h-8.25 lg:h-8.5 xl:h-9 2xl:h-9.75",
-        // "h-7.25 sm:h-7.5 md:h-8 lg:h-8.5 xl:h-9 2xl:h-9.75",
         "py-1.75 md:py-2.5",
         "px-3 sm:px-4 md:px-5",
         "text-[0.6825rem] md:text-[0.75rem] lg:text-[0.825rem] xl:text-[0.9rem] 2xl:text-[0.95rem]",
@@ -36,14 +33,14 @@ const colorSchemes = {
     "error": (isActive: boolean) => `bg-danger text-light hover:bg-danger-alt ${isActive && "shadow-[0_0_10px_0] shadow-error"}`,
 }
 
-function Button({className, children, color = "primary", size = "normal", isActive=false, LeadingIcon, TrailingIcon, onClick}: ButtonProps) {
+function Button({className, children, color = "primary", size = "normal", isActive=false, LeadingIcon, TrailingIcon, ...props}: ButtonProps) {
     const colorStyles = colorSchemes[color]
     const sizeStyles = sizeSchemes[size]
     return (
         <button
             type="button"
             className={cn(buttonBaseStyles, sizeStyles, colorStyles(isActive), className)}
-            onClick={onClick}
+            {...props}
         >
             {LeadingIcon && <LeadingIcon className={"h-full aspect-square text-current shrink-0"}/>}
             {children}
