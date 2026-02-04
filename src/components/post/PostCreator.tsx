@@ -14,7 +14,8 @@ import {useStore} from "../../store/store.ts";
 import {validatePostAttachment} from "../../services/mediaValidateService.ts";
 import Textarea from "../Textarea.tsx";
 import {MediaFile} from "../../types/entities";
-import PostAttachment from "./attachment/PostAttachment.tsx";
+import Fade from "../wrappers/animations/Fade.tsx";
+import Attachment from "../media/Attachment.tsx";
 
 function ProfilePostCreator() {
     const {showPopUp} = useStore()
@@ -60,16 +61,17 @@ function ProfilePostCreator() {
             )}>
                 <AnimatePresence onExitComplete={() => !attachments.length && setIsMediaLayerOpen(false)}>
                     {attachments.map(a => (
-                        <PostAttachment
-                            key={a.id}
-                            file={a}
-                            context={{
-                                isEditing: true,
-                                isModalOpen: false,
-                                onDelete: () => setAttachments(at => at.filter(attachment => attachment.id !== a.id))
-                            }}
-                            size={"small"}
-                        />
+                        <Fade layout key={a.id}>
+                            <Attachment
+                                file={a}
+                                context={{
+                                    isEditing: true,
+                                    isExpanded: false,
+                                    onDelete: () => setAttachments(at => at.filter(attachment => attachment.id !== a.id))
+                                }}
+                                size={"small"}
+                            />
+                        </Fade>
                     ))}
                 </AnimatePresence>
             </div>

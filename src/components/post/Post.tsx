@@ -16,7 +16,7 @@ import {useEffect, useState} from "react";
 import {useIsMyProfile} from "../../hooks";
 import {cn} from "../../utils/cn.ts";
 import Modal from "../Modal.tsx";
-import PostAttachment from "./attachment/PostAttachment.tsx";
+import Attachment from "../media/Attachment.tsx";
 
 type PostProps = PostPreview & {
     onDelete?: () => void,
@@ -27,13 +27,13 @@ function Post(
     {
         onDelete,
         onContentChange,
-        id,
+        // id,
         content: {text, attachments: originalAttachments},
         details: {creationDate},
-        commentAmount,
-        likeAmount,
-        dislikeAmount,
-        isCommentingAllowed
+        // commentAmount,
+        // likeAmount,
+        // dislikeAmount,
+        // isCommentingAllowed
     }: PostProps
 ) {
 
@@ -69,9 +69,9 @@ function Post(
                             alt="user avatar"
                             className={"w-11.25 md:w-12.5 lg:w-13.75 aspect-square rounded-full"}
                         />
-                        <div>
-                            <h4>{userName}</h4>
-                            <p className={"text-dark/60"}>{toLocalDate(creationDate)}</p>
+                        <div className={"max-w-full min-w-0"}>
+                            <h4 className={"truncate"}>{userName}</h4>
+                            <p className={"text-dark/60 truncate"}>{toLocalDate(creationDate)}</p>
                         </div>
                     </div>
                     <div className={"flex gap-2 lg:gap-3"}>
@@ -172,16 +172,16 @@ function Post(
                         {attachments.map(attachment => {
                             return (
                                 <Fade layout key={attachment.id}>
-                                    <PostAttachment
+                                    <Attachment
                                         file={attachment}
                                         context={{
                                             isEditing: isEditing,
-                                            isModalOpen: false,
+                                            onDelete: () => setAttachments(a => a.filter(att => att.id !== attachment.id)),
+                                            isExpanded: false,
                                             onExpand: () => {
                                                 setModalItem(attachment)
                                                 setIsModalOpen(true)
-                                            },
-                                            onDelete: () => setAttachments(a => a.filter(att => att.id !== attachment.id))
+                                            }
                                         }}
                                     />
                                 </Fade>
@@ -197,11 +197,11 @@ function Post(
                         "rounded-[0.625rem] md:rounded-[0.85rem] lg:rounded-[1rem] xl:rounded-[1.25rem] 2xl:rounded-[1.5625rem]"
                     )}>
                         {modalItem && (
-                            <PostAttachment
+                            <Attachment
                                 file={modalItem}
                                 context={{
                                     isEditing: false,
-                                    isModalOpen: true
+                                    isExpanded: true
                                 }}
                             />
                         )}

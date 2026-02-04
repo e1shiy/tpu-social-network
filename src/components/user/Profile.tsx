@@ -1,5 +1,6 @@
-import PostImageUrl from "../../assets/123.png"
-import PostImageUrl2 from "../../assets/images/user-avatar.jpg"
+import PostImageUrl from "/public/123.png"
+import PostVideoUrl from "/public/35b70366-22af-4cf6-9a61-a66af45cf292.mp4"
+
 import ProfileHeader from "./ProfileHeader.tsx";
 import {useIsMyProfile} from "../../hooks";
 import ProfilePostCreator from "../post/PostCreator.tsx";
@@ -27,14 +28,23 @@ function Profile() {
                 width: 240,
                 height: 240,
             }, {
-                id: 4,
-                type: "image",
+                id: 2,
+                type: "video",
                 file: null,
-                previewUrl: PostImageUrl2,
-                sourceUrl: PostImageUrl2,
-                name: "123.jpg",
-                width: 240,
-                height: 240,
+                previewUrl: `${PostVideoUrl}#t=0.1`,
+                sourceUrl: PostVideoUrl,
+                name: "2025-12-04 22-54-40",
+                width: 1920,
+                height: 1080,
+                duration: 17
+            }, {
+                id: 3,
+                type: "document",
+                file: null,
+                previewUrl: "",
+                sourceUrl: "/tpu-social-network/public/PNG_-SVG.zip",
+                name: "PNG_-SVG.zip",
+                size: 2046 * 1024
             }]
         },
         details: {
