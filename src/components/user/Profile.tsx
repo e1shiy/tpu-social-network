@@ -83,6 +83,7 @@ function Profile() {
                                 postToChange.content = content
                             }
                         })}
+                        onDelete={() => setPosts(p => p.filter(po => po.id !== post.id))}
                         {...post}
                     />
                 ))}

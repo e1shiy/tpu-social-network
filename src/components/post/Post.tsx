@@ -17,6 +17,7 @@ import {useIsMyProfile} from "../../hooks";
 import {cn} from "../../utils/cn.ts";
 import Modal from "../Modal.tsx";
 import Attachment from "../media/Attachment.tsx";
+import ConfirmAction from "../ConfirmAction.tsx";
 
 type PostProps = PostPreview & {
     onDelete?: () => void,
@@ -27,13 +28,13 @@ function Post(
     {
         onDelete,
         onContentChange,
-        // id,
+        id,
         content: {text, attachments: originalAttachments},
         details: {creationDate},
-        // commentAmount,
-        // likeAmount,
-        // dislikeAmount,
-        // isCommentingAllowed
+        commentAmount,
+        likeAmount,
+        dislikeAmount,
+        isCommentingAllowed
     }: PostProps
 ) {
 
@@ -43,6 +44,7 @@ function Post(
 
     const isMyProfile = useIsMyProfile()
 
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalItem, setModalItem] = useState<MediaFile | null>(null)
 
@@ -53,7 +55,6 @@ function Post(
     useEffect(() => {
         attachments.length && setIsMediaLayerOpen(true)
     }, [attachments, setIsMediaLayerOpen])
-
 
     const [isCopied, setIsCopied] = useState(false)
     const [isCopyError, setIsCopyError] = useState(false)
@@ -155,7 +156,8 @@ function Post(
                                         <Bubble>
                                             <IconButton
                                                 Icon={DeleteIcon}
-                                                onClick={onDelete}
+                                                className={"hover:text-error"}
+                                                onClick={() => setIsConfirmOpen(true)}
                                             />
                                         </Bubble>
                                     </Fade>
@@ -189,7 +191,9 @@ function Post(
                         })}
                     </AnimatePresence>
                 </div>
+
             </Card>
+
             <Modal isOpened={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <div className={"h-[70dvh] lg:h-[83dvh] w-[92vw] lg:w-[52vw] flex-center"}>
                     <div className={cn(
@@ -207,7 +211,16 @@ function Post(
                         )}
                     </div>
                 </div>
-            </Modal>
+            </Modal> {/* todo fullscreen post */}
+            <ConfirmAction
+                text={"Удалить пост?"}
+                isOpen={isConfirmOpen}
+                onConfirm={() => {
+                    setIsConfirmOpen(false)
+                    onDelete?.()
+                }}
+                onReject={() => setIsConfirmOpen(false)}
+            />
         </>
     )
 }

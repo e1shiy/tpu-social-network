@@ -3,15 +3,13 @@ import TrashIcon from "../../assets/images/trash.svg?react"
 import Button from "../buttons/Button.tsx";
 import {ChangeEvent, RefObject, useRef, useState} from "react";
 import {useClickOutside, useIsMyProfile} from "../../hooks";
-import Modal from "../Modal.tsx";
-import Card from "../wrappers/Card.tsx";
-import TextButton from "../buttons/TextButton.tsx";
 import {useStore} from "../../store/store.ts";
 import FileUploader from "../FileUploader.tsx";
 import {IMAGE_TYPES} from "../../constants/services/mediaFiles.ts";
 import {validateAvatar, ValidateResponse} from "../../services/mediaValidateService.ts";
 import {cn} from "../../utils/cn.ts";
 import {isMobileDevice} from "../../utils/isMobileDevice.ts";
+import ConfirmAction from "../ConfirmAction.tsx";
 
 interface UserProfileAvatarProps {
     isOnline?: boolean,
@@ -23,7 +21,7 @@ const ringStyles = "after:ring-dark/10 after:z-9 after:rounded-full after:ring-3
 const greenCircleStyles = "before:rounded-full before:z-11 before:block before:w-3 before:sm:w-3.5 before:md:w-4 before:lg:w-4.5 before:xl:w-5 before:border before:md:border-2 before:border-dark/25 before:aspect-square before:bg-primary-alt before:absolute before:inset-[85%] before:-translate-1/2"
 
 function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false)
     const [isContextMenuOpen, setIsContextMenuOpen] = useState(false)
     const isMyProfile = useIsMyProfile()
     const {showPopUp} = useStore()
@@ -34,9 +32,8 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
     const deleteAvatar = () => {
         // todo delete avatar
         showPopUp("Фото профиля удалено", "success")
-
         setIsContextMenuOpen(false)
-        setIsModalOpen(false)
+        setIsConfirmOpen(false)
     }
     const handleUploaderClick = (inputRef: RefObject<HTMLInputElement | null>) => {
         if (!isMyProfile) return
@@ -98,7 +95,7 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                         "invisible opacity-0", isContextMenuOpen && "visible opacity-100"
                     )}
                     TrailingIcon={TrashIcon}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsConfirmOpen(true)}
                     onMouseEnter={() => setIsContextMenuOpen(true)}
                     onMouseLeave={() => setIsContextMenuOpen(false)}
                 >
@@ -106,21 +103,15 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                 </Button>
             }
 
-            <Modal isOpened={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <Card className={"flex-center flex-col gap-4 text-center"}>
-                    <div>
-                        <h4>Удалить фото профиля?</h4>
-                        <p className={"text-dark/60"}>Это действие нельзя будет отменить</p>
-                    </div>
-                    <div className={"flex w-full justify-between items-center gap-3 md:gap-3.5 xl:gap-4"}>
-                        <TextButton className={"grow"} color={"primary"} onClick={deleteAvatar}>Удалить</TextButton>
-                        <TextButton className={"grow"} color={"error"} onClick={() => {
-                            setIsModalOpen(false)
-                            setIsContextMenuOpen(false)
-                        }}>Отмена</TextButton>
-                    </div>
-                </Card>
-            </Modal>
+            <ConfirmAction
+                text={"Удалить фото профиля?"}
+                isOpen={isConfirmOpen}
+                onConfirm={deleteAvatar}
+                onReject={() => {
+                    setIsConfirmOpen(false)
+                    setIsContextMenuOpen(false)
+                }}
+            />
         </div>
     )
 }
