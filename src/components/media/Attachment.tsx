@@ -47,28 +47,62 @@ function Attachment({file, context, size = "normal"}: AttachmentProps) {
     const extension = name.substring(name.lastIndexOf(".") + 1).toUpperCase()
     switch (type) {
         case "image":
-            expandedAttachment = <img
-                src={sourceUrl}
-                alt="post image"
-                className={"block w-[92vw] lg:w-[52vw] max-h-[70dvh] lg:max-h-[83dvh] max-w-full h-auto object-contain"}
-            />
-            normalAttachment = <img
-                src={previewUrl}
-                alt="post image"
-                className={"h-full aspect-square object-cover"}
-            />
+            expandedAttachment = (
+                <img
+                    src={sourceUrl}
+                    alt="post image"
+                    className={"block w-[92vw] lg:w-[52vw] max-h-[70dvh] lg:max-h-[83dvh] max-w-full h-auto object-contain"}
+                />
+            )
+            normalAttachment = (
+                <img
+                    src={previewUrl}
+                    alt="post image"
+                    className={"h-full aspect-square object-cover"}
+                />
+            )
             break
         case "video":
-            expandedAttachment = <video
-                controls
-                autoPlay
-                src={sourceUrl}
-                className={"block w-[92vw] lg:w-[52vw] max-h-[70dvh] lg:max-h-[83dvh] max-w-full h-auto object-contain"}
-            />
-            normalAttachment = <video
-                src={previewUrl}
-                className={"h-full aspect-square object-cover"}
-            />
+            expandedAttachment = (
+                <video
+                    controls
+                    autoPlay
+                    src={sourceUrl}
+                    className={"block w-[92vw] lg:w-[52vw] max-h-[70dvh] lg:max-h-[83dvh] max-w-full h-auto object-contain"}
+                />
+            )
+
+            const lightSquare = <span className={cn(
+                "rounded-[0.125rem] bg-light aspect-square",
+                "w-2.5 sm:w-3 md:w-3.5 lg:w-4 xl:w-4.5 2xl:w-5"
+            )}/>
+            const videoStripStyles = cn(
+                "flex flex-col justify-evenly items-center absolute inset-y-0 bg-dark opacity-70",
+                "px-1.25 sm:px-1.5 md:px-1.75 lg:px-2 xl:px-2.25 2xl:px-2.5"
+            )
+            normalAttachment = (
+                <div className={"h-full relative"}>
+                    <video
+                        src={previewUrl}
+                        className={"h-full aspect-square object-cover"}
+                    />
+
+                    <span className={cn(videoStripStyles, "left-0")}>
+                        {lightSquare}
+                        {lightSquare}
+                        {lightSquare}
+                        {lightSquare}
+                        {lightSquare}
+                    </span>
+                    <span className={cn(videoStripStyles, "right-0")}>
+                        {lightSquare}
+                        {lightSquare}
+                        {lightSquare}
+                        {lightSquare}
+                        {lightSquare}
+                    </span>
+                </div>
+            )
             break
         case "document":
             normalAttachment = (
