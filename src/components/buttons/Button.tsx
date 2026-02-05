@@ -2,8 +2,9 @@ import {cn} from "../../utils/cn.ts";
 import {ComponentPropsWithoutRef} from "react";
 
 export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
-    color?: keyof typeof colorSchemes;
+    color?: keyof typeof buttonColorSchemes;
     size?: keyof typeof sizeSchemes;
+    fill?: boolean
     isActive?: boolean;
     TrailingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
     LeadingIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -27,24 +28,31 @@ const sizeSchemes = {
     )
 }
 
-const colorSchemes = {
+const buttonColorSchemes = {
     "dark": (isActive: boolean) => `hover:shadow-dark/20 bg-light text-dark shadow ${isActive && "shadow-[0_0_20px_10px] shadow-dark/10"}`,
     "primary": (isActive: boolean) => `bg-primary text-light hover:bg-primary-alt ${isActive && "shadow-[0_0_10px_0] shadow-primary"}`,
     "error": (isActive: boolean) => `bg-danger text-light hover:bg-danger-alt ${isActive && "shadow-[0_0_10px_0] shadow-error"}`,
 }
 
-function Button({className, children, color = "primary", size = "normal", isActive=false, LeadingIcon, TrailingIcon, ...props}: ButtonProps) {
-    const colorStyles = colorSchemes[color]
+const iconColorSchemes = {
+    "dark": (isActive: boolean) => cn(isActive ? "fill-dark" : "fill-light"),
+    "primary": (isActive: boolean) => cn(isActive ? "fill-primary" : "fill-light"),
+    "error": (isActive: boolean) => cn(isActive ? "fill-error" : "fill-light")
+}
+
+function Button({className, children, color = "primary", size = "normal", fill=false, isActive=false, LeadingIcon, TrailingIcon, ...props}: ButtonProps) {
+    const buttonColorStyles = buttonColorSchemes[color]
+    const iconColorStyles = iconColorSchemes[color]
     const sizeStyles = sizeSchemes[size]
     return (
         <button
             type="button"
-            className={cn(buttonBaseStyles, sizeStyles, colorStyles(isActive), className)}
+            className={cn(buttonBaseStyles, sizeStyles, buttonColorStyles(isActive), className)}
             {...props}
         >
-            {LeadingIcon && <LeadingIcon className={"h-full aspect-square text-current shrink-0"}/>}
+            {LeadingIcon && <LeadingIcon className={cn("h-full aspect-square text-current shrink-0", fill && iconColorStyles(isActive))}/>}
             {children}
-            {TrailingIcon && <TrailingIcon className={"h-full aspect-square text-current shrink-0"}/>}
+            {TrailingIcon && <TrailingIcon className={cn("h-full aspect-square text-current shrink-0", fill && iconColorStyles(isActive))}/>}
         </button>
     );
 }
