@@ -1,16 +1,19 @@
 import {useParams} from "react-router-dom";
 import {useStore} from "../store/store.ts";
 
-export const useIsMyProfile = () => {
+export function useIsMyProfile(): boolean | null
+export function useIsMyProfile(id: number | string): boolean | null
+
+export function useIsMyProfile(id?: number | string) {
     const { id: paramsId } = useParams()
-    if (paramsId === null) {
-        console.error("No ID provided in get-params")
+    if (id == null && paramsId == null) {
+        console.error("No ID provided")
         return null
     }
 
     const userId = useStore().userId
     if (userId === null) {
-        return
+        return null
     }
-    return paramsId == userId
+    return (id ?? paramsId) == userId
 }
