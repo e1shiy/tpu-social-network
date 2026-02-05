@@ -9,7 +9,7 @@ export type UserState = {
 }
 
 export const createUserSlice: StateCreator<UserState> = (set, ) => ({
-    userId: "1", // todo null
+    userId: "aav105", // todo null
     accessToken: "1", // todo null
     login: (userId: string) => set({ userId }),
     logout: () => set({ userId: null, accessToken: null }),
