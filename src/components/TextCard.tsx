@@ -127,6 +127,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
             </div>
 
             <Textarea
+                focusOnEnable
                 className={"text-dark/60 h-full min-h-16 max-h-90 rounded-sm"}
                 disabled={!isActive}
                 maxLength={maxLength}
