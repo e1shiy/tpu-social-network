@@ -53,6 +53,46 @@ function Profile() {
         commentAmount: 160,
         likeAmount: 53,
         dislikeAmount: 4
+    }, { // todo user posts
+        id: 2,
+        isCommentingAllowed: true,
+        content: {
+            text: "Моя новая крутая аватарка D:",
+            attachments: [{
+                id: 1,
+                type: "image",
+                file: null,
+                previewUrl: PostImageUrl,
+                sourceUrl: PostImageUrl,
+                name: "user-avatar.jpg",
+                width: 240,
+                height: 240,
+            }, {
+                id: 2,
+                type: "video",
+                file: null,
+                previewUrl: `${PostVideoUrl}#t=0.1`,
+                sourceUrl: PostVideoUrl,
+                name: "2025-12-04 22-54-40",
+                width: 1920,
+                height: 1080,
+                duration: 17
+            }, {
+                id: 3,
+                type: "document",
+                file: null,
+                previewUrl: "",
+                sourceUrl: "/tpu-social-network/public/PNG_-SVG.zip",
+                name: "PNG_-SVG.zip",
+                size: 2046 * 1024
+            }]
+        },
+        details: {
+            creationDate: new Date()
+        },
+        commentAmount: 160,
+        likeAmount: 53,
+        dislikeAmount: 4
     }]) // todo get posts
 
     const navigate = useNavigate()
@@ -80,10 +120,10 @@ function Profile() {
                         onContentChange={content => setPosts(draft => { // todo api post change
                             const postToChange = draft.find(po => po.id === post.id)
                             if (postToChange) {
-                                postToChange.content = content
+                                postToChange.content = content // todo pop-up
                             }
                         })}
-                        onDelete={() => setPosts(p => p.filter(po => po.id !== post.id))}
+                        onDelete={() => setPosts(p => p.filter(po => po.id !== post.id))} // todo pop-up
                         {...post}
                     />
                 ))}

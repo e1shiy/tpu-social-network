@@ -16,6 +16,7 @@ import Textarea from "../Textarea.tsx";
 import {MediaFile} from "../../types/entities";
 import Fade from "../wrappers/animations/Fade.tsx";
 import Attachment from "../media/Attachment.tsx";
+import {MAX_POST_LENGTH} from "../../constants/components/post.ts";
 
 function ProfilePostCreator() {
     const {showPopUp} = useStore()
@@ -79,8 +80,8 @@ function ProfilePostCreator() {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder={"Текст нового поста"}
-                maxLength={2000}
-                className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-50"}
+                maxLength={MAX_POST_LENGTH}
+                className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-75"}
             />
             <div className={"flex gap-1 justify-between items-center w-full"}>
                 <div className="flex gap-2.5 md:gap-3.75">
