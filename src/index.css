@@ -96,29 +96,7 @@
     }
 
     h5 {
-        @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
-    }
-}
-
-@layer components {
-    h1 {
-        @apply font-bold text-[1.875rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[2.625rem] xl:text-[3rem] 2xl:text-[3.25rem];
-    }
-
-    h2 {
-        @apply font-bold text-[1.125rem] sm:text-[1.25rem] md:text-[1.4rem] lg:text-[1.625rem] xl:text-[1.825rem] 2xl:text-[2rem];
-    }
-
-    h3 {
-        @apply font-bold text-[1rem] sm:text-[1.125rem] md:text-[1.2rem] lg:text-[1.3rem] xl:text-[1.4rem] 2xl:text-[1.5rem];
-    }
-
-    h4 {
-        @apply font-bold text-[0.875rem] sm:text-[1rem] md:text-[1.1rem] lg:text-[1.15rem] xl:text-[1.2rem] 2xl:text-[1.25rem];
-    }
-
-    h5 {
-        @apply font-bold text-[0.75rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
+        @apply font-bold text-[0.8rem] sm:text-[0.875rem] md:text-[0.95rem] lg:text-[1rem] xl:text-[1.075rem] 2xl:text-[1.125rem];
     }
 }
 
