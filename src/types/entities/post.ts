@@ -4,6 +4,7 @@ import type {MediaFile} from "./index.ts";
 
 export type BasePostPreview = {
     id: number;
+    author: UserPreview;
     isCommentingAllowed: boolean;
     content: {
         text: string;
@@ -27,6 +28,4 @@ export type Post = PostPreview & {
 
 export type PostPreview = BasePostPreview | CommunityPostPreview;
 
-export type CommunityPostPreview = BasePostPreview & {
-    author: UserPreview;
-}
+export type CommunityPostPreview = BasePostPreview

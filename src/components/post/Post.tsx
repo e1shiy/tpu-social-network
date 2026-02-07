@@ -1,4 +1,3 @@
-import avatarUrl from "../../assets/images/user-avatar.jpg";
 import SendIcon from "../../assets/images/send.svg?react"
 import LikeIcon from "../../assets/images/heart.svg?react"
 import CommentIcon from "../../assets/images/message-square.svg?react"
@@ -7,7 +6,11 @@ import EditIcon from "../../assets/images/edit.svg?react"
 import CopyIcon from "../../assets/images/copy.svg?react"
 import SaveIcon from "../../assets/images/accept.svg?react"
 import RejectIcon from "../../assets/images/reject.svg?react"
-import {MediaFile, PostPreview, CommentPreview} from "../../types/entities";
+import {
+    MediaFile,
+    PostPreview,
+    CommentPreview,
+} from "../../types/entities";
 import Card from "../wrappers/Card.tsx";
 import {toLocalDate} from "../../utils/toLocalDate.ts";
 import Fade from "../wrappers/animations/Fade.tsx";
@@ -27,6 +30,7 @@ import Button from "../buttons/Button.tsx";
 import Comment from "./Comment.tsx";
 import {useImmer} from "use-immer";
 import SlideDown from "../wrappers/animations/SlideDown.tsx";
+import {Link} from "react-router-dom";
 
 type PostProps = PostPreview & {
     onDelete?: () => void,
@@ -34,13 +38,13 @@ type PostProps = PostPreview & {
 }
 
 function Post({...props}: PostProps) {
-    const {onDelete, onContentChange, content, details, commentAmount, likeAmount, isCommentingAllowed} = props
+    const {onDelete, onContentChange, author, content, details, commentAmount, likeAmount, isCommentingAllowed} = props
     const {text: originalText, attachments: originalAttachments} = content
     const {creationDate} = details
 
+    const {id: userId, name, surname, avatarUrl} = author
+
     // todo user info
-    const userAvatar = avatarUrl
-    const userName = "Веретнов Алексей"
     const [isLiked, setIsLiked] = useState(false)
 
     const [isCommentsOpen, setIsCommentsOpen] = useState(false)
@@ -130,21 +134,25 @@ function Post({...props}: PostProps) {
                 <Card className={"flex flex-col gap-3.75 md:gap-5 pb-2.5 md:pb-3.75 lg:pb-4.5 xl:pb-5 grow basis-0"}>
                     <div className={"flex justify-between items-center gap-2"}>
                         <div className={"flex items-center gap-2.5 xl:gap-3.25"}> {/* todo clickable */}
-                            <img
-                                src={userAvatar}
-                                alt="user avatar"
-                                className={"w-11.25 md:w-12.5 lg:w-13.75 aspect-square rounded-full"}
-                            />
+                            <Link to={`/${userId}`}>
+                                <img
+                                    src={avatarUrl}
+                                    alt="user avatar"
+                                    className={"w-11.25 md:w-12.5 lg:w-13.75 aspect-square rounded-full"}
+                                />
+                            </Link>
                             <div className={"max-w-full min-w-0"}>
-                                <h4 className={"truncate"}>{userName}</h4>
+                                <Link to={`/${userId}`}>
+                                    <h4 className={"truncate"}>{surname} {name}</h4>
+                                </Link>
                                 <p className={"text-dark/60 truncate"}>{toLocalDate(creationDate)}</p>
                             </div>
                         </div>
                         <div className={"flex gap-2 lg:gap-3"}>
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {isCopied ? (
-                                    <div key={"copied-wrapper"}>
-                                        <Fade key={"copied"}>
+                                    <div key={"copied-wrapper-post"}>
+                                        <Fade key={"copied-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={SaveIcon}
@@ -155,8 +163,8 @@ function Post({...props}: PostProps) {
                                         </Fade>
                                     </div>
                                 ) : (isCopyError ? (
-                                    <div key={"not-copied-wrapper"}>
-                                        <Fade key={"not-copied"}>
+                                    <div key={"not-copied-wrapper-post"}>
+                                        <Fade key={"not-copied-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={RejectIcon}
@@ -167,8 +175,8 @@ function Post({...props}: PostProps) {
                                         </Fade>
                                     </div>
                                 ) : (
-                                    <div key={"copy-wrapper"}>
-                                        <Fade key={"copy"}>
+                                    <div key={"copy-wrapper-post"}>
+                                        <Fade key={"copy-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={CopyIcon}
@@ -179,8 +187,8 @@ function Post({...props}: PostProps) {
                                     </div>
                                 ))}
                                 {isEditing ? (
-                                    <div key="editing-actions" className="flex gap-2 lg:gap-3">
-                                        <Fade key={"saveChanges"}>
+                                    <div key="editing-actions-post" className="flex gap-2 lg:gap-3">
+                                        <Fade key={"save-changes-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={SaveIcon}
@@ -193,7 +201,7 @@ function Post({...props}: PostProps) {
                                                 />
                                             </Bubble>
                                         </Fade>
-                                        <Fade key={"discardChanges"}>
+                                        <Fade key={"discard-changes-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={RejectIcon}
@@ -209,8 +217,8 @@ function Post({...props}: PostProps) {
                                         </Fade>
                                     </div>
                                 ) : isMyProfile && (
-                                    <div key="my-profile-actions" className={"flex gap-2 lg:gap-3"}>
-                                        <Fade key={"edit"}>
+                                    <div key="my-profile-actions-post" className={"flex gap-2 lg:gap-3"}>
+                                        <Fade key={"edit-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={EditIcon}
@@ -218,7 +226,7 @@ function Post({...props}: PostProps) {
                                                 />
                                             </Bubble>
                                         </Fade>
-                                        <Fade key={"delete"}>
+                                        <Fade key={"delete-post"}>
                                             <Bubble>
                                                 <IconButton
                                                     Icon={DeleteIcon}
@@ -258,7 +266,6 @@ function Post({...props}: PostProps) {
                         </AnimatePresence>
                     </div>
                     <Textarea
-                        focusOnEnable
                         disabled={!isEditing}
                         value={text}
                         onChange={(e) => setText(e.target.value)}

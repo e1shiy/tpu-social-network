@@ -1,5 +1,6 @@
 import PostImageUrl from "/public/123.png"
 import PostVideoUrl from "/public/35b70366-22af-4cf6-9a61-a66af45cf292.mp4"
+import avatarUrl from "../../assets/images/user-avatar.jpg"
 
 import ProfileHeader from "./ProfileHeader.tsx";
 import {useIsMyProfile} from "../../hooks";
@@ -16,6 +17,17 @@ function Profile() {
     const [posts, setPosts] = useImmer<PostPreview[]>([{ // todo user posts
         id: 1,
         isCommentingAllowed: true,
+        author: {
+            id: "aav105",
+            email: "1eshiy@vk.com",
+            name: "Алексей",
+            surname: "Веретнов",
+            avatarUrl: avatarUrl,
+            group: "8К43",
+            school: "ИШИТР",
+            status: "student",
+            isOnline: true
+        },
         content: {
             text: "Моя новая крутая аватарка D:",
             attachments: [{
@@ -55,6 +67,17 @@ function Profile() {
         dislikeAmount: 4
     }, { // todo user posts
         id: 2,
+        author: {
+            id: "aav105",
+            email: "1eshiy@vk.com",
+            name: "Алексей",
+            surname: "Веретнов",
+            avatarUrl: avatarUrl,
+            group: "8К43",
+            school: "ИШИТР",
+            status: "student",
+            isOnline: true
+        },
         isCommentingAllowed: true,
         content: {
             text: "Моя новая крутая аватарка D:",

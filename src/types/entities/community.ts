@@ -12,7 +12,7 @@ export type Community = CommunityPreview & {
 }
 
 export type CommunityPreview = {
-    id: number;
+    id: string;
     info: {
         name: string;
         description: string;

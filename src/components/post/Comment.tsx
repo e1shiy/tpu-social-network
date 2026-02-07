@@ -12,6 +12,8 @@ import EditIcon from "../../assets/images/edit.svg?react"
 import SaveIcon from "../../assets/images/accept.svg?react"
 import RejectIcon from "../../assets/images/reject.svg?react"
 import ConfirmAction from "../ConfirmAction.tsx";
+import {isMobileDevice} from "../../utils/isMobileDevice.ts";
+import {Link} from "react-router-dom";
 
 interface CommentProps extends CommentPreview {
     onDelete?: () => void,
@@ -35,20 +37,25 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
         <>
             <div
                 className={"group flex items-start gap-1.25 md:gap-2.5"}
+                onClick={() => isMobileDevice() && setIsHovered(true)}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             > {/* todo clickable */}
-                <img src={avatarUrl} alt="user avatar" className={"aspect-square rounded-full w-8 md:w-9.25 lg:w-10.5"}/>
+                <Link to={`/${id}`}>
+                    <img src={avatarUrl} alt="user avatar" className={"aspect-square rounded-full w-8 md:w-9.25 lg:w-10.5"}/>
+                </Link>
                 <div className={"flex flex-col w-full"}>
                     <div className={"flex justify-between items-center gap-1 lg:gap-2"}>
-                        <h5>{surname} {name}</h5>
+                        <Link to={`/${id}`}>
+                            <h5>{surname} {name}</h5>
+                        </Link>
                         <div className={"flex gap-2 lg:gap-3"}>
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {isHovered && (
                                     <Fade>
                                         {isEditing ? (
-                                            <div key="editing-actions" className="flex gap-2 lg:gap-3">
-                                                <Fade key={"saveChanges"}>
+                                            <div key="editing-actions-comment" className="flex gap-2 lg:gap-3">
+                                                <Fade key={"save-changes-comment"}>
                                                     <Bubble>
                                                         <IconButton
                                                             Icon={SaveIcon}
@@ -61,7 +68,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                         />
                                                     </Bubble>
                                                 </Fade>
-                                                <Fade key={"discardChanges"}>
+                                                <Fade key={"discard-changes-comment"}>
                                                     <Bubble>
                                                         <IconButton
                                                             Icon={RejectIcon}
@@ -76,9 +83,9 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                 </Fade>
                                             </div>
                                         ) : (
-                                            <div key="privileged-actions" className={"flex gap-2 lg:gap-3"}>
+                                            <div key="privileged-actions-comment" className={"flex gap-2 lg:gap-3"}>
                                                 {isMyComment &&
-                                                    <Fade key={"edit"}>
+                                                    <Fade key={"edit-comment"}>
                                                         <Bubble>
                                                             <IconButton
                                                                 Icon={EditIcon}
@@ -88,7 +95,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                     </Fade>
                                                 }
                                                 {(isMyPostComment || isMyComment) &&
-                                                    <Fade key={"delete"}>
+                                                    <Fade key={"delete-comment"}>
                                                         <Bubble>
                                                             <IconButton
                                                                 Icon={DeleteIcon}

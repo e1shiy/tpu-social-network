@@ -40,8 +40,8 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                 <div className={"flex gap-2 lg:gap-3"}>
                     <AnimatePresence mode="popLayout" initial={false}>
                         {isActive ? (
-                            <div key="editing-actions" className="flex gap-1.5 md:gap-2.5">
-                                <Fade key={"saveChanges"}>
+                            <div key="editing-actions-text-card" className="flex gap-1.5 md:gap-2.5">
+                                <Fade key={"save-changes-text-card"}>
                                     <Bubble>
                                         <IconButton
                                             Icon={SaveIcon}
@@ -54,7 +54,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                                         />
                                     </Bubble>
                                 </Fade>
-                                <Fade key={"discardChanges"}>
+                                <Fade key={"discard-changes-text-card"}>
                                     <Bubble>
                                         <IconButton
                                             Icon={RejectIcon}
@@ -69,9 +69,9 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                                 </Fade>
                             </div>
                         ) : (
-                            <div key="edit-action">
+                            <div key="edit-action-text-card">
                                 {!isReadonly && (
-                                    <Fade key={"edit"}>
+                                    <Fade key={"edit-text-card"}>
                                         <Bubble>
                                             <IconButton
                                                 Icon={EditIcon}
