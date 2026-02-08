@@ -1,5 +1,6 @@
-import PostImageUrl from "/public/123.png"
-import PostVideoUrl from "/public/35b70366-22af-4cf6-9a61-a66af45cf292.mp4"
+import PostImageUrl from "/public/boo.jpg"
+import PostImage2Url from "/public/sur2.jpg"
+import PostVideoUrl from "/public/video.mp4"
 import avatarUrl from "../../assets/images/user-avatar.jpg"
 
 import ProfileHeader from "./ProfileHeader.tsx";
@@ -11,6 +12,7 @@ import {useEffect, useRef} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {NOT_FOUND_ROUTE} from "../../constants";
 import {useImmer} from "use-immer";
+import {useStore} from "../../store/store.ts";
 
 function Profile() {
     const isMyProfile = useIsMyProfile()
@@ -29,94 +31,54 @@ function Profile() {
             isOnline: true
         },
         content: {
-            text: "Моя новая крутая аватарка D:",
+            text: "Осенний дайджест ᕦ(ò_óˇ)ᕤ",
             attachments: [{
                 id: 1,
                 type: "image",
                 file: null,
                 previewUrl: PostImageUrl,
                 sourceUrl: PostImageUrl,
-                name: "user-avatar.jpg",
+                name: "boo.jpg",
                 width: 240,
                 height: 240,
             }, {
                 id: 2,
-                type: "video",
-                file: null,
-                previewUrl: `${PostVideoUrl}#t=0.1`,
-                sourceUrl: PostVideoUrl,
-                name: "2025-12-04 22-54-40",
-                width: 1920,
-                height: 1080,
-                duration: 17
-            }, {
-                id: 3,
-                type: "document",
-                file: null,
-                previewUrl: "",
-                sourceUrl: "/tpu-social-network/public/PNG_-SVG.zip",
-                name: "PNG_-SVG.zip",
-                size: 2046 * 1024
-            }]
-        },
-        details: {
-            creationDate: new Date()
-        },
-        commentAmount: 160,
-        likeAmount: 53,
-        dislikeAmount: 4
-    }, { // todo user posts
-        id: 2,
-        author: {
-            id: "aav105",
-            email: "1eshiy@vk.com",
-            name: "Алексей",
-            surname: "Веретнов",
-            avatarUrl: avatarUrl,
-            group: "8К43",
-            school: "ИШИТР",
-            status: "student",
-            isOnline: true
-        },
-        isCommentingAllowed: true,
-        content: {
-            text: "Моя новая крутая аватарка D:",
-            attachments: [{
-                id: 1,
                 type: "image",
                 file: null,
-                previewUrl: PostImageUrl,
-                sourceUrl: PostImageUrl,
-                name: "user-avatar.jpg",
+                previewUrl: PostImage2Url,
+                sourceUrl: PostImage2Url,
+                name: "sur2.jpg",
                 width: 240,
                 height: 240,
             }, {
-                id: 2,
+                id: 3,
                 type: "video",
                 file: null,
                 previewUrl: `${PostVideoUrl}#t=0.1`,
                 sourceUrl: PostVideoUrl,
-                name: "2025-12-04 22-54-40",
-                width: 1920,
-                height: 1080,
-                duration: 17
+                name: "video",
+                width: 384,
+                height: 384,
+                duration: 6
             }, {
-                id: 3,
+                id: 4,
                 type: "document",
                 file: null,
                 previewUrl: "",
-                sourceUrl: "/tpu-social-network/public/PNG_-SVG.zip",
-                name: "PNG_-SVG.zip",
-                size: 2046 * 1024
+                sourceUrl: "/tpu-social-network/public/12_24_variant.docx",
+                name: "12_24_variant.docx",
+                size: 117 * 1024
             }]
         },
         details: {
             creationDate: new Date()
         },
-        commentAmount: 160,
-        likeAmount: 53,
+        commentAmount: 1,
+        likeAmount: 52,
         dislikeAmount: 4
     }]) // todo get posts
+
+    const {showPopUp} = useStore()
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -133,11 +95,37 @@ function Profile() {
     }, [isPostsSection, postId, navigate])
 
     return (
-        <div className="container flex flex-col gap-2.5 md:gap-4 lg:gap-5">
+        <div className="container flex flex-col gap-2.5 md:gap-4 lg:gap-5 min-h-full">
             <ProfileHeader/>
-            {isMyProfile && <ProfilePostCreator/>}
+            {isMyProfile && <ProfilePostCreator onCreate={(postContent) => {
+                setPosts(p => {
+                    p.unshift({
+                        id: Date.now(),
+                        isCommentingAllowed: true,
+                        author: {
+                            id: "aav105",
+                            email: "1eshiy@vk.com",
+                            name: "Алексей",
+                            surname: "Веретнов",
+                            avatarUrl: avatarUrl,
+                            group: "8К43",
+                            school: "ИШИТР",
+                            status: "student",
+                            isOnline: true
+                        },
+                        content: postContent.content,
+                        details: {
+                            creationDate: new Date()
+                        },
+                        commentAmount: 1,
+                        likeAmount: 0,
+                        dislikeAmount: 0
+                    })
+                })
+                showPopUp("Пост опубликован", "success")
+            }}/>}
             <div className={"contents"} ref={postsRef}>
-                {posts.map(post => (
+                {posts.length ? posts.map(post => (
                     <Post
                         key={post.id}
                         onContentChange={content => setPosts(draft => { // todo api post change
@@ -146,10 +134,14 @@ function Profile() {
                                 postToChange.content = content // todo pop-up
                             }
                         })}
-                        onDelete={() => setPosts(p => p.filter(po => po.id !== post.id))} // todo pop-up
+                        onDelete={() => {
+                            setPosts(p => p.filter(po => po.id !== post.id))
+                            showPopUp("Пост удалён", "success")
+                        }}
                         {...post}
                     />
-                ))}
+                )) :
+                <h2 className={"text-dark/60 flex-center h-full grow"}>Постов пока нет</h2>}
             </div>
         </div>
     )

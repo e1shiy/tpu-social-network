@@ -13,19 +13,23 @@ import {AnimatePresence} from "framer-motion";
 import {useStore} from "../../store/store.ts";
 import {validatePostAttachment} from "../../services/mediaValidateService.ts";
 import Textarea from "../Textarea.tsx";
-import {MediaFile} from "../../types/entities";
+import {MediaFile, PostPreview} from "../../types/entities";
 import Fade from "../wrappers/animations/Fade.tsx";
 import Attachment from "../media/Attachment.tsx";
 import {MAX_POST_LENGTH} from "../../constants/components/post.ts";
 
-function ProfilePostCreator() {
+interface PostCreatorProps {
+    onCreate?: (postContent: Pick<PostPreview, "content">) => void
+}
+
+function ProfilePostCreator({onCreate} : PostCreatorProps) {
     const {showPopUp} = useStore()
 
     const createPost = () => {
+        onCreate?.({content: {text: value, attachments: attachments}})
         setAttachments([])
         setIsMediaLayerOpen(false)
         setValue("")
-        showPopUp("Пост опубликован", "success")
     }
     const [value, setValue] = useState("")
     const [attachments, setAttachments] = useState<MediaFile[]>([])

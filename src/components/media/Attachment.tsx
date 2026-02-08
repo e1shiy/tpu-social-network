@@ -11,7 +11,7 @@ import {formatBytesToMB, formatSecondsToMMSS} from "../../utils/format.ts";
 
 export const overlayStyles = (isOverlayOpen: boolean) => cn(
     "abs-center aspect-square w-2/5 z-2 stroke-1",
-    "text-light cursor-pointer hover:text-light/80 active:text-light/60",
+    "text-light cursor-pointer hover:opacity-80 active:opacity-60",
     "opacity-0 pointer-events-none",
     isOverlayOpen && "opacity-100 pointer-events-auto"
 )

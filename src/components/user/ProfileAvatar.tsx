@@ -1,3 +1,5 @@
+import avatarUrl from "../../assets/images/user-avatar.jpg"
+
 import CameraIcon from "../../assets/images/camera.svg?react"
 import TrashIcon from "../../assets/images/trash.svg?react"
 import Button from "../buttons/Button.tsx";
@@ -20,7 +22,11 @@ const baseStyles = "relative aspect-square rounded-full shrink-0 h-25 sm:h-30 md
 const ringStyles = "after:ring-dark/10 after:z-9 after:rounded-full after:ring-3 after:lg:ring-4 after:2xl:ring-5 after:ring-inset after:absolute after:inset-0"
 const greenCircleStyles = "before:rounded-full before:z-11 before:block before:w-3 before:sm:w-3.5 before:md:w-4 before:lg:w-4.5 before:xl:w-5 before:border before:md:border-2 before:border-dark/25 before:aspect-square before:bg-primary-alt before:absolute before:inset-[85%] before:-translate-1/2"
 
-function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
+function ProfileAvatar({}: UserProfileAvatarProps) {
+    // todo get user info
+    const [userAvatarUrl, setUserAvatarUrl] = useState(avatarUrl)
+    const isOnline = true
+
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
     const [isContextMenuOpen, setIsContextMenuOpen] = useState(false)
     const isMyProfile = useIsMyProfile()
@@ -48,7 +54,7 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
         if (file) {
             const validate: ValidateResponse = await validateAvatar(file)
             if (validate.isValid) {
-                // const avatarMediaFile = validate.data // todo upload avatar
+                setUserAvatarUrl(validate.data.previewUrl) // todo post avatar api
                 showPopUp("Новое фото профиля загружено", "success")
             } else {
                 const errors = validate.errors
@@ -75,9 +81,9 @@ function ProfileAvatar({isOnline = false, avatarUrl}: UserProfileAvatarProps) {
                     )}
                 >
                     <img className={cn(
-                        "aspect-square h-full rounded-full",
+                        "aspect-square h-full rounded-full object-cover",
                         isMyProfile && isContextMenuOpen && "blur-[1px]"
-                    )} src={avatarUrl} alt="avatar"/>
+                    )} src={userAvatarUrl} alt="avatar"/>
                     {isMyProfile && <CameraIcon
                         className={cn(
                             "absolute z-11 w-3/7 inset-1/2 -translate-1/2 stroke-1 text-light opacity-0",

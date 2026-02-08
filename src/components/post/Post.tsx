@@ -50,7 +50,7 @@ function Post({...props}: PostProps) {
     const [isCommentsOpen, setIsCommentsOpen] = useState(false)
     const [comments, setComments] = useImmer<CommentPreview[]>([{
         id: 1,
-        text: "ну очень крутой блокбастер",
+        text: "это очень круто я не могу как же это круто",
         author: {
             id: "aav105",
             email: "1eshiy@vk.com",
@@ -65,23 +65,6 @@ function Post({...props}: PostProps) {
         isEdited: false,
         creationDate: new Date(),
         likeAmount: 0
-    }, {
-        id: 2,
-        text: "да это жёстко",
-        author: {
-            id: "aav105",
-            email: "1eshiy@vk.com",
-            name: "Алексей",
-            surname: "Веретнов",
-            avatarUrl: avatarUrl,
-            group: "8К43",
-            school: "ИШИТР",
-            status: "student",
-            isOnline: true
-        },
-        isEdited: true,
-        creationDate: new Date(),
-        likeAmount: 10
     }]) // todo api get comments
 
     const isMyProfile = useIsMyProfile()
