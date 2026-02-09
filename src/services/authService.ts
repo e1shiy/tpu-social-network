@@ -1,5 +1,5 @@
-import {AUTH_CALLBACK_ROUTE, AUTH_ROUTE} from "../constants";
-import {AUTH_STATE_KEY, REDIRECT_PATH_KEY} from "../constants";
+import {AUTH_CALLBACK_ROUTE, AUTH_ROUTE} from "../constants/routes.ts";
+import {AUTH_STATE_KEY, REDIRECT_PATH_KEY} from "../constants/keys.ts";
 
 const redirectUrl = window.location.origin + AUTH_CALLBACK_ROUTE
 

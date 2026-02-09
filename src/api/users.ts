@@ -2,7 +2,7 @@ import {apiClient} from "./index.ts";
 import {UserCredentialsResponse, UserPreviewResponse} from "../types/api";
 import {useStore} from "../store/store.ts";
 import {useQuery} from "@tanstack/react-query";
-import {FALLBACK_USER_PREVIEW} from "../constants/api/users.ts";
+import {FALLBACK_USER_PREVIEW} from "../constants/api.ts";
 import {UserPreview} from "../types/entities";
 
 const _fetchCredentials = async (userId: string | null): Promise<UserCredentialsResponse> => {

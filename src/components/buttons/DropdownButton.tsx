@@ -1,8 +1,8 @@
 import {useState, type FC, type HTMLAttributes, useRef, type Ref} from 'react';
 import {useClickOutside} from "../../hooks";
-import Fade from "../wrappers/animations/Fade.tsx";
-import {AnimatePresence} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {cn} from "../../utils/cn.ts";
+import {fade} from "../../constants/animations.ts";
 
 export interface TriggerProps extends HTMLAttributes<HTMLElement> {
     onClick?: () => void;
@@ -31,12 +31,12 @@ function DropdownButton({Trigger, Content, className}: DropdownButtonProps) {
             <Trigger isActive={isActive} onClick={() => setIsActive(i => !i)}/>
             <AnimatePresence>
                 {isActive &&
-                    <Fade>
+                    <motion.div {...fade}>
                         <Content className={cn(
                             "absolute top-full translate-y-1.25 md:translate-y-1.75 xl:translate-y-2.5 w-full",
                             className
                         )}/>
-                    </Fade>
+                    </motion.div>
                 }
             </AnimatePresence>
 

@@ -7,7 +7,7 @@ import {ChangeEvent, RefObject, useRef, useState} from "react";
 import {useClickOutside, useIsMyProfile} from "../../hooks";
 import {useStore} from "../../store/store.ts";
 import FileUploader from "../FileUploader.tsx";
-import {IMAGE_TYPES} from "../../constants/services/mediaFiles.ts";
+import {IMAGE_TYPES} from "../../constants/media.ts";
 import {validateAvatar, ValidateResponse} from "../../services/mediaValidateService.ts";
 import {cn} from "../../utils/cn.ts";
 import {isMobileDevice} from "../../utils/isMobileDevice.ts";

@@ -13,10 +13,8 @@ import {
 } from "../../types/entities";
 import Card from "../wrappers/Card.tsx";
 import {toLocalDate} from "../../utils/toLocalDate.ts";
-import Fade from "../wrappers/animations/Fade.tsx";
-import Bubble from "../wrappers/animations/Bubble.tsx";
 import IconButton from "../buttons/IconButton.tsx";
-import {AnimatePresence} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {copy} from "../../utils/copy.ts";
 import {useEffect, useState} from "react";
 import {useIsMyProfile} from "../../hooks";
@@ -25,12 +23,13 @@ import Modal from "../Modal.tsx";
 import Attachment from "../media/Attachment.tsx";
 import ConfirmAction from "../ConfirmAction.tsx";
 import Textarea from "../Textarea.tsx";
-import {MAX_COMMENT_LENGTH, MAX_POST_LENGTH} from "../../constants/components/post.ts";
+import {MAX_COMMENT_LENGTH, MAX_POST_LENGTH} from "../../constants/post.ts";
 import Button from "../buttons/Button.tsx";
 import Comment from "./Comment.tsx";
 import {useImmer} from "use-immer";
-import SlideDown from "../wrappers/animations/SlideDown.tsx";
 import {Link} from "react-router-dom";
+import {mergeAnimations} from "../../utils/animations.ts";
+import {bubble, fade, slideDown} from "../../constants/animations.ts";
 
 type PostProps = PostPreview & {
     onDelete?: () => void,
@@ -131,48 +130,41 @@ function Post({...props}: PostProps) {
                                 <p className={"text-dark/60 truncate"}>{toLocalDate(creationDate)}</p>
                             </div>
                         </div>
-                        <div className={"flex gap-2 lg:gap-3"}>
+                        <div className={"flex gap-2 lg:gap-3 relative"}>
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {isCopied ? (
                                     <div key={"copied-wrapper-post"}>
-                                        <Fade key={"copied-post"}>
-                                            <Bubble>
+                                        <motion.div key={"copied-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={SaveIcon}
                                                     color="primary"
                                                     className={"scale-110"}
                                                 />
-                                            </Bubble>
-                                        </Fade>
+                                        </motion.div>
                                     </div>
                                 ) : (isCopyError ? (
                                     <div key={"not-copied-wrapper-post"}>
-                                        <Fade key={"not-copied-post"}>
-                                            <Bubble>
+                                        <motion.div key={"not-copied-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={RejectIcon}
                                                     color={"error"}
                                                     className={"scale-110"}
                                                 />
-                                            </Bubble>
-                                        </Fade>
+                                        </motion.div>
                                     </div>
                                 ) : (
                                     <div key={"copy-wrapper-post"}>
-                                        <Fade key={"copy-post"}>
-                                            <Bubble>
+                                        <motion.div key={"copy-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={CopyIcon}
                                                     onClick={handleCopy}
                                                 />
-                                            </Bubble>
-                                        </Fade>
+                                        </motion.div>
                                     </div>
                                 ))}
                                 {isEditing ? (
                                     <div key="editing-actions-post" className="flex gap-2 lg:gap-3">
-                                        <Fade key={"save-changes-post"}>
-                                            <Bubble>
+                                        <motion.div key={"save-changes-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={SaveIcon}
                                                     className={"scale-110"}
@@ -182,10 +174,8 @@ function Post({...props}: PostProps) {
                                                         setIsEditing(false)
                                                     }}
                                                 />
-                                            </Bubble>
-                                        </Fade>
-                                        <Fade key={"discard-changes-post"}>
-                                            <Bubble>
+                                        </motion.div>
+                                        <motion.div key={"discard-changes-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={RejectIcon}
                                                     className={"scale-110"}
@@ -196,28 +186,23 @@ function Post({...props}: PostProps) {
                                                         setIsEditing(false)
                                                     }}
                                                 />
-                                            </Bubble>
-                                        </Fade>
+                                        </motion.div>
                                     </div>
                                 ) : isMyProfile && (
                                     <div key="my-profile-actions-post" className={"flex gap-2 lg:gap-3"}>
-                                        <Fade key={"edit-post"}>
-                                            <Bubble>
+                                        <motion.div key={"edit-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={EditIcon}
                                                     onClick={() => setIsEditing(true)}
                                                 />
-                                            </Bubble>
-                                        </Fade>
-                                        <Fade key={"delete-post"}>
-                                            <Bubble>
+                                        </motion.div>
+                                        <motion.div key={"delete-post"} {...mergeAnimations(fade, bubble)}>
                                                 <IconButton
                                                     Icon={DeleteIcon}
                                                     className={"hover:text-error"}
                                                     onClick={() => setIsConfirmOpen(true)}
                                                 />
-                                            </Bubble>
-                                        </Fade>
+                                        </motion.div>
                                     </div>
                                 )}
                             </AnimatePresence>
@@ -230,7 +215,7 @@ function Post({...props}: PostProps) {
                         <AnimatePresence onExitComplete={() => !attachments.length && setIsMediaLayerOpen(false)}>
                             {attachments.map(attachment => {
                                 return (
-                                    <Fade layout={isEditing} key={attachment.id}>
+                                    <motion.div {...fade} layout={isEditing} key={attachment.id}>
                                         <Attachment
                                             file={attachment}
                                             context={{
@@ -243,7 +228,7 @@ function Post({...props}: PostProps) {
                                                 }
                                             }}
                                         />
-                                    </Fade>
+                                    </motion.div>
                                 )
                             })}
                         </AnimatePresence>
@@ -280,7 +265,7 @@ function Post({...props}: PostProps) {
                 </Card>
                 <AnimatePresence>
                     {isCommentingAllowed && isCommentsOpen && (
-                        <SlideDown className={"flex flex-col gap-1.25 md:gap-2.5 grow basis-0"}>
+                        <motion.div {...slideDown} className={"flex flex-col gap-1.25 md:gap-2.5 grow basis-0"}>
                             <Card className={"h-full flex flex-col gap-3.75 md:gap-4.25 lg:gap-5 xl:gap-6.25"}>
                                 {comments.map(comment => (
                                     <Comment
@@ -317,7 +302,7 @@ function Post({...props}: PostProps) {
                                     onClick={() => commentText.length && sendComment()}
                                 />
                             </Card>
-                        </SlideDown>
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </div>

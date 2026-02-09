@@ -8,13 +8,13 @@ import type {NavHandlers} from "../../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../../hooks";
 import isCorrectLocation from "../../utils/isCorrectLocation.ts";
 import {useLocation} from "react-router-dom";
-import {FRIENDS_ROUTE, PROFILE_ROUTE} from "../../constants";
+import {FRIENDS_ROUTE, PROFILE_ROUTE} from "../../constants/routes.ts";
 import DropdownButton, {type ContentProps, type TriggerProps} from "../buttons/DropdownButton.tsx";
 import Button from "../buttons/Button.tsx";
 import {useUserId} from "../../hooks";
 import {useStore} from "../../store/store.ts";
 import {useGetUserPreview} from "../../api";
-import {FALLBACK_USER_PREVIEW} from "../../constants/api/users.ts";
+import {FALLBACK_USER_PREVIEW} from "../../constants/api.ts";
 import {cn} from "../../utils/cn.ts";
 
 function UserDropdown() {

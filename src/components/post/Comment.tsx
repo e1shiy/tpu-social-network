@@ -3,9 +3,7 @@ import {useIsMyProfile} from "../../hooks";
 import {useState} from "react";
 import Textarea from "../Textarea.tsx";
 import {toLocalDate} from "../../utils/toLocalDate.ts";
-import {AnimatePresence} from "framer-motion";
-import Fade from "../wrappers/animations/Fade.tsx";
-import Bubble from "../wrappers/animations/Bubble.tsx";
+import {AnimatePresence, motion} from "framer-motion";
 import IconButton from "../buttons/IconButton.tsx";
 import DeleteIcon from "../../assets/images/trash.svg?react"
 import EditIcon from "../../assets/images/edit.svg?react"
@@ -14,6 +12,8 @@ import RejectIcon from "../../assets/images/reject.svg?react"
 import ConfirmAction from "../ConfirmAction.tsx";
 import {isMobileDevice} from "../../utils/isMobileDevice.ts";
 import {Link} from "react-router-dom";
+import {bubble, fade} from "../../constants/animations.ts";
+import {mergeAnimations} from "../../utils/animations.ts";
 
 interface CommentProps extends CommentPreview {
     onDelete?: () => void,
@@ -49,65 +49,61 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                         <Link to={`/${id}`}>
                             <h5>{surname} {name}</h5>
                         </Link>
-                        <div className={"flex gap-2 lg:gap-3"}>
+                        <div className={"flex gap-2 lg:gap-3 relative"}>
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {isHovered && (
-                                    <Fade>
+                                    <motion.div
+                                        key={isEditing ? "edit" : "idle"}
+                                        {...fade}
+                                        className={"flex gap-2 lg:gap-3 absolute top-0 right-0 -translate-y-1/2"}
+                                    >
                                         {isEditing ? (
-                                            <div key="editing-actions-comment" className="flex gap-2 lg:gap-3">
-                                                <Fade key={"save-changes-comment"}>
-                                                    <Bubble>
-                                                        <IconButton
-                                                            Icon={SaveIcon}
-                                                            className={"scale-110"}
-                                                            color="primary"
-                                                            onClick={() => {
-                                                                onEdit?.(text)
-                                                                setIsEditing(false)
-                                                            }}
-                                                        />
-                                                    </Bubble>
-                                                </Fade>
-                                                <Fade key={"discard-changes-comment"}>
-                                                    <Bubble>
-                                                        <IconButton
-                                                            Icon={RejectIcon}
-                                                            className={"scale-110"}
-                                                            color="error"
-                                                            onClick={() => {
-                                                                setText(originalText)
-                                                                setIsEditing(false)
-                                                            }}
-                                                        />
-                                                    </Bubble>
-                                                </Fade>
-                                            </div>
+                                            <>
+                                                <motion.div key={"save-changes-comment"} {...mergeAnimations(fade, bubble)}>
+                                                    <IconButton
+                                                        Icon={SaveIcon}
+                                                        className={"scale-110"}
+                                                        color="primary"
+                                                        onClick={() => {
+                                                            onEdit?.(text)
+                                                            setIsEditing(false)
+                                                        }}
+                                                    />
+                                                </motion.div>
+                                                <motion.div key={"discard-changes-comment"} {...mergeAnimations(fade, bubble)}>
+                                                    <IconButton
+                                                        Icon={RejectIcon}
+                                                        className={"scale-110"}
+                                                        color="error"
+                                                        onClick={() => {
+                                                            setText(originalText)
+                                                            setIsEditing(false)
+                                                        }}
+                                                    />
+                                                </motion.div>
+                                            </>
                                         ) : (
-                                            <div key="privileged-actions-comment" className={"flex gap-2 lg:gap-3"}>
+                                            <>
                                                 {isMyComment &&
-                                                    <Fade key={"edit-comment"}>
-                                                        <Bubble>
-                                                            <IconButton
-                                                                Icon={EditIcon}
-                                                                onClick={() => setIsEditing(true)}
-                                                            />
-                                                        </Bubble>
-                                                    </Fade>
+                                                    <motion.div key={"edit-comment"} {...mergeAnimations(fade, bubble)}>
+                                                        <IconButton
+                                                            Icon={EditIcon}
+                                                            onClick={() => setIsEditing(true)}
+                                                        />
+                                                    </motion.div>
                                                 }
                                                 {(isMyPostComment || isMyComment) &&
-                                                    <Fade key={"delete-comment"}>
-                                                        <Bubble>
-                                                            <IconButton
-                                                                Icon={DeleteIcon}
-                                                                className={"hover:text-error"}
-                                                                onClick={() => setIsConfirmOpen(true)}
-                                                            />
-                                                        </Bubble>
-                                                    </Fade>
+                                                    <motion.div key={"delete-comment"} {...mergeAnimations(fade, bubble)}>
+                                                        <IconButton
+                                                            Icon={DeleteIcon}
+                                                            className={"hover:text-error"}
+                                                            onClick={() => setIsConfirmOpen(true)}
+                                                        />
+                                                    </motion.div>
                                                 }
-                                            </div>
+                                            </>
                                         )}
-                                    </Fade>
+                                    </motion.div>
                                 )}
                             </AnimatePresence>
                         </div>

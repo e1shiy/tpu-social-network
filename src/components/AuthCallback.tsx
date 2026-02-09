@@ -2,7 +2,7 @@ import {useSearchParams} from "react-router-dom";
 import {useAuth} from "../api";
 import LoadingSpinner from "./LoadingSpinner.tsx";
 import {useEffect} from "react";
-import {AUTH_STATE_KEY} from "../constants";
+import {AUTH_STATE_KEY} from "../constants/keys.ts";
 
 function AuthCallback() {
     const [searchParams] = useSearchParams();

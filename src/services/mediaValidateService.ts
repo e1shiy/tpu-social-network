@@ -5,7 +5,7 @@ import {
     IMAGE_TYPES,
     VIDEO_MAX_SIZE,
     VIDEO_TYPES
-} from "../constants/services/mediaFiles.ts";
+} from "../constants/media.ts";
 import {getMediaMetadata} from "./mediaMetadataService.ts";
 import {MediaFileType} from "../types/domain";
 import {MediaFile} from "../types/entities";

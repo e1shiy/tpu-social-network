@@ -6,7 +6,7 @@ import {
     MESSENGER_ROUTE,
     PROFILE_ROUTE,
     SCHEDULE_ROUTE
-} from "../constants";
+} from "../constants/routes.ts";
 import {createContext} from "react";
 
 export interface NavHandlers {

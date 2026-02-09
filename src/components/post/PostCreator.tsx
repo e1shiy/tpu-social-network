@@ -7,16 +7,16 @@ import Card from "../wrappers/Card.tsx";
 import IconButton from "../buttons/IconButton.tsx";
 import Button from "../buttons/Button.tsx";
 import {cn} from "../../utils/cn.ts";
-import {AUDIO_TYPES, DOCUMENT_TYPES, IMAGE_TYPES, VIDEO_TYPES} from "../../constants/services/mediaFiles.ts";
+import {AUDIO_TYPES, DOCUMENT_TYPES, IMAGE_TYPES, VIDEO_TYPES} from "../../constants/media.ts";
 import FileUploader from "../FileUploader.tsx";
-import {AnimatePresence} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {useStore} from "../../store/store.ts";
 import {validatePostAttachment} from "../../services/mediaValidateService.ts";
 import Textarea from "../Textarea.tsx";
 import {MediaFile, PostPreview} from "../../types/entities";
-import Fade from "../wrappers/animations/Fade.tsx";
 import Attachment from "../media/Attachment.tsx";
-import {MAX_POST_LENGTH} from "../../constants/components/post.ts";
+import {MAX_POST_LENGTH} from "../../constants/post.ts";
+import {fade} from "../../constants/animations.ts";
 
 interface PostCreatorProps {
     onCreate?: (postContent: Pick<PostPreview, "content">) => void
@@ -66,7 +66,7 @@ function ProfilePostCreator({onCreate} : PostCreatorProps) {
             )}>
                 <AnimatePresence onExitComplete={() => !attachments.length && setIsMediaLayerOpen(false)}>
                     {attachments.map(a => (
-                        <Fade layout key={a.id}>
+                        <motion.div {...fade} layout key={a.id}>
                             <Attachment
                                 file={a}
                                 context={{
@@ -76,7 +76,7 @@ function ProfilePostCreator({onCreate} : PostCreatorProps) {
                                 }}
                                 size={"small"}
                             />
-                        </Fade>
+                        </motion.div>
                     ))}
                 </AnimatePresence>
             </div>

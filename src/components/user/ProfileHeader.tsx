@@ -6,11 +6,11 @@ import TextButton from "../buttons/TextButton.tsx";
 import Card from "../wrappers/Card.tsx";
 import ProfileInfo from "./ProfileInfo.tsx";
 import ProfileAvatar from "./ProfileAvatar.tsx";
-import SlideDown from "../wrappers/animations/SlideDown.tsx";
-import {AnimatePresence} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {useState} from "react";
 import {useIsMyProfile} from "../../hooks";
 import Button from "../buttons/Button.tsx";
+import {slideDown} from "../../constants/animations.ts";
 
 function ProfileHeader() {
     // todo user info
@@ -88,9 +88,9 @@ function ProfileHeader() {
 
             <AnimatePresence>
                 {isInfoActive &&
-                    <SlideDown>
+                    <motion.div {...slideDown}>
                         <ProfileInfo className={"flex flex-col items-stretch gap-4 md:gap-5"}/>
-                    </SlideDown>
+                    </motion.div>
                 }
             </AnimatePresence>
 

@@ -7,7 +7,7 @@ import UserDropdown from "./user/UserDropdown.tsx";
 import {type NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks";
 import {useLocation} from "react-router-dom";
-import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
+import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants/routes.ts";
 import redirectToExternalAuth from "../services/authService.ts";
 import {useStore} from "../store/store.ts";
 import {cn} from "../utils/cn.ts";

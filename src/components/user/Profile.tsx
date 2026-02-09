@@ -10,7 +10,7 @@ import {PostPreview} from "../../types/entities";
 import Post from "../post/Post.tsx";
 import {useEffect, useRef} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {NOT_FOUND_ROUTE} from "../../constants";
+import {NOT_FOUND_ROUTE} from "../../constants/routes.ts";
 import {useImmer} from "use-immer";
 import {useStore} from "../../store/store.ts";
 

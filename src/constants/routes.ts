@@ -11,3 +11,5 @@ export const AUTH_ROUTE = (params: {
     clientId: string,
     redirectUrl: string
 }) => "https://oauth.tpu.ru/authorize/" + new URLSearchParams(params).toString()
+
+export const AUTH_CALLBACK_ROUTE = "/auth-callback"

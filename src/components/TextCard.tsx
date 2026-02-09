@@ -4,12 +4,12 @@ import CopyIcon from "../assets/images/copy.svg?react"
 import SaveIcon from "../assets/images/accept.svg?react"
 import RejectIcon from "../assets/images/reject.svg?react"
 import IconButton from "./buttons/IconButton.tsx";
-import {AnimatePresence} from "framer-motion";
-import Fade from "./wrappers/animations/Fade.tsx";
-import Bubble from "./wrappers/animations/Bubble.tsx";
+import {AnimatePresence, motion} from "framer-motion";
 import {cn} from "../utils/cn.ts";
 import Textarea from "./Textarea.tsx";
 import {copy} from "../utils/copy.ts";
+import {mergeAnimations} from "../utils/animations.ts";
+import {bubble, fade} from "../constants/animations.ts";
 
 interface TextCardProps {
     text: string,
@@ -37,48 +37,42 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
         )}>
             <div className="flex w-full h-max items-center justify-between gap-1.5 md:gap-2.5">
                 <h5>{title}</h5>
-                <div className={"flex gap-2 lg:gap-3"}>
+                <div className={"flex gap-2 lg:gap-3 relative"}>
                     <AnimatePresence mode="popLayout" initial={false}>
                         {isActive ? (
                             <div key="editing-actions-text-card" className="flex gap-1.5 md:gap-2.5">
-                                <Fade key={"save-changes-text-card"}>
-                                    <Bubble>
-                                        <IconButton
-                                            Icon={SaveIcon}
-                                            className={"scale-110"}
-                                            color="primary"
-                                            onClick={() => {
-                                                onEdit && onEdit(value)
-                                                setIsActive(false)
-                                            }}
-                                        />
-                                    </Bubble>
-                                </Fade>
-                                <Fade key={"discard-changes-text-card"}>
-                                    <Bubble>
-                                        <IconButton
-                                            Icon={RejectIcon}
-                                            className={"scale-110"}
-                                            color="error"
-                                            onClick={() => {
-                                                setValue(text)
-                                                setIsActive(false)
-                                            }}
-                                        />
-                                    </Bubble>
-                                </Fade>
+                                <motion.div key={"save-changes-text-card"} {...mergeAnimations(fade, bubble)}>
+                                    <IconButton
+                                        Icon={SaveIcon}
+                                        className={"scale-110"}
+                                        color="primary"
+                                        onClick={() => {
+                                            onEdit && onEdit(value)
+                                            setIsActive(false)
+                                        }}
+                                    />
+                                </motion.div>
+                                <motion.div key={"discard-changes-text-card"} {...mergeAnimations(fade, bubble)}>
+                                    <IconButton
+                                        Icon={RejectIcon}
+                                        className={"scale-110"}
+                                        color="error"
+                                        onClick={() => {
+                                            setValue(text)
+                                            setIsActive(false)
+                                        }}
+                                    />
+                                </motion.div>
                             </div>
                         ) : (
                             <div key="edit-action-text-card">
                                 {!isReadonly && (
-                                    <Fade key={"edit-text-card"}>
-                                        <Bubble>
-                                            <IconButton
-                                                Icon={EditIcon}
-                                                onClick={() => setIsActive(true)}
-                                            />
-                                        </Bubble>
-                                    </Fade>
+                                    <motion.div key={"edit-text-card"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={EditIcon}
+                                            onClick={() => setIsActive(true)}
+                                        />
+                                    </motion.div>
                                 )}
                             </div>
                         )}
@@ -87,38 +81,32 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                         {!isActive && (
                             isCopied ? (
                                 <div key={"copied-wrapper"}>
-                                    <Fade key={"copied"}>
-                                        <Bubble>
-                                            <IconButton
-                                                Icon={SaveIcon}
-                                                color="primary"
-                                                className={"scale-110"}
-                                            />
-                                        </Bubble>
-                                    </Fade>
+                                    <motion.div key={"copied"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={SaveIcon}
+                                            color="primary"
+                                            className={"scale-110"}
+                                        />
+                                    </motion.div>
                                 </div>
                             ) : (isCopyError ? (
                                 <div key={"not-copied-wrapper"}>
-                                    <Fade key={"not-copied"}>
-                                        <Bubble>
-                                            <IconButton
-                                                Icon={RejectIcon}
-                                                color={"error"}
-                                                className={"scale-110"}
-                                            />
-                                        </Bubble>
-                                    </Fade>
+                                    <motion.div key={"not-copied"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={RejectIcon}
+                                            color={"error"}
+                                            className={"scale-110"}
+                                        />
+                                    </motion.div>
                                 </div>
                             ) : (
                                 <div key={"copy-wrapper"}>
-                                    <Fade key={"copy"}>
-                                        <Bubble>
-                                            <IconButton
-                                                Icon={CopyIcon}
-                                                onClick={handleCopy}
-                                            />
-                                        </Bubble>
-                                    </Fade>
+                                    <motion.div key={"copy"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={CopyIcon}
+                                            onClick={handleCopy}
+                                        />
+                                    </motion.div>
                                 </div>
                             ))
                         )}

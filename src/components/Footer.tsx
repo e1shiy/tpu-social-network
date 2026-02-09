@@ -7,7 +7,7 @@ import type {NavHandlers} from "../providers/NavHandlersProvider.tsx";
 import {useNavHandlers} from "../hooks";
 import {useLocation} from "react-router-dom";
 import isCorrectLocation from "../utils/isCorrectLocation.ts";
-import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants";
+import {COMMUNITIES_ROUTE, INBOX_ROUTE, MESSENGER_ROUTE, SCHEDULE_ROUTE} from "../constants/routes.ts";
 
 const buttonStyle = "grow py-2 sm:py-2 md:py-2"
 
