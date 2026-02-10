@@ -114,7 +114,7 @@ function Post({...props}: PostProps) {
         <>
             <div className={"flex flex-col gap-1.75 md:gap-2 lg:gap-3.25"}>
                 <Card className={"flex flex-col gap-3.75 md:gap-5 pb-2.5 md:pb-3.75 lg:pb-4.5 xl:pb-5 grow basis-0"}>
-                    <div className={"flex justify-between items-center gap-2"}>
+                    <div className={"flex justify-between items-center gap-2 relative"}>
                         <div className={"flex items-center gap-2.5 xl:gap-3.25"}> {/* todo clickable */}
                             <Link to={`/${userId}`}>
                                 <img
@@ -130,80 +130,76 @@ function Post({...props}: PostProps) {
                                 <p className={"text-dark/60 truncate"}>{toLocalDate(creationDate)}</p>
                             </div>
                         </div>
-                        <div className={"flex gap-2 lg:gap-3 relative"}>
+                        <div className={"flex gap-2 lg:gap-3 absolute right-0"}>
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {isCopied ? (
-                                    <div key={"copied-wrapper-post"}>
-                                        <motion.div key={"copied-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={SaveIcon}
-                                                    color="primary"
-                                                    className={"scale-110"}
-                                                />
-                                        </motion.div>
-                                    </div>
+                                    <motion.div key={"copied"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={SaveIcon}
+                                            color="primary"
+                                            className={"scale-110"}
+                                        />
+                                    </motion.div>
                                 ) : (isCopyError ? (
-                                    <div key={"not-copied-wrapper-post"}>
-                                        <motion.div key={"not-copied-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={RejectIcon}
-                                                    color={"error"}
-                                                    className={"scale-110"}
-                                                />
-                                        </motion.div>
-                                    </div>
+                                    <motion.div key={"not-copied"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={RejectIcon}
+                                            color={"error"}
+                                            className={"scale-110"}
+                                        />
+                                    </motion.div>
                                 ) : (
-                                    <div key={"copy-wrapper-post"}>
-                                        <motion.div key={"copy-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={CopyIcon}
-                                                    onClick={handleCopy}
-                                                />
-                                        </motion.div>
-                                    </div>
+                                    <motion.div key={"copy"} {...mergeAnimations(fade, bubble)}>
+                                        <IconButton
+                                            Icon={CopyIcon}
+                                            onClick={handleCopy}
+                                        />
+                                    </motion.div>
                                 ))}
+                            </AnimatePresence>
+                            <AnimatePresence>
                                 {isEditing ? (
-                                    <div key="editing-actions-post" className="flex gap-2 lg:gap-3">
-                                        <motion.div key={"save-changes-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={SaveIcon}
-                                                    className={"scale-110"}
-                                                    color="primary"
-                                                    onClick={() => {
-                                                        onContentChange?.({text, attachments})
-                                                        setIsEditing(false)
-                                                    }}
-                                                />
+                                    <>
+                                        <motion.div key={"save"} {...mergeAnimations(fade, bubble)}>
+                                            <IconButton
+                                                Icon={SaveIcon}
+                                                className={"scale-110"}
+                                                color="primary"
+                                                onClick={() => {
+                                                    onContentChange?.({text, attachments})
+                                                    setIsEditing(false)
+                                                }}
+                                            />
                                         </motion.div>
-                                        <motion.div key={"discard-changes-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={RejectIcon}
-                                                    className={"scale-110"}
-                                                    color="error"
-                                                    onClick={() => {
-                                                        setAttachments(originalAttachments)
-                                                        setText(originalText)
-                                                        setIsEditing(false)
-                                                    }}
-                                                />
+                                        <motion.div key={"discard"} {...mergeAnimations(fade, bubble)}>
+                                            <IconButton
+                                                Icon={RejectIcon}
+                                                className={"scale-110"}
+                                                color="error"
+                                                onClick={() => {
+                                                    setAttachments(originalAttachments)
+                                                    setText(originalText)
+                                                    setIsEditing(false)
+                                                }}
+                                            />
                                         </motion.div>
-                                    </div>
+                                    </>
                                 ) : isMyProfile && (
-                                    <div key="my-profile-actions-post" className={"flex gap-2 lg:gap-3"}>
-                                        <motion.div key={"edit-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={EditIcon}
-                                                    onClick={() => setIsEditing(true)}
-                                                />
+                                    <>
+                                        <motion.div key={"edit"} {...mergeAnimations(fade, bubble)}>
+                                            <IconButton
+                                                Icon={EditIcon}
+                                                onClick={() => setIsEditing(true)}
+                                            />
                                         </motion.div>
-                                        <motion.div key={"delete-post"} {...mergeAnimations(fade, bubble)}>
-                                                <IconButton
-                                                    Icon={DeleteIcon}
-                                                    className={"hover:text-error"}
-                                                    onClick={() => setIsConfirmOpen(true)}
-                                                />
+                                        <motion.div key={"delete"} {...mergeAnimations(fade, bubble)}>
+                                            <IconButton
+                                                Icon={DeleteIcon}
+                                                className={"hover:text-error"}
+                                                onClick={() => setIsConfirmOpen(true)}
+                                            />
                                         </motion.div>
-                                    </div>
+                                    </>
                                 )}
                             </AnimatePresence>
                         </div>

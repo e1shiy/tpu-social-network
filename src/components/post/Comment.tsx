@@ -53,13 +53,13 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {isHovered && (
                                     <motion.div
-                                        key={isEditing ? "edit" : "idle"}
+                                        key={"action-buttons"}
                                         {...fade}
                                         className={"flex gap-2 lg:gap-3 absolute top-0 right-0 -translate-y-1/2"}
                                     >
                                         {isEditing ? (
                                             <>
-                                                <motion.div key={"save-changes-comment"} {...mergeAnimations(fade, bubble)}>
+                                                <motion.div key={"save"} {...mergeAnimations(fade, bubble)}>
                                                     <IconButton
                                                         Icon={SaveIcon}
                                                         className={"scale-110"}
@@ -70,7 +70,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                         }}
                                                     />
                                                 </motion.div>
-                                                <motion.div key={"discard-changes-comment"} {...mergeAnimations(fade, bubble)}>
+                                                <motion.div key={"discard"} {...mergeAnimations(fade, bubble)}>
                                                     <IconButton
                                                         Icon={RejectIcon}
                                                         className={"scale-110"}
@@ -85,7 +85,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                         ) : (
                                             <>
                                                 {isMyComment &&
-                                                    <motion.div key={"edit-comment"} {...mergeAnimations(fade, bubble)}>
+                                                    <motion.div key={"edit"} {...mergeAnimations(fade, bubble)}>
                                                         <IconButton
                                                             Icon={EditIcon}
                                                             onClick={() => setIsEditing(true)}
@@ -93,7 +93,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                     </motion.div>
                                                 }
                                                 {(isMyPostComment || isMyComment) &&
-                                                    <motion.div key={"delete-comment"} {...mergeAnimations(fade, bubble)}>
+                                                    <motion.div key={"delete"} {...mergeAnimations(fade, bubble)}>
                                                         <IconButton
                                                             Icon={DeleteIcon}
                                                             className={"hover:text-error"}
