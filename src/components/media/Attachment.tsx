@@ -21,6 +21,16 @@ const sizeSchemes: { [K in AttachmentSize]: string } = {
     "small": "h-15 sm:h-17 md:h-20 lg:h-21 xl:h-22.5 2xl:h-25 rounded-[0.625rem]"
 }
 
+const videoStripSizeSchemes: { [K in AttachmentSize]: string } = {
+    "normal": "px-1.25 sm:px-1.5 md:px-1.75 lg:px-2 xl:px-2.25 2xl:px-2.5",
+    "small": "px-1 sm:px-1.1 md:px-1.2 lg:px-1.3 xl:px-1.4 2xl:px-1.5"
+}
+
+const lightSquareSizeSchemes: { [K in AttachmentSize]: string } = {
+    "normal": "w-2.5 sm:w-3 md:w-3.5 lg:w-4 xl:w-4.5 2xl:w-5 rounded-[0.125rem]",
+    "small": "w-1.75 sm:w-2 md:w-2.25 lg:w-2.5 xl:w-2.75 2xl:w-3 rounded-[0.1rem] md:rounded-[0.15rem]"
+}
+
 export type AttachmentSize = "small" | "normal"
 
 interface AttachmentProps {
@@ -73,12 +83,12 @@ function Attachment({file, context, size = "normal"}: AttachmentProps) {
             )
 
             const lightSquare = <span className={cn(
-                "rounded-[0.125rem] bg-light aspect-square",
-                "w-2.5 sm:w-3 md:w-3.5 lg:w-4 xl:w-4.5 2xl:w-5"
+                "bg-light aspect-square",
+                lightSquareSizeSchemes[size]
             )}/>
             const videoStripStyles = cn(
                 "flex flex-col justify-evenly items-center absolute inset-y-0 bg-dark opacity-70",
-                "px-1.25 sm:px-1.5 md:px-1.75 lg:px-2 xl:px-2.25 2xl:px-2.5"
+                videoStripSizeSchemes[size]
             )
             normalAttachment = (
                 <div className={"h-full relative"}>
@@ -92,14 +102,14 @@ function Attachment({file, context, size = "normal"}: AttachmentProps) {
                         {lightSquare}
                         {lightSquare}
                         {lightSquare}
-                        {lightSquare}
+                        {size === "normal" && lightSquare}
                     </span>
                     <span className={cn(videoStripStyles, "right-0")}>
                         {lightSquare}
                         {lightSquare}
                         {lightSquare}
                         {lightSquare}
-                        {lightSquare}
+                        {size === "normal" && lightSquare}
                     </span>
                 </div>
             )
