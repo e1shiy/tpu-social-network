@@ -114,7 +114,9 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                         onChange={(e) => setText(e.target.value)}
                         disabled={!isEditing}
                     />
-                    <p className={"text-dark/60 text-[0.6825rem] md:text-[0.75rem] lg:text-[0.825rem] xl:text-[0.9rem] 2xl:text-[0.95rem]"}>{toLocalDate(creationDate)}</p>
+                    <p className={"text-dark/60 text-[0.6825rem] md:text-[0.75rem] lg:text-[0.825rem] xl:text-[0.9rem] 2xl:text-[0.95rem]"}>
+                        {toLocalDate(creationDate)}
+                    </p>
                 </div>
             </div>
 

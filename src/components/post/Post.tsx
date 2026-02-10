@@ -81,7 +81,7 @@ function Post({...props}: PostProps) {
         setComments(draft => {
             draft.push({
                 id: Date.now(),
-                text: commentText,
+                text: commentText.trim(),
                 author: {
                     id: "aav105",
                     name: "Алексей",
@@ -287,7 +287,7 @@ function Post({...props}: PostProps) {
                                 )}
                             </Card>
                             <Card className={cn(
-                                "flex justify-between items-center gap-1",
+                                "flex justify-between items-end gap-1",
                                 "p-3.75 md:p-4 lg:p-4.5 xl:p-5 rounded-[0.625rem] lg:rounded-[0.875rem]"
                             )}>
                                 <Textarea
@@ -302,9 +302,9 @@ function Post({...props}: PostProps) {
                                     Icon={SendIcon}
                                     className={cn(
                                         "aspect-square flex rotate-45 text-dark shrink-0",
-                                        !commentText.length && "cursor-default opacity-60"
+                                        !commentText.trim().length && "cursor-default opacity-60"
                                     )}
-                                    onClick={() => commentText.length && sendComment()}
+                                    onClick={() => commentText.trim().length && sendComment()}
                                 />
                             </Card>
                         </motion.div>

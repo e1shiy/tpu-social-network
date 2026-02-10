@@ -26,7 +26,7 @@ function ProfilePostCreator({onCreate} : PostCreatorProps) {
     const {showPopUp} = useStore()
 
     const createPost = () => {
-        onCreate?.({content: {text: value, attachments: attachments}})
+        onCreate?.({content: {text: value.trim(), attachments: attachments}})
         setAttachments([])
         setIsMediaLayerOpen(false)
         setValue("")
@@ -106,9 +106,9 @@ function ProfilePostCreator({onCreate} : PostCreatorProps) {
                     Icon={SendIcon}
                     className={cn(
                         "aspect-square flex rotate-45 text-dark shrink-0",
-                        !value.length && !attachments.length && "cursor-default opacity-60"
+                        !value.trim().length && !attachments.length && "cursor-default opacity-60"
                     )}
-                    onClick={() => (value.length || attachments.length) && createPost()}
+                    onClick={() => (value.trim().length || attachments.length) && createPost()}
                 />
             </div>
         </Card>
