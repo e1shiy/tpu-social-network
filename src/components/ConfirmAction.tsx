@@ -22,7 +22,7 @@ function ConfirmAction({text, isOpen, onConfirm, onReject}: ConfirmActionProps) 
                         <TextButton color={"primary"} onClick={onConfirm}>Да</TextButton>
                     </div>
                     <div className={"grow basis-0"}>
-                        <TextButton color={"error"} onClick={onReject}>Нет</TextButton>
+                        <TextButton color={"danger"} onClick={onReject}>Нет</TextButton>
                     </div>
                 </div>
             </Card>

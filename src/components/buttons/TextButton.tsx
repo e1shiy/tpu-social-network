@@ -11,7 +11,7 @@ interface TextButtonProps {
 const colorSchemes = {
     "dark": (isActive: boolean) => `text-dark hover:text-primary ${isActive && "text-primary"}`,
     "primary": (isActive: boolean) => `text-primary hover:text-primary-alt ${isActive && "text-primary-alt"}`,
-    "error": (isActive: boolean) => `text-error hover:text-error-alt ${isActive && "text-error-alt"}`,
+    "danger": (isActive: boolean) => `text-danger hover:text-danger-alt ${isActive && "text-danger-alt"}`,
 }
 
 function TextButton({children, className, onClick, color="dark", isActive=false} : TextButtonProps) {

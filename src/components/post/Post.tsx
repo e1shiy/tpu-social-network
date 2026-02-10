@@ -144,7 +144,7 @@ function Post({...props}: PostProps) {
                                     <motion.div key={"not-copied"} {...mergeAnimations(fade, bubble)}>
                                         <IconButton
                                             Icon={RejectIcon}
-                                            color={"error"}
+                                            color={"danger"}
                                             className={"scale-110"}
                                         />
                                     </motion.div>
@@ -175,7 +175,7 @@ function Post({...props}: PostProps) {
                                             <IconButton
                                                 Icon={RejectIcon}
                                                 className={"scale-110"}
-                                                color="error"
+                                                color="danger"
                                                 onClick={() => {
                                                     setAttachments(originalAttachments)
                                                     setText(originalText)
@@ -195,7 +195,7 @@ function Post({...props}: PostProps) {
                                         <motion.div key={"delete"} {...mergeAnimations(fade, bubble)}>
                                             <IconButton
                                                 Icon={DeleteIcon}
-                                                className={"hover:text-error"}
+                                                className={"hover:text-danger"}
                                                 onClick={() => setIsConfirmOpen(true)}
                                             />
                                         </motion.div>
@@ -242,7 +242,7 @@ function Post({...props}: PostProps) {
                     <div className={"flex gap-2.5 md:gap-3.75"}>
                         <Button
                             LeadingIcon={LikeIcon}
-                            color={isLiked ? "error" : "dark"} fill
+                            color={isLiked ? "danger" : "dark"} fill
                             size={"small"}
                             onClick={() => setIsLiked(l => !l)}
                         >

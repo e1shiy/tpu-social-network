@@ -74,7 +74,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                     <IconButton
                                                         Icon={RejectIcon}
                                                         className={"scale-110"}
-                                                        color="error"
+                                                        color="danger"
                                                         onClick={() => {
                                                             setText(originalText)
                                                             setIsEditing(false)
@@ -96,7 +96,7 @@ function Comment({onDelete, onEdit, ...props}: CommentProps) { // todo isEdited 
                                                     <motion.div key={"delete"} {...mergeAnimations(fade, bubble)}>
                                                         <IconButton
                                                             Icon={DeleteIcon}
-                                                            className={"hover:text-error"}
+                                                            className={"hover:text-danger"}
                                                             onClick={() => setIsConfirmOpen(true)}
                                                         />
                                                     </motion.div>

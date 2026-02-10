@@ -16,7 +16,7 @@ const baseStyles = cn(
 const colorSchemes = {
     "dark": (isActive: boolean) => isActive ? "text-dark" : "text-dark/60 hover:text-dark",
     "primary": (isActive: boolean) => isActive ? "text-primary" : "text-primary hover:text-primary-alt",
-    "error": (isActive: boolean) => isActive ? "text-error" : "text-error hover:text-error-alt"
+    "danger": (isActive: boolean) => isActive ? "text-danger" : "text-danger hover:text-danger-alt"
 }
 
 function IconButton({className, Icon, color="dark", isActive=false, onClick} : IconButtonProps) {

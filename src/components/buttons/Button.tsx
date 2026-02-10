@@ -31,13 +31,13 @@ const sizeSchemes = {
 const buttonColorSchemes = {
     "dark": (isActive: boolean) => `hover:shadow-dark/20 bg-light text-dark shadow ${isActive && "shadow-[0_0_20px_10px] shadow-dark/10"}`,
     "primary": (isActive: boolean) => `bg-primary text-light hover:bg-primary-alt ${isActive && "shadow-[0_0_10px_0] shadow-primary"}`,
-    "error": (isActive: boolean) => `bg-danger text-light hover:bg-danger-alt ${isActive && "shadow-[0_0_10px_0] shadow-error"}`,
+    "danger": (isActive: boolean) => `bg-danger text-light hover:bg-danger-alt ${isActive && "shadow-[0_0_10px_0] shadow-danger"}`,
 }
 
 const iconColorSchemes = {
     "dark": (isActive: boolean) => cn(isActive ? "fill-dark" : "fill-light"),
     "primary": (isActive: boolean) => cn(isActive ? "fill-primary" : "fill-light"),
-    "error": (isActive: boolean) => cn(isActive ? "fill-error" : "fill-light")
+    "danger": (isActive: boolean) => cn(isActive ? "fill-danger" : "fill-light")
 }
 
 function Button({className, children, color = "primary", size = "normal", fill=false, isActive=false, LeadingIcon, TrailingIcon, ...props}: ButtonProps) {

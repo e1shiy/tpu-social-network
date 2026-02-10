@@ -56,7 +56,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                                     <IconButton
                                         Icon={RejectIcon}
                                         className={"scale-110"}
-                                        color="error"
+                                        color="danger"
                                         onClick={() => {
                                             setValue(text)
                                             setIsActive(false)
@@ -94,7 +94,7 @@ function TextCard({text, title, className, isReadonly = true, onEdit, maxLength}
                                     <motion.div key={"not-copied"} {...mergeAnimations(fade, bubble)}>
                                         <IconButton
                                             Icon={RejectIcon}
-                                            color={"error"}
+                                            color={"danger"}
                                             className={"scale-110"}
                                         />
                                     </motion.div>

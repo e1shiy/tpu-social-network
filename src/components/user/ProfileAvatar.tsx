@@ -95,7 +95,7 @@ function ProfileAvatar({}: UserProfileAvatarProps) {
 
             {
                 isMyProfile && <Button
-                    color={"error"}
+                    color={"danger"}
                     className={cn(
                         "absolute z-11 w-max -translate-x-1/2 translate-y-full left-1/2 -bottom-2",
                         "invisible opacity-0", isContextMenuOpen && "visible opacity-100"
