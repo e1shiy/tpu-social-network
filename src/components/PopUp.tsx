@@ -15,19 +15,19 @@ interface PopUpProps {
 
 const IconVariants = {
     "info": InfoIcon,
-    "danger": ErrorIcon,
+    "error": ErrorIcon,
     "success": SuccessIcon
 } as const
 
 const timelineColorVariants: { [K in keyof typeof IconVariants]: string } = {
     "info": "bg-blue",
-    "danger": "bg-danger",
+    "error": "bg-danger",
     "success": "bg-primary"
 } as const
 
 const IconColorVariants: { [K in keyof typeof IconVariants]: string } = {
     "info": "text-blue",
-    "danger": "text-danger",
+    "error": "text-danger",
     "success": "text-primary"
 } as const
 
