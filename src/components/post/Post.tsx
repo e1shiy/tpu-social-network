@@ -229,14 +229,16 @@ function Post({...props}: PostProps) {
                             })}
                         </AnimatePresence>
                     </div>
-                    <Textarea
-                        disabled={!isEditing}
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        placeholder={"Текст изменённого поста"}
-                        maxLength={MAX_POST_LENGTH}
-                        className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-75"}
-                    />
+                    {(text || isEditing) &&
+                        <Textarea
+                            disabled={!isEditing}
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            placeholder={"Текст поста"}
+                            maxLength={MAX_POST_LENGTH}
+                            className={"grow placeholder-dark/60 text-dark min-h-4 md:min-h-5 max-h-75"}
+                        />
+                    }
                     <div className={"flex gap-2.5 md:gap-3.75"}>
                         <Button
                             LeadingIcon={LikeIcon}
