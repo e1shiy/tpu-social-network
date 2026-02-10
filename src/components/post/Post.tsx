@@ -264,20 +264,27 @@ function Post({...props}: PostProps) {
                 <AnimatePresence>
                     {isCommentingAllowed && isCommentsOpen && (
                         <motion.div {...slideDown} className={"flex flex-col gap-1.25 md:gap-2.5 grow basis-0"}>
-                            <Card className={"h-full flex flex-col gap-3.75 md:gap-4.25 lg:gap-5 xl:gap-6.25"}>
-                                {comments.map(comment => (
-                                    <Comment
-                                        key={comment.id}
-                                        {...comment}
-                                        onEdit={(text: string) => setComments(draft => {
-                                            const commentToChange = draft.find(c => c.id === comment.id)
-                                            if (commentToChange) {
-                                                commentToChange.text = text
-                                            }
-                                        })}
-                                        onDelete={() => setComments(c => c.filter(comm => comm.id !== comment.id))}
-                                    /> /* todo post api comment change/delete */
-                                ))}
+                            <Card className={cn(
+                                "h-full flex flex-col gap-3.75 md:gap-4.25 lg:gap-5 xl:gap-6.25",
+                                !comments.length && "items-center"
+                            )}>
+                                {comments.length ? (
+                                    comments.map(comment => (
+                                        <Comment
+                                            key={comment.id}
+                                            {...comment}
+                                            onEdit={(text: string) => setComments(draft => {
+                                                const commentToChange = draft.find(c => c.id === comment.id)
+                                                if (commentToChange) {
+                                                    commentToChange.text = text
+                                                }
+                                            })}
+                                            onDelete={() => setComments(c => c.filter(comm => comm.id !== comment.id))}
+                                        /> /* todo post api comment change/delete */
+                                    ))
+                                ) : (
+                                    <h5 className={"text-dark/60"}>Комментариев пока нет</h5>
+                                )}
                             </Card>
                             <Card className={cn(
                                 "flex justify-between items-center gap-1",
