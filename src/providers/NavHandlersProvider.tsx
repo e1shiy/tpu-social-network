@@ -27,8 +27,8 @@ function NavHandlersProvider({children}: NavHandlersProviderProps) {
     const navHandlers: NavHandlers = {
         onMessengerClick: () => navigate(MESSENGER_ROUTE),
         onCommunitiesClick: () => navigate(COMMUNITIES_ROUTE),
-        onScheduleClick: () => window.open(SCHEDULE_ROUTE, "_blank"),
-        onInboxClick: () => window.open(INBOX_ROUTE, "_blank"),
+        onScheduleClick: () => window.location.assign(SCHEDULE_ROUTE),
+        onInboxClick: () => window.location.assign(INBOX_ROUTE),
         onFriendsClick: () => navigate(FRIENDS_ROUTE),
         onProfileClick: (userId: string) => navigate(PROFILE_ROUTE(userId)),
     }
