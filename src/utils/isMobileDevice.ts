@@ -1,0 +1,1 @@
+export const isMobileDevice = () => window.matchMedia("(pointer: coarse)").matches
