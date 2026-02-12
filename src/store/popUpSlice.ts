@@ -15,7 +15,7 @@ export interface PopUpState {
 export const createPopUpSlice: StateCreator<PopUpState> = (set) => ({
     popUps: [],
     showPopUp: (message, status) => set(state => ({
-        popUps: [...state.popUps, {id: Date.now() * Math.random(), children: message, status}] // todo id: crypto.randomUUID()
+        popUps: [...state.popUps, {id: crypto.randomUUID(), children: message, status}]
     })),
     hidePopUp: (id) => set(state => ({
         popUps: state.popUps.filter(p => p.id != id)
